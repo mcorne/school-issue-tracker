@@ -12,3 +12,13 @@ source envwslubuntu/bin/activate
 pip install wheel # to prevent errors such as "Failed building wheel for flask-login"
 pip install flask
 pip install flask_sqlalchemy
+
+-- run app
+export FLASK_APP=sit_app
+export FLASK_ENV=development
+flask run
+
+-- create db
+export FLASK_APP=sit_app
+export FLASK_ENV=development
+flask init-db
