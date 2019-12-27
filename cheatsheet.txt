@@ -27,6 +27,6 @@ flask init-db
 
 -- dump db
 sqlite3 instance/school-issues.sqlite3
-.output database.sql
+.output db-dump.sql
 .dump
 .quit

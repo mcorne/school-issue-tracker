@@ -6,7 +6,6 @@ class User(db2.Model):
     id = db2.Column(db2.Integer, primary_key=True)
     username = db2.Column(db2.Text, unique=True, nullable=False)
     password = db2.Column(db2.Text, unique=True, nullable=False)
-    password2 = db2.Column(db2.Text, unique=True, nullable=False)
 
     posts = db2.relationship("Post", back_populates="author", lazy="dynamic")
 
