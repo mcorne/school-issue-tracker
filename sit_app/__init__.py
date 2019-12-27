@@ -18,7 +18,8 @@ def create_app(test_config=None):
         SQLALCHEMY_DATABASE_URI="sqlite:///"
         + os.path.join(app.instance_path, "school-issues.sqlite3"),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SQLALCHEMY_RECORD_QUERIES=True,
+        # SQLALCHEMY_RECORD_QUERIES=True, # True by default if FLASK_DEBUG=True
+        # SQLALCHEMY_ECHO=True, # queries displayed to stderr if True
     )
 
     app.debug = True
