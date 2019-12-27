@@ -1,5 +1,10 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_debugtoolbar import DebugToolbarExtension
+
+db2 = SQLAlchemy()
+toolbar = DebugToolbarExtension()
 
 
 def create_app(test_config=None):
@@ -7,8 +12,14 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY="dev",
-        DATABASE=os.path.join(app.instance_path, "school-issues.sqlite"),
+        DATABASE=os.path.join(app.instance_path, "school-issues.sqlite3"),
+        SQLALCHEMY_DATABASE_URI="sqlite:///"
+        + os.path.join(app.instance_path, "school-issues.sqlite3"),
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
+
+    app.debug = True
+    toolbar.init_app(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -30,9 +41,13 @@ def create_app(test_config=None):
 
     from . import auth
     from . import issue
+
     from . import db
 
     db.init_app(app)
+
+    db2.init_app(app)
+
     app.register_blueprint(auth.bp)
     app.register_blueprint(issue.bp)
     app.add_url_rule("/", endpoint="index")
