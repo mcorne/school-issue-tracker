@@ -1,7 +1,9 @@
 import os
+import click
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_sqlalchemy import SQLAlchemy
+from flask.cli import with_appcontext
 
 db2 = SQLAlchemy()
 toolbar = DebugToolbarExtension()
@@ -16,6 +18,7 @@ def create_app(test_config=None):
         SQLALCHEMY_DATABASE_URI="sqlite:///"
         + os.path.join(app.instance_path, "school-issues.sqlite3"),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        SQLALCHEMY_RECORD_QUERIES=True,
     )
 
     app.debug = True
@@ -39,9 +42,14 @@ def create_app(test_config=None):
     def hello():
         return "Hello, World!"
 
+    @click.command("init-db2")
+    @with_appcontext
+    def init_db2_command():
+        db2.drop_all()
+        db2.create_all()
+
     from . import auth
     from . import issue
-
     from . import db
 
     db.init_app(app)
@@ -51,5 +59,6 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     app.register_blueprint(issue.bp)
     app.add_url_rule("/", endpoint="index")
+    app.cli.add_command(init_db2_command)
 
     return app

@@ -1,8 +1,9 @@
-cd school-issue-tracker
-
 sudo apt install python3
 sudo apt install python3-pip
 sudo apt install python3-venv
+sudo apt install sqlite3
+
+cd school-issue-tracker
 python3 -m venv envwslubuntu
 source envwslubuntu/bin/activate
 
@@ -23,3 +24,9 @@ flask run
 export FLASK_APP=sit_app
 export FLASK_ENV=development
 flask init-db
+
+-- dump db
+sqlite3 instance/school-issues.sqlite3
+.output database.sql
+.dump
+.quit
