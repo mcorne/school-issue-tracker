@@ -15,9 +15,9 @@ class User(db2.Model):
 class Post(db2.Model):
     id = db2.Column(db2.Integer, primary_key=True)
     author_id = db2.Column(db2.Integer, db2.ForeignKey("user.id"))
-    created = db2.Column(
-        db2.DateTime, nullable=False, server_default=db2.text("CURRENT_TIMESTAMP")
-    )
+    created = db2.Column(db2.DateTime,
+                         nullable=False,
+                         server_default=db2.text("CURRENT_TIMESTAMP"))
     title = db2.Column(db2.Text, nullable=False)
     body = db2.Column(db2.Text, nullable=False)
 

@@ -12,11 +12,14 @@
             "env": {
                 "FLASK_APP": "sit_app",
                 "FLASK_ENV": "development",
-                "FLASK_DEBUG": "1"
+                // legacy, see https://flask.palletsprojects.com/en/1.1.x/cli/#debug-mode
+                // debug mode set automatically in development env
+                // **must** be set to 0 in order to debug with vscode!
+                "FLASK_DEBUG": "0"
             },
             "args": [
                 "run",
-                "--no-debugger",
+                // "--no-debugger",
                 // "--no-reload"
             ],
             "jinja": true

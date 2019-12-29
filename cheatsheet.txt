@@ -10,6 +10,8 @@ source envwslubuntu/bin/activate
 # select interpreter Python 3. ... envwslubuntu:venv
 
 # import in project environment
+pip install black # not working with vscode although working fine on the command line!
+pip install yapf  # using yapf instead of black
 pip install wheel # to prevent errors such as "Failed building wheel for flask-login"
 pip install flask
 pip install flask_sqlalchemy
@@ -30,3 +32,9 @@ sqlite3 instance/school-issues.sqlite3
 .output db-dump.sql
 .dump
 .quit
+
+-- git
+git config --global user.email "mcorne@yahoo.com"
+git config --global user.name "Michel Corne"
+git config --global credential.helper 'cache --timeout=3600000'
+git config --list

@@ -13,13 +13,14 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY="dev",
         DATABASE=os.path.join(app.instance_path, "school-issues.sqlite3"),
-        SQLALCHEMY_DATABASE_URI="sqlite:///"
-        + os.path.join(app.instance_path, "school-issues.sqlite3"),
+        DEBUG_TB_INTERCEPT_REDIRECTS=False,
+        SECRET_KEY="dev",
+        SQLALCHEMY_DATABASE_URI="sqlite:///" +
+        os.path.join(app.instance_path, "school-issues.sqlite3"),
+        SQLALCHEMY_ECHO=True,  # display queries to stderr
+        SQLALCHEMY_RECORD_QUERIES=True,  # display queries in toolbar
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        # SQLALCHEMY_RECORD_QUERIES=True, # True by default if FLASK_DEBUG=True
-        # SQLALCHEMY_ECHO=True, # queries displayed to stderr if True
     )
 
     app.debug = True
@@ -51,9 +52,6 @@ def create_app(test_config=None):
 
     from . import auth
     from . import issue
-    from . import db
-
-    db.init_app(app)
 
     db2.init_app(app)
 
