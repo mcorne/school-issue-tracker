@@ -13,7 +13,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from sit_app.orm import User
-from sit_app import db2
+from sit_app import db
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -85,8 +85,8 @@ def register():
         if error is None:
             password = generate_password_hash(password)
             user = User(username=username, password=password)
-            db2.session.add(user)
-            db2.session.commit()
+            db.session.add(user)
+            db.session.commit()
             return redirect(url_for("auth.login"))
 
         flash(error)

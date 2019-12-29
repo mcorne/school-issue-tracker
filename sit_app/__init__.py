@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
 from flask.cli import with_appcontext
 
-db2 = SQLAlchemy()
+db = SQLAlchemy()
 toolbar = DebugToolbarExtension()
 
 
@@ -44,20 +44,20 @@ def create_app(test_config=None):
     def hello():
         return "Hello, World!"
 
-    @click.command("init-db2")
+    @click.command("init-db")
     @with_appcontext
-    def init_db2_command():
-        db2.drop_all()
-        db2.create_all()
+    def init_db_command():
+        db.drop_all()
+        db.create_all()
 
     from . import auth
     from . import issue
 
-    db2.init_app(app)
+    db.init_app(app)
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(issue.bp)
     app.add_url_rule("/", endpoint="index")
-    app.cli.add_command(init_db2_command)
+    app.cli.add_command(init_db_command)
 
     return app

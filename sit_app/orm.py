@@ -1,24 +1,24 @@
 from datetime import datetime
-from sit_app import db2
+from sit_app import db
 
-db2.Model.__table_args__ = {"sqlite_autoincrement": True}
-
-
-class User(db2.Model):
-    id = db2.Column(db2.Integer, primary_key=True)
-    username = db2.Column(db2.Text, unique=True, nullable=False)
-    password = db2.Column(db2.Text, unique=True, nullable=False)
-
-    posts = db2.relationship("Post", back_populates="author", lazy="dynamic")
+db.Model.__table_args__ = {"sqlite_autoincrement": True}
 
 
-class Post(db2.Model):
-    id = db2.Column(db2.Integer, primary_key=True)
-    author_id = db2.Column(db2.Integer, db2.ForeignKey("user.id"))
-    created = db2.Column(db2.DateTime,
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Text, unique=True, nullable=False)
+    password = db.Column(db.Text, unique=True, nullable=False)
+
+    posts = db.relationship("Post", back_populates="author", lazy="dynamic")
+
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    created = db.Column(db.DateTime,
                          nullable=False,
-                         server_default=db2.text("CURRENT_TIMESTAMP"))
-    title = db2.Column(db2.Text, nullable=False)
-    body = db2.Column(db2.Text, nullable=False)
+                         server_default=db.text("CURRENT_TIMESTAMP"))
+    title = db.Column(db.Text, nullable=False)
+    body = db.Column(db.Text, nullable=False)
 
-    author = db2.relationship("User", back_populates="posts")
+    author = db.relationship("User", back_populates="posts")
