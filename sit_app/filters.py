@@ -1,6 +1,6 @@
 import jinja2
-from babel.dates import format_datetime, get_timezone
 from flask import Blueprint
+from flask_babel import format_datetime
 
 bp = Blueprint('filters', __name__)
 
@@ -9,8 +9,4 @@ bp = Blueprint('filters', __name__)
 @jinja2.contextfilter
 @bp.app_template_filter()
 def local_datetime(context, datetime):
-    timezone = get_timezone('Europe/Vienna')  # TODO: set timezone in config
-    return format_datetime(datetime,
-                           format='short',
-                           tzinfo=timezone,
-                           locale='fr')  # TODO: set local in config
+    return format_datetime(datetime, format='short')

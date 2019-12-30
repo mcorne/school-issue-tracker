@@ -16,6 +16,7 @@ pip install wheel # to prevent errors such as "Failed building wheel for flask-l
 pip install flask
 pip install flask_sqlalchemy
 pip install flask-debugtoolbar
+pip install flask-babel
 
 -- run app
 export FLASK_APP=sit_app
