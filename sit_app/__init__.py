@@ -39,11 +39,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route("/hello")
-    def hello():
-        return "Hello, World!"
-
     @click.command("init-db")
     @with_appcontext
     def init_db_command():
@@ -51,12 +46,15 @@ def create_app(test_config=None):
         db.create_all()
 
     from . import auth
+    from . import filters
     from . import issue
 
     db.init_app(app)
 
     app.register_blueprint(auth.bp)
+    app.register_blueprint(filters.bp)
     app.register_blueprint(issue.bp)
+
     app.add_url_rule("/", endpoint="index")
     app.cli.add_command(init_db_command)
 
