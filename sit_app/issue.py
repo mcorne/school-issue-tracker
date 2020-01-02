@@ -1,9 +1,8 @@
-from flask import (Blueprint, flash, g, redirect, render_template, request,
-                   url_for)
+from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 from werkzeug.exceptions import abort
 
 from sit_app import db
-from sit_app.auth import login_required
 from sit_app.orm import Post, User
 
 bp = Blueprint("issue", __name__)
@@ -23,7 +22,7 @@ def create():
         if error is not None:
             flash(error)
         else:
-            post = Post(title=title, body=body, author_id=g.user.id)
+            post = Post(title=title, body=body, author_id=current_user.id)
             db.session.add(post)
             db.session.commit()
             return redirect(url_for("issue.index"))
@@ -31,7 +30,7 @@ def create():
     return render_template("issue/create.html")
 
 
-@bp.route("/<int:id>/delete", methods=("POST", ))
+@bp.route("/<int:id>/delete", methods=("POST",))
 @login_required
 def delete(id):
     post = Post.query.get(id)

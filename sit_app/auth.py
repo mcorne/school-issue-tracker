@@ -7,25 +7,15 @@ from flask import (
     redirect,
     render_template,
     request,
-    session,
     url_for,
 )
+from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from sit_app.orm import User
 from sit_app import db
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
-
-
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get("user_id")
-
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = User.query.get(user_id)
 
 
 @bp.route("/login", methods=("GET", "POST"))
@@ -42,8 +32,7 @@ def login():
             error = "Incorrect password."
 
         if error is None:
-            session.clear()
-            session["user_id"] = user.id
+            login_user(user, remember=True)
             return redirect(url_for("index"))
 
         flash(error)
@@ -51,20 +40,10 @@ def login():
     return render_template("auth/login.html")
 
 
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for("auth.login"))
-
-        return view(**kwargs)
-
-    return wrapped_view
-
-
 @bp.route("/logout")
+@login_required
 def logout():
-    session.clear()
+    logout_user()
     return redirect(url_for("index"))
 
 

@@ -5,10 +5,12 @@ from flask import Flask
 from flask.cli import with_appcontext
 from flask_babel import Babel
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 babel = Babel()
 db = SQLAlchemy()
+login_manager = LoginManager()
 toolbar = DebugToolbarExtension()
 
 
@@ -37,20 +39,27 @@ def create_app(test_config=None):
 
     babel.init_app(app)
     db.init_app(app)
+    login_manager.init_app(app)
     toolbar.init_app(app)
+
     app.debug = True
+    login_manager.login_view = "auth.login"
 
     from . import auth
     from . import filters
     from . import issue
+    from .orm import User
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(filters.bp)
     app.register_blueprint(issue.bp)
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
     app.add_url_rule("/", endpoint="index")
 
-    # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
