@@ -19,12 +19,12 @@ def create_app(test_config=None):
         BABEL_DEFAULT_LOCALE="fr",
         BABEL_DEFAULT_TIMEZONE="Europe/Vienna",
         DATABASE=os.path.join(app.instance_path, "school-issues.sqlite3"),
-        DEBUG_TB_INTERCEPT_REDIRECTS=False,
+        DEBUG_TB_INTERCEPT_REDIRECTS=True,
         SECRET_KEY="dev",
-        SQLALCHEMY_DATABASE_URI="sqlite:///" +
-        os.path.join(app.instance_path, "school-issues.sqlite3"),
-        SQLALCHEMY_ECHO=True,  # display queries to stderr
-        SQLALCHEMY_RECORD_QUERIES=True,  # display queries in toolbar
+        SQLALCHEMY_DATABASE_URI="sqlite:///"
+        + os.path.join(app.instance_path, "school-issues.sqlite3"),
+        SQLALCHEMY_ECHO=True,  # display query params as well in toolbar Logging section (and queries to stderr)
+        SQLALCHEMY_RECORD_QUERIES=True,  # display queries in toolbar SQLAlchemy section
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
 
