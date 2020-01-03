@@ -28,9 +28,9 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user is None:
-            error = _("Incorrect username.")
+            error = _("Incorrect username")
         elif not check_password_hash(user.password, password):
-            error = _("Incorrect password.")
+            error = _("Incorrect password")
 
         if error is None:
             login_user(user, remember=True)
@@ -56,11 +56,11 @@ def register():
         error = None
 
         if not username:
-            error = "Username is required."
+            error = _("Username is required")
         elif not password:
-            error = "Password is required."
+            error = _("Password is required")
         elif User.query.filter_by(username=username).first() is not None:
-            error = "User {} is already registered.".format(username)
+            error = _("User %(username)s already registered", username=username)
 
         if error is None:
             password = generate_password_hash(password)

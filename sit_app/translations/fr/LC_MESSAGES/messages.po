@@ -1,22 +1,16 @@
-# French translations for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-01-03 12:51+0100\n"
-"PO-Revision-Date: 2020-01-03 12:51+0100\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-03 15:44+0100\n"
+"PO-Revision-Date: 2020-01-03 15:44+0100\n"
 "Last-Translator: \n"
-"Language-Team: fr <LL@li.org>\n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Generated-By: Babel 2.8.0\n"
 "X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../..\n"
@@ -25,14 +19,89 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
+#: templates/auth/login.html:4 templates/base.html:12
+msgid "Log In"
+msgstr "Se Connecter"
+
+#: templates/auth/login.html:9 templates/auth/register.html:9
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: templates/auth/login.html:11 templates/auth/register.html:11
+msgid "Password"
+msgstr "Mot de passe"
+
+#: templates/auth/register.html:4 templates/base.html:11
+msgid "Register"
+msgstr "S'inscrire"
+
+#: templates/base.html:2 templates/base.html:5
+msgid "Issues"
+msgstr "Problèmes"
+
+#: templates/base.html:9
+msgid "Log Out"
+msgstr "Se déconnecter"
+
+#: templates/issue/create.html:4
+msgid "New Post"
+msgstr "Nouvel article"
+
+#: templates/issue/create.html:9 templates/issue/update.html:9
+msgid "Title"
+msgstr "Titre"
+
+#: templates/issue/create.html:11 templates/issue/update.html:11
+msgid "Body"
+msgstr "Corps"
+
+#: templates/issue/index.html:4
+msgid "Posts"
+msgstr "Articles"
+
+#: templates/issue/index.html:6
+msgid "New"
+msgstr "Nouveau"
+
+#: templates/issue/index.html:17
+#, python-format
+msgid "by %(username)s on %(datetime)s"
+msgstr "par %(username)s le %(datetime)s"
+
+#: templates/issue/index.html:20
+msgid "Edit"
+msgstr "Mettre à jour"
+
+#: templates/issue/update.html:4
+#, python-format
+msgid "Edit \"%(title)s\""
+msgstr "Mettre à jour \"%(title)s\""
+
 #: __init__.py:42
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
 #: auth.py:31
-msgid "Incorrect username."
-msgstr "Nom d'utilisateur incorrect."
+msgid "Incorrect username"
+msgstr "Nom d'utilisateur incorrect"
 
 #: auth.py:33
-msgid "Incorrect password."
-msgstr "Mot de passe incorrect."
+msgid "Incorrect password"
+msgstr "Mot de passe incorrect"
+
+#: auth.py:59
+msgid "Username is required"
+msgstr "Nom d'utilisateur obligatoire"
+
+#: auth.py:61
+msgid "Password is required"
+msgstr "Mot de passe obligatoire"
+
+#: auth.py:63
+#, python-format
+msgid "User %(username)s already registered"
+msgstr "Utilisateur %(username)s déjà enregistré"
+
+#: issue.py:21 issue.py:60
+msgid "Title is required"
+msgstr "Titre obligatoire"

@@ -40,3 +40,13 @@ git config --global user.email "mcorne@yahoo.com"
 git config --global user.name "Michel Corne"
 git config --global credential.helper 'cache --timeout=3600000'
 git config --list
+
+-- Poedit HTML files extraction
+Preferences > Extractors
+Click on + to add a custom extractor
+Language: HTML
+List of extensions: *.html
+Command to extract translations: ‪xgettext -L Python --add-comments=TRANSLATORS: --force-po -o %o %C %K %F
+An item in keywords list: ‪-k%k
+An item in input files list: ‪%f
+Source code charset: ‪--from-code=%c

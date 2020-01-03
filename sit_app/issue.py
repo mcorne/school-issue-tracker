@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from flask_babel import _
 from flask_login import current_user, login_required
 from werkzeug.exceptions import abort
 
@@ -17,7 +18,7 @@ def create():
         error = None
 
         if not title:
-            error = "Title is required."
+            error = _("Title is required")
 
         if error is not None:
             flash(error)
@@ -56,7 +57,7 @@ def update(id):
         error = None
 
         if not title:
-            error = "Title is required."
+            error = _("Title is required")
 
         if error is not None:
             flash(error)
