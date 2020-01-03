@@ -9,6 +9,7 @@ from flask import (
     request,
     url_for,
 )
+from flask_babel import _
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -27,9 +28,9 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user is None:
-            error = "Incorrect username."
+            error = _("Incorrect username.")
         elif not check_password_hash(user.password, password):
-            error = "Incorrect password."
+            error = _("Incorrect password.")
 
         if error is None:
             login_user(user, remember=True)

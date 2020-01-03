@@ -3,7 +3,7 @@ import os
 import click
 from flask import Flask
 from flask.cli import with_appcontext
-from flask_babel import Babel
+from flask_babel import Babel, lazy_gettext
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -21,7 +21,7 @@ def create_app(test_config=None):
         BABEL_DEFAULT_LOCALE="fr",
         BABEL_DEFAULT_TIMEZONE="Europe/Vienna",
         DATABASE=os.path.join(app.instance_path, "school-issues.sqlite3"),
-        DEBUG_TB_INTERCEPT_REDIRECTS=True,
+        DEBUG_TB_INTERCEPT_REDIRECTS=False,
         SECRET_KEY="dev",
         SQLALCHEMY_DATABASE_URI="sqlite:///"
         + os.path.join(app.instance_path, "school-issues.sqlite3"),
@@ -39,9 +39,7 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     app.debug = True
-    login_manager.login_message = (
-        "Veuillez vous connecter pour accéder à cette page."  # TODO: translate !!!
-    )
+    login_manager.login_message = lazy_gettext("Please log in to access this page.")
     login_manager.login_view = "auth.login"
 
     babel.init_app(app)
