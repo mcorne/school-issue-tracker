@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-03 15:44+0100\n"
-"PO-Revision-Date: 2020-01-03 15:44+0100\n"
+"POT-Creation-Date: 2020-01-03 16:54+0100\n"
+"PO-Revision-Date: 2020-01-03 16:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,7 +19,8 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/auth/login.html:4 templates/base.html:12
+#: templates/auth/login.html:4 templates/auth/login.html:13
+#: templates/base.html:12
 msgid "Log In"
 msgstr "Se Connecter"
 
@@ -31,7 +32,8 @@ msgstr "Nom d'utilisateur"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: templates/auth/register.html:4 templates/base.html:11
+#: templates/auth/register.html:4 templates/auth/register.html:13
+#: templates/base.html:11
 msgid "Register"
 msgstr "S'inscrire"
 
@@ -55,6 +57,10 @@ msgstr "Titre"
 msgid "Body"
 msgstr "Corps"
 
+#: templates/issue/create.html:13 templates/issue/update.html:13
+msgid "Save"
+msgstr "Enregistrer"
+
 #: templates/issue/index.html:4
 msgid "Posts"
 msgstr "Articles"
@@ -68,7 +74,7 @@ msgstr "Nouveau"
 msgid "by %(username)s on %(datetime)s"
 msgstr "par %(username)s le %(datetime)s"
 
-#: templates/issue/index.html:20
+#: templates/issue/index.html:21
 msgid "Edit"
 msgstr "Mettre à jour"
 
@@ -76,6 +82,14 @@ msgstr "Mettre à jour"
 #, python-format
 msgid "Edit \"%(title)s\""
 msgstr "Mettre à jour \"%(title)s\""
+
+#: templates/issue/update.html:18
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/issue/update.html:18
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr ?"
 
 #: __init__.py:42
 msgid "Please log in to access this page."
