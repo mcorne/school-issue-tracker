@@ -5,10 +5,9 @@ from flask_login import UserMixin
 from sit_app import db
 
 db.Model.__table_args__ = {"sqlite_autoincrement": True}
-
+db.Model.id = db.Column(db.Integer, primary_key=True)
 
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Text, unique=True, nullable=False)
     password = db.Column(db.Text, nullable=False)
 
@@ -16,7 +15,6 @@ class User(UserMixin, db.Model):
 
 
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     created = db.Column(
         db.DateTime, nullable=False, server_default=db.text("CURRENT_TIMESTAMP")

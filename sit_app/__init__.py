@@ -28,6 +28,7 @@ def create_app(test_config=None):
         SQLALCHEMY_ECHO=True,  # display query params as well in toolbar Logging section (and queries to stderr)
         SQLALCHEMY_RECORD_QUERIES=True,  # display queries in toolbar SQLAlchemy section
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        USE_SESSION_FOR_NEXT=True,  # TODO: check why redirection to original page is not working
     )
 
     if test_config is None:
@@ -37,13 +38,16 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
+    app.debug = True
+    login_manager.login_message = (
+        "Veuillez vous connecter pour accéder à cette page."  # TODO: translate !!!
+    )
+    login_manager.login_view = "auth.login"
+
     babel.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
     toolbar.init_app(app)
-
-    app.debug = True
-    login_manager.login_view = "auth.login"
 
     from . import auth
     from . import filters
