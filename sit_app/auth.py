@@ -16,6 +16,7 @@ from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from sit_app import db
+from sit_app.forms import LoginForm
 from sit_app.orm import User
 from sit_app.helpers import is_safe_url
 
@@ -24,19 +25,18 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+    form = LoginForm()
+    if form.validate_on_submit():
         error = None
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=form.username.data).first()
 
         if user is None:
             error = _("Incorrect username")
-        elif not check_password_hash(user.password, password):
+        elif not check_password_hash(user.password, form.password.data):
             error = _("Incorrect password")
 
         if error is None:
-            login_user(user, remember=True)
+            login_user(user)
             next = session.get("next")
             if not is_safe_url(next):
                 return abort(400)
@@ -45,7 +45,7 @@ def login():
 
         flash(error)
 
-    return render_template("auth/login.html")
+    return render_template("auth/login.html", form=form)
 
 
 @bp.route("/logout")

@@ -18,6 +18,7 @@ pip install flask_sqlalchemy
 pip install flask-debugtoolbar
 pip install flask-babel
 pip install flask-login
+pip install flask-wtf
 
 -- run app
 export FLASK_APP=sit_app
