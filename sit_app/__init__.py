@@ -28,7 +28,7 @@ def create_app(test_config=None):
         SQLALCHEMY_ECHO=True,  # display query params as well in toolbar Logging section (and queries to stderr)
         SQLALCHEMY_RECORD_QUERIES=True,  # display queries in toolbar SQLAlchemy section
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        USE_SESSION_FOR_NEXT=True,  # TODO: check why redirection to original page is not working
+        USE_SESSION_FOR_NEXT=True,
     )
 
     if test_config is None:
@@ -47,9 +47,7 @@ def create_app(test_config=None):
     login_manager.init_app(app)
     toolbar.init_app(app)
 
-    from . import auth
-    from . import filters
-    from . import issue
+    from . import auth, filters, issue
     from .orm import User
 
     app.register_blueprint(auth.bp)
