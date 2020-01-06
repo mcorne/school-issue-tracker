@@ -6,10 +6,16 @@
 
 {% block content %}
 <form method="post">
-    <label for="username">{{ _('Username') }}</label>
-    <input name="username" id="username" required>
-    <label for="password">{{ _('Password') }}</label>
-    <input type="password" name="password" id="password" required>
-    <button type="submit">{{ _('Register') }}</button>
+    {{ form.hidden_tag() }}
+
+    {{ form.username.label }}
+    {{ form.username }}
+    {% for error in form.username.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+
+    {{ form.password.label }}
+    {{ form.password }}
+    {% for error in form.password.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+
+    {{ form.submit() }}
 </form>
 {% endblock %}
