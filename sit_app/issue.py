@@ -28,7 +28,7 @@ def create():
 @bp.route("/<int:id>/delete", methods=("POST",))
 @login_required
 def delete(id):
-    post = Post.query.get(id)
+    post = Post.query.get_or_404(id)
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for("issue.index"))
@@ -43,7 +43,7 @@ def index():
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
-    post = Post.query.get(id)
+    post = Post.query.get_or_404(id)
     form = PostForm(obj=post)
     if form.validate_on_submit():
         form.populate_obj(post)
