@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}{{ _('Edit "%(title)s"', title=post['title']) }}{% endblock %}</h1>
+<h1>{% block title %}{{ _('Edit "%(title)s"', title=form.title.data) }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <form method="post">
-    <label for="title">{{ _('Title') }}</label>
-    <input name="title" id="title" value="{{ request.form['title'] or post.title }}" required>
-    <label for="body">{{ _('Body') }}</label>
-    <textarea name="body" id="body">{{ request.form['body'] or post.body }}</textarea>
-    <button type="submit">{{ _('Save') }}</button>
+    {{ form.hidden_tag() }}
+
+    {{ form.title.label }}
+    {{ form.title }}
+    {% for error in form.title.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+
+    {{ form.body.label }}
+    {{ form.body }}
+
+    {{ form.submit() }}
 </form>
 <hr>
-<form action="{{ url_for('issue.delete', id=post.id) }}" method="post">
+<form action="{{ url_for('issue.delete', id=id) }}" method="post">
     <button class="danger" type="submit"
         onclick="return confirm('{{ _("Are you sure?") }}');">{{ _('Delete') }}</button>
     <!-- _("Are you sure?") is needed here for gettext extraction -->

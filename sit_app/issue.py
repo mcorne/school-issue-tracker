@@ -1,9 +1,10 @@
-from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_babel import _
 from flask_login import current_user, login_required
 from werkzeug.exceptions import abort
 
 from sit_app import db
+from sit_app.forms import PostForm
 from sit_app.orm import Post, User
 
 bp = Blueprint("issue", __name__)
@@ -12,23 +13,16 @@ bp = Blueprint("issue", __name__)
 @bp.route("/create", methods=("GET", "POST"))
 @login_required
 def create():
-    if request.method == "POST":
-        title = request.form["title"]
-        body = request.form["body"]
-        error = None
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(
+            title=form.title.data, body=form.body.data, author_id=current_user.id
+        )
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for("issue.index"))
 
-        if not title:
-            error = _("Title is required")
-
-        if error is not None:
-            flash(error)
-        else:
-            post = Post(title=title, body=body, author_id=current_user.id)
-            db.session.add(post)
-            db.session.commit()
-            return redirect(url_for("issue.index"))
-
-    return render_template("issue/create.html")
+    return render_template("issue/create.html", form=form)
 
 
 @bp.route("/<int:id>/delete", methods=("POST",))
@@ -50,21 +44,10 @@ def index():
 @login_required
 def update(id):
     post = Post.query.get(id)
+    form = PostForm(obj=post)
+    if form.validate_on_submit():
+        form.populate_obj(post)
+        db.session.commit()
+        return redirect(url_for("issue.index"))
 
-    if request.method == "POST":
-        title = request.form["title"]
-        body = request.form["body"]
-        error = None
-
-        if not title:
-            error = _("Title is required")
-
-        if error is not None:
-            flash(error)
-        else:
-            post.title = title
-            post.body = body
-            db.session.commit()
-            return redirect(url_for("issue.index"))
-
-    return render_template("issue/update.html", post=post)
+    return render_template("issue/update.html", form=form, id=id)

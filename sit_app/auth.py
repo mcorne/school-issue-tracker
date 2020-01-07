@@ -4,7 +4,6 @@ from flask import (
     Blueprint,
     abort,
     flash,
-    g,
     redirect,
     render_template,
     request,
@@ -61,22 +60,13 @@ def register():
     if form.validate_on_submit():
         error = None
 
-        if not form.username.data:
-            error = _("Username is required")
-        elif not form.password.data:
-            error = _("Password is required")
-        elif User.query.filter_by(username=form.username.data).first() is not None:
-            error = _(
-                "User %(username)s already registered", username=form.username.data
-            )
-
-        if error is None:
+        if User.query.filter_by(username=form.username.data).first() is None:
             password = generate_password_hash(form.password.data)
             user = User(username=form.username.data, password=password)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for("auth.login"))
 
-        flash(error)
+        flash(_("User %(username)s already registered", username=form.username.data))
 
     return render_template("auth/register.html", form=form)
