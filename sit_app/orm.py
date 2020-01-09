@@ -25,5 +25,6 @@ class User(UserMixin, db.Model):
     password = db.Column(db.Text, nullable=False)
     role = db.Column(db.Enum(Role), nullable=False, unique=True)
     username = db.Column(db.Text, nullable=False, unique=True)
+    # TODO: add disabled !!!
 
     posts = db.relationship("Post", back_populates="author", lazy="dynamic")

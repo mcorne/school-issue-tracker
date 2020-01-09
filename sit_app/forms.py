@@ -40,12 +40,21 @@ class Role(Enum):
         ]
         return choices
 
+    @classmethod
+    def coerce(cls, value):
+        if isinstance(value, Role):
+            value = value.name
+        return value
+
 
 class RegisterForm(FlaskForm):
     generic = BooleanField(lazy_gettext("Generic"))
     password = PasswordField(lazy_gettext("Password"), validators=[DataRequired()])
     role = SelectField(
-        lazy_gettext("Role"), choices=Role.get_choices(), validators=[DataRequired()]
+        lazy_gettext("Role"),
+        choices=Role.get_choices(),
+        coerce=Role.coerce,
+        validators=[DataRequired()],
     )
     submit = SubmitField(lazy_gettext("Register"))
     username = StringField(lazy_gettext("Username"), validators=[DataRequired()])

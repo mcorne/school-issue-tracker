@@ -62,7 +62,10 @@ def register():
         if User.query.filter_by(username=form.username.data).first() is None:
             password = generate_password_hash(form.password.data)
             user = User(
-                generic=form.generic.data, password=password, role=form.role.data, username=form.username.data
+                generic=form.generic.data,
+                password=password,
+                role=form.role.data,
+                username=form.username.data,
             )
             db.session.add(user)
             db.session.commit()
@@ -71,3 +74,16 @@ def register():
         flash(_("User %(username)s already registered", username=form.username.data))
 
     return render_template("auth/register.html", form=form)
+
+
+@bp.route("/<int:id>/update", methods=("GET", "POST"))
+@login_required
+def update(id):
+    user = User.query.get_or_404(id)
+    form = RegisterForm(obj=user)
+    if form.validate_on_submit():
+        form.populate_obj(user)
+        db.session.commit()
+        return redirect(url_for("auth.update", id=id))
+
+    return render_template("auth/register.html", form=form, id=id)
