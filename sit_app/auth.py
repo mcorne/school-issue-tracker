@@ -58,11 +58,12 @@ def logout():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        error = None
-
+        # TODO: check teacher password is unique !!!
         if User.query.filter_by(username=form.username.data).first() is None:
             password = generate_password_hash(form.password.data)
-            user = User(username=form.username.data, password=password)
+            user = User(
+                generic=form.generic.data, password=password, role=form.role.data, username=form.username.data
+            )
             db.session.add(user)
             db.session.commit()
             return redirect(url_for("auth.login"))
