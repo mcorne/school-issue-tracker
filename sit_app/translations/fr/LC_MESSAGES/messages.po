@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-03 16:54+0100\n"
-"PO-Revision-Date: 2020-01-03 16:59+0100\n"
+"POT-Creation-Date: 2020-01-10 11:27+0100\n"
+"PO-Revision-Date: 2020-01-10 11:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -14,28 +14,18 @@ msgstr ""
 "X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../..\n"
-"X-Poedit-KeywordsList: lazy_gettext\n"
+"X-Poedit-KeywordsList: lazy_gettext;_l\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/auth/login.html:4 templates/auth/login.html:13
-#: templates/base.html:12
+#: templates/auth/login.html:4 templates/base.html:12 forms.py:18
 msgid "Log In"
 msgstr "Se Connecter"
 
-#: templates/auth/login.html:9 templates/auth/register.html:9
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: templates/auth/login.html:11 templates/auth/register.html:11
-msgid "Password"
-msgstr "Mot de passe"
-
-#: templates/auth/register.html:4 templates/auth/register.html:13
-#: templates/base.html:11
-msgid "Register"
-msgstr "S'inscrire"
+#: templates/auth/register.html:4
+msgid "User"
+msgstr "Utilisateur"
 
 #: templates/base.html:2 templates/base.html:5
 msgid "Issues"
@@ -45,21 +35,13 @@ msgstr "Problèmes"
 msgid "Log Out"
 msgstr "Se déconnecter"
 
+#: templates/base.html:11
+msgid "Register"
+msgstr "S'inscrire"
+
 #: templates/issue/create.html:4
 msgid "New Post"
 msgstr "Nouvel article"
-
-#: templates/issue/create.html:9 templates/issue/update.html:9
-msgid "Title"
-msgstr "Titre"
-
-#: templates/issue/create.html:11 templates/issue/update.html:11
-msgid "Body"
-msgstr "Corps"
-
-#: templates/issue/create.html:13 templates/issue/update.html:13
-msgid "Save"
-msgstr "Enregistrer"
 
 #: templates/issue/index.html:4
 msgid "Posts"
@@ -83,11 +65,11 @@ msgstr "Mettre à jour"
 msgid "Edit \"%(title)s\""
 msgstr "Mettre à jour \"%(title)s\""
 
-#: templates/issue/update.html:18
+#: templates/issue/update.html:23
 msgid "Delete"
 msgstr "Supprimer"
 
-#: templates/issue/update.html:18
+#: templates/issue/update.html:24
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
@@ -95,27 +77,71 @@ msgstr "Êtes-vous sûr ?"
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
-#: auth.py:31
+#: auth.py:33
 msgid "Incorrect username"
 msgstr "Nom d'utilisateur incorrect"
 
-#: auth.py:33
+#: auth.py:35
 msgid "Incorrect password"
 msgstr "Mot de passe incorrect"
 
-#: auth.py:59
-msgid "Username is required"
-msgstr "Nom d'utilisateur obligatoire"
-
-#: auth.py:61
-msgid "Password is required"
-msgstr "Mot de passe obligatoire"
-
-#: auth.py:63
+#: auth.py:74
 #, python-format
 msgid "User %(username)s already registered"
 msgstr "Utilisateur %(username)s déjà enregistré"
 
-#: issue.py:21 issue.py:60
-msgid "Title is required"
-msgstr "Titre obligatoire"
+#: forms.py:17 forms.py:52
+msgid "Password"
+msgstr "Mot de passe"
+
+#: forms.py:19 forms.py:60
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: forms.py:23
+msgid "Body"
+msgstr "Corps"
+
+#: forms.py:24 forms.py:59
+msgid "Save"
+msgstr "Enregistrer"
+
+#: forms.py:25
+msgid "Title"
+msgstr "Titre"
+
+#: forms.py:29
+msgid "Administrator"
+msgstr "Administrateur"
+
+#: forms.py:30
+msgid "Teacher"
+msgstr "Enseignant"
+
+#: forms.py:31
+msgid "IT Technician"
+msgstr "Technicien informatique"
+
+#: forms.py:32
+msgid "IT Manager"
+msgstr "Manager informatique"
+
+#: forms.py:33
+msgid "Service Agent"
+msgstr "Agent de service"
+
+#: forms.py:34
+msgid "Service Manager"
+msgstr "Manager des services"
+
+#: forms.py:38
+msgid "-- Choose a role --"
+msgstr "-- Choisir un rôle --"
+
+#: forms.py:51
+msgid "Generic Account"
+msgstr "Compte générique"
+
+#: forms.py:54
+msgid "Role"
+msgstr "Rôle"

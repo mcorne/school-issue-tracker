@@ -1,6 +1,6 @@
 from enum import Enum
 
-from flask_babel import lazy_gettext
+from flask_babel import lazy_gettext as _l
 from flask_wtf import FlaskForm
 from wtforms import (
     BooleanField,
@@ -14,28 +14,28 @@ from wtforms.validators import DataRequired
 
 
 class LoginForm(FlaskForm):
-    password = PasswordField(lazy_gettext("Password"), validators=[DataRequired()])
-    submit = SubmitField(lazy_gettext("Log In"))
-    username = StringField(lazy_gettext("Username"), validators=[DataRequired()])
+    password = PasswordField(_l("Password"), validators=[DataRequired()])
+    submit = SubmitField(_l("Log In"))
+    username = StringField(_l("Username"), validators=[DataRequired()])
 
 
 class PostForm(FlaskForm):
-    body = TextAreaField(lazy_gettext("Body"))
-    submit = SubmitField(lazy_gettext("Save"))
-    title = StringField(lazy_gettext("Title"), validators=[DataRequired()])
+    body = TextAreaField(_l("Body"))
+    submit = SubmitField(_l("Save"))
+    title = StringField(_l("Title"), validators=[DataRequired()])
 
 
 class Role(Enum):
-    admin = lazy_gettext("Administrator")
-    teacher = lazy_gettext("Teacher")
-    it_technician = lazy_gettext("IT Technician")
-    it_manager = lazy_gettext("IT Manager")
-    service_agent = lazy_gettext("Service Agent")
-    service_manager = lazy_gettext("Service Manager")
+    admin = _l("Administrator")
+    teacher = _l("Teacher")
+    it_technician = _l("IT Technician")
+    it_manager = _l("IT Manager")
+    service_agent = _l("Service Agent")
+    service_manager = _l("Service Manager")
 
     @staticmethod
     def get_choices():
-        choices = [("", "-- Choose a role --")] + [
+        choices = [("", _l("-- Choose a role --"))] + [
             (name, member.value) for name, member in Role.__members__.items()
         ]
         return choices
@@ -48,13 +48,13 @@ class Role(Enum):
 
 
 class RegisterForm(FlaskForm):
-    generic = BooleanField(lazy_gettext("Generic"))
-    password = PasswordField(lazy_gettext("Password"), validators=[DataRequired()])
+    generic = BooleanField(_l("Generic Account"))
+    password = PasswordField(_l("Password"), validators=[DataRequired()])
     role = SelectField(
-        lazy_gettext("Role"),
+        _l("Role"),
         choices=Role.get_choices(),
         coerce=Role.coerce,
         validators=[DataRequired()],
     )
-    submit = SubmitField(lazy_gettext("Register"))
-    username = StringField(lazy_gettext("Username"), validators=[DataRequired()])
+    submit = SubmitField(_l("Save"))
+    username = StringField(_l("Username"), validators=[DataRequired()])
