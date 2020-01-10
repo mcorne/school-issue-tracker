@@ -17,9 +17,16 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sit_app import db
 from sit_app.forms import LoginForm, RegisterForm, UpdateForm
 from sit_app.orm import User
+from sit_app.user import UserList
 from sit_app.helpers import is_safe_url
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
+
+
+@bp.route("/")
+def index():
+    users = User.query.all()
+    return render_template("auth/index.html", table=UserList(users))
 
 
 @bp.route("/login", methods=("GET", "POST"))

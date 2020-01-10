@@ -19,6 +19,7 @@ pip install flask-debugtoolbar
 pip install flask-babel
 pip install flask-login
 pip install flask-wtf
+pip install flask-table
 
 -- run app
 export FLASK_APP=sit_app

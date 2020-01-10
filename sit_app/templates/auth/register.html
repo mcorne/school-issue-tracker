@@ -16,7 +16,8 @@
     {{ form.password }}
     {% for error in form.password.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-    {{ form.role.label }} {{ form.role }}
+    {{ form.role.label }}
+    {{ form.role }}
     {% for error in form.role.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
     {{ form.generic.label }}

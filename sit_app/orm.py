@@ -7,10 +7,10 @@ from sit_app import db
 from sit_app.forms import Role
 
 db.Model.__table_args__ = {"sqlite_autoincrement": True}
-db.Model.id = db.Column(db.Integer, primary_key=True)
 db.Model.created = db.Column(
     db.DateTime, nullable=False, server_default=db.text("CURRENT_TIMESTAMP")
 )
+db.Model.id = db.Column(db.Integer, primary_key=True)
 db.Model.updated = db.Column(db.DateTime, onupdate=datetime.utcnow())
 
 

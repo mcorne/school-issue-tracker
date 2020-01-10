@@ -10,6 +10,12 @@ from sit_app.orm import Post, User
 bp = Blueprint("issue", __name__)
 
 
+@bp.route("/")
+def index():
+    posts = Post.query.all()
+    return render_template("issue/index.html", posts=posts)
+
+
 @bp.route("/create", methods=("GET", "POST"))
 @login_required
 def create():
@@ -32,12 +38,6 @@ def delete(id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for("issue.index"))
-
-
-@bp.route("/")
-def index():
-    posts = Post.query.all()
-    return render_template("issue/index.html", posts=posts)
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
