@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-10 11:27+0100\n"
-"PO-Revision-Date: 2020-01-10 11:27+0100\n"
+"POT-Creation-Date: 2020-01-10 15:42+0100\n"
+"PO-Revision-Date: 2020-01-10 15:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -85,7 +85,7 @@ msgstr "Nom d'utilisateur incorrect"
 msgid "Incorrect password"
 msgstr "Mot de passe incorrect"
 
-#: auth.py:74
+#: auth.py:75
 #, python-format
 msgid "User %(username)s already registered"
 msgstr "Utilisateur %(username)s déjà enregistré"
@@ -134,7 +134,7 @@ msgstr "Agent de service"
 msgid "Service Manager"
 msgstr "Manager des services"
 
-#: forms.py:38
+#: forms.py:44
 msgid "-- Choose a role --"
 msgstr "-- Choisir un rôle --"
 
@@ -145,3 +145,11 @@ msgstr "Compte générique"
 #: forms.py:54
 msgid "Role"
 msgstr "Rôle"
+
+#: forms.py:64
+msgid "Account Disabled"
+msgstr "Compte désactivé"
+
+#: forms.py:68
+msgid "Password (leave blank if unchanged)"
+msgstr "Mot de passe (laisser vide si inchangé)"

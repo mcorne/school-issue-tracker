@@ -23,6 +23,12 @@
     {{ form.generic }}
     {% for error in form.generic.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
+    {% if form.disabled is defined  %}
+    {{ form.disabled.label }}
+    {{ form.disabled }}
+    {% for error in form.disabled.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+    {% endif %}
+
     {{ form.submit() }}
 </form>
 {% endblock %}

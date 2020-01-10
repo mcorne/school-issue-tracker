@@ -61,8 +61,5 @@ class RegisterForm(FlaskForm):
 
 
 class UpdateForm(RegisterForm):
-    pass
-
-
-UpdateForm.password = PasswordField(_l("Password (leave blank if unchanged)"))
-
+    disabled = BooleanField(_l("Account Disabled"))
+    password = PasswordField(_l("Password (leave blank if unchanged)"))

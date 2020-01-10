@@ -27,7 +27,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         error = None
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(username=form.username.data, disabled=False).first()
 
         if user is None:
             error = _("Incorrect username")
