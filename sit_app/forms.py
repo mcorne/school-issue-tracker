@@ -33,18 +33,18 @@ class Role(Enum):
     service_agent = _l("Service Agent")
     service_manager = _l("Service Manager")
 
-    @staticmethod
-    def get_choices():
-        choices = [("", _l("-- Choose a role --"))] + [
-            (name, member.value) for name, member in Role.__members__.items()
-        ]
-        return choices
-
     @classmethod
     def coerce(cls, value):
         if isinstance(value, Role):
             value = value.name
         return value
+
+    @classmethod
+    def get_choices(cls):
+        choices = [("", _l("-- Choose a role --"))] + [
+            (role.name, role.value) for role in cls.__members__.values()
+        ]
+        return choices
 
 
 class RegisterForm(FlaskForm):

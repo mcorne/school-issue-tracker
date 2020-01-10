@@ -58,7 +58,8 @@ def logout():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        # TODO: check teacher password is unique !!!
+        # TODO: check teacher password is unique
+        # TODO: ensure one admin always remains when updating role or deleting user
         if User.query.filter_by(username=form.username.data).first() is None:
             password = generate_password_hash(form.password.data)
             user = User(
