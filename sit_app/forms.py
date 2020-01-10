@@ -58,3 +58,11 @@ class RegisterForm(FlaskForm):
     )
     submit = SubmitField(_l("Save"))
     username = StringField(_l("Username"), validators=[DataRequired()])
+
+
+class UpdateForm(RegisterForm):
+    pass
+
+
+UpdateForm.password = PasswordField(_l("Password (leave blank if unchanged)"))
+

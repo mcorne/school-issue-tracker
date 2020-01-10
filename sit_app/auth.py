@@ -15,7 +15,7 @@ from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from sit_app import db
-from sit_app.forms import LoginForm, RegisterForm
+from sit_app.forms import LoginForm, RegisterForm, UpdateForm
 from sit_app.orm import User
 from sit_app.helpers import is_safe_url
 
@@ -81,8 +81,12 @@ def register():
 @login_required
 def update(id):
     user = User.query.get_or_404(id)
-    form = RegisterForm(obj=user)
+    form = UpdateForm(obj=user)
     if form.validate_on_submit():
+        if not form.password.data:
+            form.password.data = user.password
+        else:
+            form.password.data = generate_password_hash(form.password.data)
         form.populate_obj(user)
         db.session.commit()
         return redirect(url_for("auth.update", id=id))
