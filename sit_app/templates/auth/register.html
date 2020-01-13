@@ -24,7 +24,7 @@
     {{ form.generic }}
     {% for error in form.generic.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-    {% if form.disabled is defined  %}
+    {% if id != 1 and form.disabled is defined  %}
     {{ form.disabled.label }}
     {{ form.disabled }}
     {% for error in form.disabled.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
@@ -32,4 +32,10 @@
 
     {{ form.submit() }}
 </form>
+
+{% if id != 1 and form.disabled is defined  %}
+<a href="{{ url_for('auth.delete', id=id) }}">{{ _("Delete User") }}</a>
+{% endif %}
+
+
 {% endblock %}
