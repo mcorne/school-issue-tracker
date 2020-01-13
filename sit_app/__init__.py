@@ -70,6 +70,7 @@ def create_app(test_config=None):
     def init_db_command():
         db.drop_all()
         db.create_all()
+        User.create_admin()
 
     app.cli.add_command(init_db_command)
 

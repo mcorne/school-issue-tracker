@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-10 16:51+0100\n"
-"PO-Revision-Date: 2020-01-10 16:52+0100\n"
+"POT-Creation-Date: 2020-01-13 17:24+0100\n"
+"PO-Revision-Date: 2020-01-13 17:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -28,8 +28,16 @@ msgid "Log In"
 msgstr "Se Connecter"
 
 #: templates/auth/register.html:4
-msgid "User"
-msgstr "Utilisateur"
+msgid "User Registration"
+msgstr "Enregistrement de l'utilisateur"
+
+#: templates/auth/update.html:4
+msgid "User Update"
+msgstr "Mise à jour de l'utilisateur"
+
+#: templates/auth/update.html:37
+msgid "Delete User"
+msgstr "Supprimer l'utilisateur"
 
 #: templates/base.html:2 templates/base.html:5
 msgid "Issues"
@@ -81,24 +89,35 @@ msgstr "Êtes-vous sûr ?"
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
-#: auth.py:40
+#: auth.py:39
+msgid "Administrator may not be deleted."
+msgstr "Interdiction de supprimer l'administrateur"
+
+#: auth.py:55
 msgid "Incorrect username"
 msgstr "Nom d'utilisateur incorrect"
 
-#: auth.py:42
+#: auth.py:57
 msgid "Incorrect password"
 msgstr "Mot de passe incorrect"
 
-#: auth.py:82
-#, python-format
-msgid "User %(username)s already registered"
-msgstr "Utilisateur %(username)s déjà enregistré"
+#: auth.py:97
+msgid "Username already registered"
+msgstr "Nom d'utilisateur déjà enregistré"
 
-#: forms.py:17 forms.py:52
+#: auth.py:115
+msgid "Administrator may not be disabled."
+msgstr "Interdiction de désactiver l'administrateur"
+
+#: auth.py:117
+msgid "Username already used"
+msgstr "Nom d'utilisateur déjà utilisé"
+
+#: forms.py:17 forms.py:30
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:19 forms.py:60 user.py:7
+#: forms.py:19 forms.py:38 user.py:37
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -106,7 +125,7 @@ msgstr "Nom d'utilisateur"
 msgid "Body"
 msgstr "Corps"
 
-#: forms.py:24 forms.py:59
+#: forms.py:24 forms.py:37
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -115,61 +134,64 @@ msgid "Title"
 msgstr "Titre"
 
 #: forms.py:29
-msgid "Administrator"
-msgstr "Administrateur"
-
-#: forms.py:30
-msgid "Teacher"
-msgstr "Enseignant"
-
-#: forms.py:31
-msgid "IT Technician"
-msgstr "Technicien informatique"
-
-#: forms.py:32
-msgid "IT Manager"
-msgstr "Manager informatique"
-
-#: forms.py:33
-msgid "Service Agent"
-msgstr "Agent de service"
-
-#: forms.py:34
-msgid "Service Manager"
-msgstr "Manager des services"
-
-#: forms.py:44
-msgid "-- Choose a role --"
-msgstr "-- Choisir un rôle --"
-
-#: forms.py:51
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:54
+#: forms.py:32 user.py:42
 msgid "Role"
 msgstr "Rôle"
 
-#: forms.py:64
+#: forms.py:42
 msgid "Account Disabled"
 msgstr "Compte désactivé"
 
-#: forms.py:65
+#: forms.py:43
 msgid "Password (leave blank if unchanged)"
 msgstr "Mot de passe (laisser vide si inchangé)"
 
+#: user.py:8
+msgid "Administrator"
+msgstr "Administrateur"
+
 #: user.py:9
+msgid "Teacher"
+msgstr "Enseignant"
+
+#: user.py:10
+msgid "IT Technician"
+msgstr "Technicien informatique"
+
+#: user.py:11
+msgid "IT Manager"
+msgstr "Manager informatique"
+
+#: user.py:12
+msgid "Service Agent"
+msgstr "Agent de service"
+
+#: user.py:13
+msgid "Service Manager"
+msgstr "Manager des services"
+
+#: user.py:29
+msgid "-- Choose a role --"
+msgstr "-- Choisir un rôle --"
+
+#: user.py:43
 msgid "Generic"
 msgstr "Générique"
 
-#: user.py:9 user.py:10
+#: user.py:43 user.py:44
 msgid "Yes"
 msgstr "Oui"
 
-#: user.py:9 user.py:10
+#: user.py:43 user.py:44
 msgid "No"
 msgstr "Non"
 
-#: user.py:10
+#: user.py:44
 msgid "Disabled"
 msgstr "Désactivé"
+
+#~ msgid "User"
+#~ msgstr "Utilisateur"

@@ -19,6 +19,7 @@ from sit_app.forms import LoginForm, RegisterForm, UpdateForm
 from sit_app.orm import User
 from sit_app.user import UserList
 from sit_app.helpers import is_safe_url
+from sqlalchemy import and_
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -35,7 +36,7 @@ def index():
 def delete(id):
     user = User.query.get_or_404(id)
     if id == 1:
-        flash(_("The administrator may not be deleted."))
+        flash(_("Administrator may not be deleted."))
     else:
         db.session.delete(user)
         db.session.commit()
@@ -76,23 +77,24 @@ def logout():
 
 
 @bp.route("/register", methods=("GET", "POST"))
+# @login_required TODO: uncomment !!!
 def register():
-    # TODO: check teacher password is unique
+    # TODO: check generic password is unique if generic
     form = RegisterForm()
     if form.validate_on_submit():
-        if User.query.filter_by(username=form.username.data).first() is not None:
-            flash(_("User name already registered!"))
-        else:
-            password = generate_password_hash(form.password.data)
-            user = User(
-                generic=form.generic.data,
-                password=password,
-                role=form.role.data,
-                username=form.username.data,
-            )
+        password = generate_password_hash(form.password.data)
+        user = User(
+            generic=form.generic.data,
+            password=password,
+            role=form.role.data,
+            username=form.username.data,
+        )
+        if user.check_username_unique():
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("auth.index"))
+
+        flash(_("Username already registered"))
 
     return render_template("auth/register.html", form=form)
 
@@ -100,20 +102,21 @@ def register():
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
+    # TODO: check generic password is unique if password including change to generic
     user = User.query.get_or_404(id)
     form = UpdateForm(obj=user)
     if form.validate_on_submit():
-        if id == 1 and form.disabled.data is True:
-            flash(_("The administrator may not be disabled."))
-        elif User.query.filter_by(username=form.username.data).first() is not None:
-            # TODO: add id != id !!!
-            flash(_("The user name must be unique."))
         if not form.password.data:
             form.password.data = user.password
         else:
             form.password.data = generate_password_hash(form.password.data)
         form.populate_obj(user)
-        db.session.commit()
-        return redirect(url_for("auth.update", id=id))
+        if id == 1 and user.disabled.data is True:
+            flash(_("Administrator may not be disabled."))
+        elif not user.check_username_unique():
+            flash(_("Username already used"))
+        else:
+            db.session.commit()
+            return redirect(url_for("auth.update", id=id))
 
-    return render_template("auth/register.html", form=form, id=id)
+    return render_template("auth/update.html", form=form, id=id)
