@@ -27,7 +27,7 @@ class PostForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     generic = BooleanField(_l("Generic Account"))
-    password = PasswordField(_l("Password"), validators=[DataRequired()])
+    password = PasswordField(_l("Password"), validators=[DataRequired()],)
     role = SelectField(
         _l("Role"),
         choices=Role.get_choices(),
@@ -41,3 +41,7 @@ class RegisterForm(FlaskForm):
 class UpdateForm(RegisterForm):
     disabled = BooleanField(_l("Account Disabled"))
     password = PasswordField(_l("Password (leave blank if unchanged)"))
+
+    def set_password_required(self):
+        self.password.label.text = _l("Password")
+        self.password.validators.append(DataRequired())

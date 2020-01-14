@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-13 17:24+0100\n"
-"PO-Revision-Date: 2020-01-13 17:25+0100\n"
+"POT-Creation-Date: 2020-01-14 16:11+0100\n"
+"PO-Revision-Date: 2020-01-14 16:11+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -30,6 +30,14 @@ msgstr "Se Connecter"
 #: templates/auth/register.html:4
 msgid "User Registration"
 msgstr "Enregistrement de l'utilisateur"
+
+#: templates/auth/register.html:30 templates/auth/update.html:41
+msgid ""
+"Note that generic account passwords are used as unique identifiers "
+"regardless of usernames."
+msgstr ""
+"Noter que les mots de passe de compte générique sont utilisés comme "
+"identifiants uniques indépendamment des noms d'utilisateur."
 
 #: templates/auth/update.html:4
 msgid "User Update"
@@ -101,19 +109,23 @@ msgstr "Nom d'utilisateur incorrect"
 msgid "Incorrect password"
 msgstr "Mot de passe incorrect"
 
-#: auth.py:97
+#: auth.py:85
 msgid "Username already registered"
 msgstr "Nom d'utilisateur déjà enregistré"
 
-#: auth.py:115
+#: auth.py:89 auth.py:126
+msgid "Password already used for another generic account"
+msgstr "Mot de passe déjà utilisé pour un autre compte générique"
+
+#: auth.py:117
 msgid "Administrator may not be disabled."
 msgstr "Interdiction de désactiver l'administrateur"
 
-#: auth.py:117
+#: auth.py:119
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
 
-#: forms.py:17 forms.py:30
+#: forms.py:17 forms.py:30 forms.py:46
 msgid "Password"
 msgstr "Mot de passe"
 

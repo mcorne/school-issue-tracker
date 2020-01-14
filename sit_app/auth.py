@@ -45,7 +45,7 @@ def delete(id):
 
 
 @bp.route("/login", methods=("GET", "POST"))
-def login():
+def login():  # TODO: fix to check password only for a generic account !!!
     form = LoginForm()
     if form.validate_on_submit():
         error = None
@@ -79,11 +79,14 @@ def logout():
 @bp.route("/register", methods=("GET", "POST"))
 @login_required
 def register():
-    # TODO: check generic password is unique if generic
     form = RegisterForm()
     if form.validate_on_submit():
-        if not User.check_username_unique(form.username.data):
+        if not User.is_username_unique(form.username.data):
             flash(_("Username already registered"))
+        elif form.generic.data and not User.is_generic_user_password_unique(
+            form.password.data
+        ):
+            flash(_("Password already used for another generic account"))
         else:
             password = generate_password_hash(form.password.data)
             user = User(
@@ -102,14 +105,25 @@ def register():
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
-    # TODO: check generic password is unique if password including change to generic
     user = User.query.get_or_404(id)
     form = UpdateForm(obj=user)
+    if not form.disabled.data and (
+        user.disabled or not user.generic and form.generic.data
+    ):
+        # force password to be reentered if account changed to enabled or generic
+        form.set_password_required()
     if form.validate_on_submit():
-        if id == 1 and user.disabled.data:
+        if id == 1 and form.disabled.data:
             flash(_("Administrator may not be disabled."))
-        elif not User.check_username_unique(form.username.data, id):
+        elif not User.is_username_unique(form.username.data, id):
             flash(_("Username already used"))
+        elif (
+            form.password.data
+            and not form.disabled.data
+            and form.generic.data
+            and not User.is_generic_user_password_unique(form.password.data, id)
+        ):
+            flash(_("Password already used for another generic account"))
         else:
             if not form.password.data:
                 form.password.data = user.password

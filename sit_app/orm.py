@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from sqlalchemy import and_
 from sqlalchemy.sql import expression
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from sit_app import db
 from sit_app.forms import Role
@@ -34,7 +34,25 @@ class User(UserMixin, db.Model):
     posts = db.relationship("Post", back_populates="author", lazy="dynamic")
 
     @classmethod
-    def check_username_unique(cls, username, id=None):
+    def create_admin(cls):
+        user = cls(
+            password=generate_password_hash("123456"), role="admin", username="admin",
+        )
+        db.session.add(user)
+        db.session.commit()
+
+    @classmethod
+    def is_generic_user_password_unique(cls, password, id=None):
+        users = cls.query.filter(
+            and_(cls.disabled == False, cls.generic == True, cls.id != id)
+        ).all()
+        for user in users:
+            if check_password_hash(user.password, password):
+                return False
+        return True
+
+    @classmethod
+    def is_username_unique(cls, username, id=None):
         if id is None:
             user = cls.query.filter_by(username=username).first()
         else:
@@ -42,11 +60,3 @@ class User(UserMixin, db.Model):
                 and_(cls.username == username, cls.id != id)
             ).first()
         return not user
-
-    @classmethod
-    def create_admin(cls):
-        user = cls(
-            password=generate_password_hash("123456"), role="admin", username="admin",
-        )
-        db.session.add(user)
-        db.session.commit()
