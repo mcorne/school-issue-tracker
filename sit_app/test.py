@@ -1,2 +1,2 @@
-a = None
-print(not a)
+a = 123 if not a else 456
+print(a)

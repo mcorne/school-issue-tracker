@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-14 16:11+0100\n"
-"PO-Revision-Date: 2020-01-14 16:11+0100\n"
+"POT-Creation-Date: 2020-01-14 17:10+0100\n"
+"PO-Revision-Date: 2020-01-14 17:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -101,27 +101,23 @@ msgstr "Veuillez vous connecter pour accéder à cette page."
 msgid "Administrator may not be deleted."
 msgstr "Interdiction de supprimer l'administrateur"
 
-#: auth.py:55
-msgid "Incorrect username"
-msgstr "Nom d'utilisateur incorrect"
+#: auth.py:61
+msgid "Invalid username or password"
+msgstr "Nom d'utilisateur ou mot de passe invalide"
 
-#: auth.py:57
-msgid "Incorrect password"
-msgstr "Mot de passe incorrect"
-
-#: auth.py:85
+#: auth.py:79
 msgid "Username already registered"
 msgstr "Nom d'utilisateur déjà enregistré"
 
-#: auth.py:89 auth.py:126
+#: auth.py:83 auth.py:120
 msgid "Password already used for another generic account"
 msgstr "Mot de passe déjà utilisé pour un autre compte générique"
 
-#: auth.py:117
+#: auth.py:111
 msgid "Administrator may not be disabled."
 msgstr "Interdiction de désactiver l'administrateur"
 
-#: auth.py:119
+#: auth.py:113
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
 
@@ -204,6 +200,12 @@ msgstr "Non"
 #: user.py:44
 msgid "Disabled"
 msgstr "Désactivé"
+
+#~ msgid "Incorrect username"
+#~ msgstr "Nom d'utilisateur incorrect"
+
+#~ msgid "Incorrect password"
+#~ msgstr "Mot de passe incorrect"
 
 #~ msgid "User"
 #~ msgstr "Utilisateur"

@@ -48,23 +48,17 @@ def delete(id):
 def login():  # TODO: fix to check password only for a generic account !!!
     form = LoginForm()
     if form.validate_on_submit():
-        error = None
-        user = User.query.filter_by(username=form.username.data, disabled=False).first()
-
-        if user is None:
-            error = _("Incorrect username")
-        elif not check_password_hash(user.password, form.password.data):
-            error = _("Incorrect password")
-
-        if error is None:
+        user = User.get_user(form.username.data, form.password.data)
+        if not user:
+            user = User.get_generic_account(form.password.data)
+        if user:
             login_user(user)
             next = None  # session.get("next") TODO: restore/fix since always redirecting to same URL; auth/1/update!
             if not is_safe_url(next):
                 return abort(400)
-
             return redirect(next or url_for("index"))
 
-        flash(error)
+        flash(_("Invalid username or password"))
 
     return render_template("auth/login.html", form=form)
 
@@ -110,7 +104,7 @@ def update(id):
     if not form.disabled.data and (
         user.disabled or not user.generic and form.generic.data
     ):
-        # force password to be reentered if account changed to enabled or generic
+        # force password to be reentered if user/account reenabled or changed to generic
         form.set_password_required()
     if form.validate_on_submit():
         if id == 1 and form.disabled.data:

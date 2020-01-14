@@ -42,6 +42,19 @@ class User(UserMixin, db.Model):
         db.session.commit()
 
     @classmethod
+    def get_generic_account(cls, password):
+        users = cls.query.filter(and_(cls.disabled == False, cls.generic == True)).all()
+        for user in users:
+            if check_password_hash(user.password, password):
+                return user
+
+    @classmethod
+    def get_user(cls, username, password):
+        user = cls.query.filter_by(username=username, disabled=False).first()
+        if user and check_password_hash(user.password, password):
+            return user
+
+    @classmethod
     def is_generic_user_password_unique(cls, password, id=None):
         users = cls.query.filter(
             and_(cls.disabled == False, cls.generic == True, cls.id != id)
@@ -53,10 +66,5 @@ class User(UserMixin, db.Model):
 
     @classmethod
     def is_username_unique(cls, username, id=None):
-        if id is None:
-            user = cls.query.filter_by(username=username).first()
-        else:
-            user = cls.query.filter(
-                and_(cls.username == username, cls.id != id)
-            ).first()
+        user = cls.query.filter(and_(cls.username == username, cls.id != id)).first()
         return not user
