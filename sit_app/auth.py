@@ -77,24 +77,24 @@ def logout():
 
 
 @bp.route("/register", methods=("GET", "POST"))
-# @login_required TODO: uncomment !!!
+@login_required
 def register():
     # TODO: check generic password is unique if generic
     form = RegisterForm()
     if form.validate_on_submit():
-        password = generate_password_hash(form.password.data)
-        user = User(
-            generic=form.generic.data,
-            password=password,
-            role=form.role.data,
-            username=form.username.data,
-        )
-        if user.check_username_unique():
+        if not User.check_username_unique(form.username.data):
+            flash(_("Username already registered"))
+        else:
+            password = generate_password_hash(form.password.data)
+            user = User(
+                generic=form.generic.data,
+                password=password,
+                role=form.role.data,
+                username=form.username.data,
+            )
             db.session.add(user)
             db.session.commit()
             return redirect(url_for("auth.index"))
-
-        flash(_("Username already registered"))
 
     return render_template("auth/register.html", form=form)
 
@@ -106,16 +106,16 @@ def update(id):
     user = User.query.get_or_404(id)
     form = UpdateForm(obj=user)
     if form.validate_on_submit():
-        if not form.password.data:
-            form.password.data = user.password
-        else:
-            form.password.data = generate_password_hash(form.password.data)
-        form.populate_obj(user)
-        if id == 1 and user.disabled.data is True:
+        if id == 1 and user.disabled.data:
             flash(_("Administrator may not be disabled."))
-        elif not user.check_username_unique():
+        elif not User.check_username_unique(form.username.data, id):
             flash(_("Username already used"))
         else:
+            if not form.password.data:
+                form.password.data = user.password
+            else:
+                form.password.data = generate_password_hash(form.password.data)
+            form.populate_obj(user)
             db.session.commit()
             return redirect(url_for("auth.update", id=id))
 

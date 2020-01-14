@@ -33,14 +33,13 @@ class User(UserMixin, db.Model):
 
     posts = db.relationship("Post", back_populates="author", lazy="dynamic")
 
-    def check_username_unique(self):
-        if self.id is None:
-            user = User.query.filter_by(username=self.username).first()
+    @classmethod
+    def check_username_unique(cls, username, id=None):
+        if id is None:
+            user = cls.query.filter_by(username=username).first()
         else:
-            user = User.query.filter(
-                and_(
-                    User.username == self.username, User.id != self.id
-                )  # TODO: fix !!!
+            user = cls.query.filter(
+                and_(cls.username == username, cls.id != id)
             ).first()
         return not user
 
