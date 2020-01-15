@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 10:45+0100\n"
-"PO-Revision-Date: 2020-01-15 10:47+0100\n"
+"POT-Creation-Date: 2020-01-15 16:13+0100\n"
+"PO-Revision-Date: 2020-01-15 16:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -35,11 +35,11 @@ msgstr "Mise à jour de l'utilisateur"
 msgid "User Registration"
 msgstr "Enregistrement de l'utilisateur"
 
-#: templates/auth/register.html:42
+#: templates/auth/register.html:43
 msgid "Delete User"
 msgstr "Supprimer l'utilisateur"
 
-#: templates/auth/register.html:45
+#: templates/auth/register.html:47
 msgid ""
 "Note that generic account passwords are used as unique identifiers "
 "regardless of usernames."
@@ -97,27 +97,27 @@ msgstr "Êtes-vous sûr ?"
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
-#: auth.py:39
-msgid "Administrator may not be deleted."
+#: controllers/auth.py:39
+msgid "Administrator may not be deleted"
 msgstr "Interdiction de supprimer l'administrateur"
 
-#: auth.py:61
+#: controllers/auth.py:63
 msgid "Invalid username or password"
 msgstr "Nom d'utilisateur ou mot de passe invalide"
 
-#: auth.py:79
+#: controllers/auth.py:81
 msgid "Username already registered"
 msgstr "Nom d'utilisateur déjà enregistré"
 
-#: auth.py:81 auth.py:117
+#: controllers/auth.py:83 controllers/auth.py:119
 msgid "Password already used for a generic account"
 msgstr "Mot de passe déjà utilisé pour un compte générique"
 
-#: auth.py:109
-msgid "Administrator may not be disabled."
+#: controllers/auth.py:111
+msgid "Administrator may not be disabled"
 msgstr "Interdiction de désactiver l'administrateur"
 
-#: auth.py:111
+#: controllers/auth.py:113
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
 
@@ -125,7 +125,7 @@ msgstr "Nom d'utilisateur déjà utilisé"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:19 forms.py:38 user.py:37
+#: forms.py:19 forms.py:38 models/user.py:37
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -145,7 +145,7 @@ msgstr "Titre"
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:32 user.py:42
+#: forms.py:32 models/user.py:42
 msgid "Role"
 msgstr "Rôle"
 
@@ -157,47 +157,47 @@ msgstr "Compte désactivé"
 msgid "Password (leave blank if unchanged)"
 msgstr "Mot de passe (laisser vide si inchangé)"
 
-#: user.py:8
+#: models/user.py:8
 msgid "Administrator"
 msgstr "Administrateur"
 
-#: user.py:9
+#: models/user.py:9
 msgid "Teacher"
 msgstr "Enseignant"
 
-#: user.py:10
+#: models/user.py:10
 msgid "IT Technician"
 msgstr "Technicien informatique"
 
-#: user.py:11
+#: models/user.py:11
 msgid "IT Manager"
 msgstr "Manager informatique"
 
-#: user.py:12
+#: models/user.py:12
 msgid "Service Agent"
 msgstr "Agent de service"
 
-#: user.py:13
+#: models/user.py:13
 msgid "Service Manager"
 msgstr "Manager des services"
 
-#: user.py:29
+#: models/user.py:29
 msgid "-- Choose a role --"
 msgstr "-- Choisir un rôle --"
 
-#: user.py:43
+#: models/user.py:43
 msgid "Generic"
 msgstr "Générique"
 
-#: user.py:43 user.py:44
+#: models/user.py:43 models/user.py:44
 msgid "Yes"
 msgstr "Oui"
 
-#: user.py:43 user.py:44
+#: models/user.py:43 models/user.py:44
 msgid "No"
 msgstr "Non"
 
-#: user.py:44
+#: models/user.py:44
 msgid "Disabled"
 msgstr "Désactivé"
 

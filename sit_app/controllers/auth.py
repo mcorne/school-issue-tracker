@@ -16,8 +16,8 @@ from werkzeug.security import generate_password_hash
 
 from sit_app import db
 from sit_app.forms import LoginForm, RegisterForm, UpdateForm
-from sit_app.orm import User
-from sit_app.user import UserList
+from sit_app.models.orm import User
+from sit_app.models.user import UserList
 from sit_app.helpers import is_safe_url
 from sqlalchemy import and_
 
@@ -36,7 +36,7 @@ def index():
 def delete(id):
     user = User.query.get_or_404(id)
     if id == 1:
-        flash(_("Administrator may not be deleted."))
+        flash(_("Administrator may not be deleted"))
     else:
         db.session.delete(user)
         db.session.commit()
@@ -45,7 +45,7 @@ def delete(id):
 
 
 @bp.route("/login", methods=("GET", "POST"))
-def login():  # TODO: fix to check password only for a generic account !!!
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get_user(form.username.data, form.password.data)
@@ -79,7 +79,7 @@ def register():
     if form.validate_on_submit():
         if not User.is_username_unique(form.username.data):
             flash(_("Username already registered"))
-        elif User.is_generic_user_password_unique(form.password.data):
+        elif not User.is_generic_user_password_unique(form.password.data):
             flash(_("Password already used for a generic account"))
         else:
             password = generate_password_hash(form.password.data)
@@ -108,7 +108,7 @@ def update(id):
         form.set_password_required()
     if form.validate_on_submit():
         if id == 1 and form.disabled.data:
-            flash(_("Administrator may not be disabled."))
+            flash(_("Administrator may not be disabled"))
         elif not User.is_username_unique(form.username.data, id):
             flash(_("Username already used"))
         elif (

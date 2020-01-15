@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 
 from sit_app import db
 from sit_app.forms import PostForm
-from sit_app.orm import Post, User
+from sit_app.models.orm import Post, User
 
 bp = Blueprint("issue", __name__)
 

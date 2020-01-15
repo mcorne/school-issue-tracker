@@ -47,8 +47,9 @@ def create_app(test_config=None):
     login_manager.init_app(app)
     toolbar.init_app(app)
 
-    from . import auth, filters, issue
-    from .orm import User
+    from . import filters
+    from .controllers import auth, issue
+    from .models.orm import User
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(filters.bp)
