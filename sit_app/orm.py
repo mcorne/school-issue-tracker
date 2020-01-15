@@ -35,14 +35,16 @@ class User(UserMixin, db.Model):
 
     @classmethod
     def create_admin(cls):
+        """Create the administrator user"""
         user = cls(
-            password=generate_password_hash("123456"), role="admin", username="admin",
+            password=generate_password_hash("123456"), role="admin", username="admin"
         )
         db.session.add(user)
         db.session.commit()
 
     @classmethod
     def get_generic_account(cls, password):
+        """Return the generic account with the given password"""
         users = cls.query.filter(and_(cls.disabled == False, cls.generic == True)).all()
         for user in users:
             if check_password_hash(user.password, password):
@@ -50,15 +52,20 @@ class User(UserMixin, db.Model):
 
     @classmethod
     def get_user(cls, username, password):
+        """Return the user with the given username and password"""
         user = cls.query.filter_by(username=username, disabled=False).first()
         if user and check_password_hash(user.password, password):
             return user
 
     @classmethod
     def is_generic_user_password_unique(cls, password, id=None):
-        users = cls.query.filter(
-            and_(cls.disabled == False, cls.generic == True, cls.id != id)
-        ).all()
+        """Check the generic account password is unique
+
+        Generic account passwords must be unique accross all passwords including user passwords.
+        If a generic account and a user shared the same password, a user mistyping his/her username
+        could possibly and wrongly login into a generic account.
+        """
+        users = cls.query.filter(and_(cls.disabled == False, cls.id != id)).all()
         for user in users:
             if check_password_hash(user.password, password):
                 return False
@@ -66,5 +73,6 @@ class User(UserMixin, db.Model):
 
     @classmethod
     def is_username_unique(cls, username, id=None):
+        """Check that the username is unique"""
         user = cls.query.filter(and_(cls.username == username, cls.id != id)).first()
         return not user

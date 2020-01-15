@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-14 17:10+0100\n"
-"PO-Revision-Date: 2020-01-14 17:10+0100\n"
+"POT-Creation-Date: 2020-01-15 10:45+0100\n"
+"PO-Revision-Date: 2020-01-15 10:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -25,27 +25,27 @@ msgstr "Utilisateurs"
 
 #: templates/auth/login.html:4 templates/base.html:12 forms.py:18
 msgid "Log In"
-msgstr "Se Connecter"
+msgstr "Se connecter"
 
-#: templates/auth/register.html:4
+#: templates/auth/register.html:6
+msgid "User Update"
+msgstr "Mise à jour de l'utilisateur"
+
+#: templates/auth/register.html:6
 msgid "User Registration"
 msgstr "Enregistrement de l'utilisateur"
 
-#: templates/auth/register.html:30 templates/auth/update.html:41
+#: templates/auth/register.html:42
+msgid "Delete User"
+msgstr "Supprimer l'utilisateur"
+
+#: templates/auth/register.html:45
 msgid ""
 "Note that generic account passwords are used as unique identifiers "
 "regardless of usernames."
 msgstr ""
 "Noter que les mots de passe de compte générique sont utilisés comme "
 "identifiants uniques indépendamment des noms d'utilisateur."
-
-#: templates/auth/update.html:4
-msgid "User Update"
-msgstr "Mise à jour de l'utilisateur"
-
-#: templates/auth/update.html:37
-msgid "Delete User"
-msgstr "Supprimer l'utilisateur"
 
 #: templates/base.html:2 templates/base.html:5
 msgid "Issues"
@@ -109,15 +109,15 @@ msgstr "Nom d'utilisateur ou mot de passe invalide"
 msgid "Username already registered"
 msgstr "Nom d'utilisateur déjà enregistré"
 
-#: auth.py:83 auth.py:120
-msgid "Password already used for another generic account"
-msgstr "Mot de passe déjà utilisé pour un autre compte générique"
+#: auth.py:81 auth.py:117
+msgid "Password already used for a generic account"
+msgstr "Mot de passe déjà utilisé pour un compte générique"
 
-#: auth.py:111
+#: auth.py:109
 msgid "Administrator may not be disabled."
 msgstr "Interdiction de désactiver l'administrateur"
 
-#: auth.py:113
+#: auth.py:111
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
 

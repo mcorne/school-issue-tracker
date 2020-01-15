@@ -12,7 +12,7 @@ from flask import (
 )
 from flask_babel import _
 from flask_login import login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 
 from sit_app import db
 from sit_app.forms import LoginForm, RegisterForm, UpdateForm
@@ -51,8 +51,10 @@ def login():  # TODO: fix to check password only for a generic account !!!
         user = User.get_user(form.username.data, form.password.data)
         if not user:
             user = User.get_generic_account(form.password.data)
+            user.username = form.username.data
         if user:
             login_user(user)
+            session["username"] = user.username
             next = None  # session.get("next") TODO: restore/fix since always redirecting to same URL; auth/1/update!
             if not is_safe_url(next):
                 return abort(400)
@@ -77,10 +79,8 @@ def register():
     if form.validate_on_submit():
         if not User.is_username_unique(form.username.data):
             flash(_("Username already registered"))
-        elif form.generic.data and not User.is_generic_user_password_unique(
-            form.password.data
-        ):
-            flash(_("Password already used for another generic account"))
+        elif User.is_generic_user_password_unique(form.password.data):
+            flash(_("Password already used for a generic account"))
         else:
             password = generate_password_hash(form.password.data)
             user = User(
@@ -104,7 +104,7 @@ def update(id):
     if not form.disabled.data and (
         user.disabled or not user.generic and form.generic.data
     ):
-        # force password to be reentered if user/account reenabled or changed to generic
+        # Force the password to be reentered if the user/account is reenabled or changed to generic
         form.set_password_required()
     if form.validate_on_submit():
         if id == 1 and form.disabled.data:
@@ -114,10 +114,9 @@ def update(id):
         elif (
             form.password.data
             and not form.disabled.data
-            and form.generic.data
             and not User.is_generic_user_password_unique(form.password.data, id)
         ):
-            flash(_("Password already used for another generic account"))
+            flash(_("Password already used for a generic account"))
         else:
             if not form.password.data:
                 form.password.data = user.password

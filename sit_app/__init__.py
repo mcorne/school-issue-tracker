@@ -1,7 +1,7 @@
 import os
 
 import click
-from flask import Flask
+from flask import Flask, session
 from flask.cli import with_appcontext
 from flask_babel import Babel, lazy_gettext
 from flask_debugtoolbar import DebugToolbarExtension
@@ -56,7 +56,10 @@ def create_app(test_config=None):
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        user = User.query.get(int(user_id))
+        if user and session.get("username"):
+            user.username = session["username"]
+        return user
 
     app.add_url_rule("/", endpoint="index")
 
