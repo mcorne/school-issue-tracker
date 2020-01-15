@@ -127,4 +127,4 @@ def update(id):
             db.session.commit()
             return redirect(url_for("auth.update", id=id))
 
-    return render_template("auth/update.html", form=form, id=id)
+    return render_template("auth/register.html", form=form, id=id)

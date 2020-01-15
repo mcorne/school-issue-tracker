@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}{{ _('User Registration') }}{% endblock %}</h1>
+<h1>
+    {% block title %}
+    {{ _('User Update') if id is defined else _('User Registration') }}
+    {% endblock %}
+</h1>
 {% endblock %}
 
 {% block content %}
@@ -20,12 +24,23 @@
     {{ form.role }}
     {% for error in form.role.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
+    {% if id is defined and id != 1 %}
     {{ form.generic.label }}
     {{ form.generic }}
     {% for error in form.generic.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
+    {{ form.disabled.label }}
+    {{ form.disabled }}
+    {% for error in form.disabled.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+    {% endif %}
+
     {{ form.submit() }}
 </form>
+
+{% if id is defined and id != 1  %}
+<!-- TODO: or  id already used -->
+<div><a href="{{ url_for('auth.delete', id=id) }}">{{ _("Delete User") }}</a></div>
+{% endif %}
 
 {{ _('Note that generic account passwords are used as unique identifiers regardless of usernames.') }}
 {% endblock %}
