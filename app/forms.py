@@ -10,7 +10,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired
 
-from sit_app.models.user import Role
+from app.models.user import Role
 
 
 class LoginForm(FlaskForm):

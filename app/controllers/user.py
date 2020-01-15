@@ -14,11 +14,11 @@ from flask_babel import _
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import generate_password_hash
 
-from sit_app import db
-from sit_app.forms import LoginForm, RegisterForm, UpdateForm
-from sit_app.models.orm import User
-from sit_app.models.user import UserList
-from sit_app.helpers import is_safe_url
+from app import db
+from app.forms import LoginForm, RegisterForm, UpdateForm
+from app.models.orm import User
+from app.models.user import UserList
+from app.helpers import is_safe_url
 from sqlalchemy import and_
 
 bp = Blueprint("user", __name__, url_prefix="/user")

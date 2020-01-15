@@ -3,9 +3,9 @@ from flask_babel import _
 from flask_login import current_user, login_required
 from werkzeug.exceptions import abort
 
-from sit_app import db
-from sit_app.forms import PostForm
-from sit_app.models.orm import Post, User
+from app import db
+from app.forms import PostForm
+from app.models.orm import Post, User
 
 bp = Blueprint("issue", __name__)
 

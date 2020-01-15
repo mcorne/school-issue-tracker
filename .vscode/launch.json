@@ -17,7 +17,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "sit_app",
+                "FLASK_APP": "app",
                 "FLASK_ENV": "development",
                 // legacy, see https://flask.palletsprojects.com/en/1.1.x/cli/#debug-mode
                 // debug mode set automatically in development env

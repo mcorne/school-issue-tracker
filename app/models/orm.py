@@ -5,8 +5,8 @@ from sqlalchemy import and_
 from sqlalchemy.sql import expression
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from sit_app import db
-from sit_app.forms import Role
+from app import db
+from app.forms import Role
 
 db.Model.__table_args__ = {"sqlite_autoincrement": True}
 db.Model.created = db.Column(
