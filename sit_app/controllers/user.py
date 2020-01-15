@@ -21,14 +21,14 @@ from sit_app.models.user import UserList
 from sit_app.helpers import is_safe_url
 from sqlalchemy import and_
 
-bp = Blueprint("auth", __name__, url_prefix="/auth")
+bp = Blueprint("user", __name__, url_prefix="/user")
 
 
 @bp.route("/")
 @login_required
 def index():
     users = User.query.all()
-    return render_template("auth/index.html", table=UserList(users))
+    return render_template("user/index.html", table=UserList(users))
 
 
 @bp.route("/<int:id>/delete", methods=("GET", "POST"))
@@ -41,7 +41,7 @@ def delete(id):
         db.session.delete(user)
         db.session.commit()
 
-    return redirect(url_for("auth.index"))
+    return redirect(url_for("user.index"))
 
 
 @bp.route("/login", methods=("GET", "POST"))
@@ -55,14 +55,14 @@ def login():
         if user:
             login_user(user)
             session["username"] = user.username
-            next = None  # session.get("next") TODO: restore/fix since always redirecting to same URL; auth/1/update!
+            next = None  # session.get("next") TODO: restore/fix since always redirecting to same URL; user/1/update!
             if not is_safe_url(next):
                 return abort(400)
             return redirect(next or url_for("index"))
 
         flash(_("Invalid username or password"))
 
-    return render_template("auth/login.html", form=form)
+    return render_template("user/login.html", form=form)
 
 
 @bp.route("/logout")
@@ -91,9 +91,9 @@ def register():
             )
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for("auth.index"))
+            return redirect(url_for("user.index"))
 
-    return render_template("auth/register.html", form=form)
+    return render_template("user/register.html", form=form)
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
@@ -124,6 +124,6 @@ def update(id):
                 form.password.data = generate_password_hash(form.password.data)
             form.populate_obj(user)
             db.session.commit()
-            return redirect(url_for("auth.update", id=id))
+            return redirect(url_for("user.update", id=id))
 
-    return render_template("auth/register.html", form=form, id=id)
+    return render_template("user/register.html", form=form, id=id)

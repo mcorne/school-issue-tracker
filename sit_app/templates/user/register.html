@@ -39,7 +39,7 @@
 
 {% if id is defined and id != 1  %}
 <!-- TODO: or  id already used -->
-<div><a href="{{ url_for('auth.delete', id=id) }}" data-confirmation="{{ _('Are you sure?') }}"
+<div><a href="{{ url_for('user.delete', id=id) }}" data-confirmation="{{ _('Are you sure?') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Delete User') }}</a>
 </div>
 {% endif %}

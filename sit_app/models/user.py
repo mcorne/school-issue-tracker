@@ -35,7 +35,7 @@ class Role(Enum):
 class UserList(Table):
     id = LinkCol(
         _l("Username"),
-        "auth.update",
+        "user.update",
         attr="username",
         url_kwargs=dict(id="id"),  # TODO: escape with flask markup
     )

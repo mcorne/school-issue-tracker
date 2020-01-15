@@ -40,7 +40,7 @@ def create_app(test_config=None):
 
     app.debug = True
     login_manager.login_message = lazy_gettext("Please log in to access this page.")
-    login_manager.login_view = "auth.login"
+    login_manager.login_view = "user.login"
 
     babel.init_app(app)
     db.init_app(app)
@@ -48,12 +48,12 @@ def create_app(test_config=None):
     toolbar.init_app(app)
 
     from . import filters
-    from .controllers import auth, issue
+    from .controllers import issue, user
     from .models.orm import User
 
-    app.register_blueprint(auth.bp)
     app.register_blueprint(filters.bp)
     app.register_blueprint(issue.bp)
+    app.register_blueprint(user.bp)
 
     @login_manager.user_loader
     def load_user(user_id):
