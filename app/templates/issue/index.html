@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}{{ _('Posts') }}{% endblock %}</h1>
+<h1>{% block title %}{{ _('Issues') }}{% endblock %}</h1>
 {% if current_user.is_authenticated %}
 <a class="action" href="{{ url_for('issue.create') }}">{{ _('New') }}</a>
 {% endif %}
 {% endblock %}
 
 {% block content %}
-{% for post in posts %}
-<article class="post">
+{% for issue in issues %}
+<article class="issue">
     <header>
         <div>
-            <h1>{{ post.title }}</h1>
+            <h1>{{ issue.title }}</h1>
             <div class="about">
-                {{ _('by %(username)s on %(datetime)s', username=post.author.username, datetime=post.created|local_datetime) }}
+                {{ _('by %(username)s on %(datetime)s', username=issue.user.username, datetime=issue.created|local_datetime) }}
             </div>
         </div>
-        {% if current_user.id == post.author_id %}
-        <a class="action" href="{{ url_for('issue.update', id=post.id) }}">{{ _('Edit') }}</a>
+        {% if current_user.id == issue.user_id %}
+        <a class="action" href="{{ url_for('issue.update', id=issue.id) }}">{{ _('Edit') }}</a>
         {% endif %}
     </header>
-    <p class="body">{{ post.body }}</p>
+    <p class="description">{{ issue.description }}</p>
 </article>
 {% if not loop.last %}
 <hr>

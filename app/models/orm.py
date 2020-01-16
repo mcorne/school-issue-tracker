@@ -6,22 +6,27 @@ from sqlalchemy.sql import expression
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
-from app.forms import Role
+from app.models.issue import Site, Type
+from app.models.user import Role
 
 db.Model.__table_args__ = {"sqlite_autoincrement": True}
-db.Model.created = db.Column(
-    db.DateTime, nullable=False, server_default=db.text("CURRENT_TIMESTAMP")
-)
 db.Model.id = db.Column(db.Integer, primary_key=True)
+db.Model.created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 db.Model.updated = db.Column(db.DateTime, onupdate=datetime.utcnow())
 
 
-class Post(db.Model):
-    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    body = db.Column(db.Text, nullable=False)
+class Issue(db.Model):
+    closed = db.Column(db.DateTime)
+    computer_number = db.Column(db.Text)  # for computer related issues
+    description = db.Column(db.Text)
+    location = db.Column(db.Text, nullable=False)
+    site = db.Column(db.Enum(Site), nullable=False)
     title = db.Column(db.Text, nullable=False)
+    type = db.Column(db.Enum(Type), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    username = db.Column(db.Text)  # for generic accounts, null for regular users
 
-    author = db.relationship("User", back_populates="posts")
+    user = db.relationship("User", back_populates="issues")
 
 
 class User(UserMixin, db.Model):
@@ -31,7 +36,7 @@ class User(UserMixin, db.Model):
     role = db.Column(db.Enum(Role), nullable=False)
     username = db.Column(db.Text, nullable=False, unique=True)
 
-    posts = db.relationship("Post", back_populates="author", lazy="dynamic")
+    issues = db.relationship("Issue", back_populates="user", lazy="dynamic")
 
     @classmethod
     def create_admin(cls):

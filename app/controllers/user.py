@@ -1,25 +1,16 @@
 import functools
 
-from flask import (
-    Blueprint,
-    abort,
-    flash,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import Blueprint, abort, flash, redirect, render_template, session, url_for
 from flask_babel import _
 from flask_login import login_required, login_user, logout_user
+from sqlalchemy import and_
 from werkzeug.security import generate_password_hash
 
 from app import db
 from app.forms import LoginForm, RegisterForm, UpdateForm
+from app.helpers import is_safe_url
 from app.models.orm import User
 from app.models.user import UserList
-from app.helpers import is_safe_url
-from sqlalchemy import and_
 
 bp = Blueprint("user", __name__, url_prefix="/user")
 
@@ -51,7 +42,8 @@ def login():
         user = User.get_user(form.username.data, form.password.data)
         if not user:
             user = User.get_generic_account(form.password.data)
-            user.username = form.username.data
+            if user:
+                user.username = form.username.data
         if user:
             login_user(user)
             session["username"] = user.username

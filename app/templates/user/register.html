@@ -24,11 +24,13 @@
     {{ form.role }}
     {% for error in form.role.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-    {% if id is defined and id != 1 %}
+    {% if id is not defined or id != 1 %}
     {{ form.generic.label }}
     {{ form.generic }}
     {% for error in form.generic.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+    {% endif %}
 
+    {% if id is defined and id != 1 %}
     {{ form.disabled.label }}
     {{ form.disabled }}
     {% for error in form.disabled.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}

@@ -58,8 +58,8 @@ def create_app(test_config=None):
     @login_manager.user_loader
     def load_user(user_id):
         user = User.query.get(int(user_id))
-        if user and session.get("username"):
-            user.username = session["username"]
+        if user:
+            user.username = session.get("username")
         return user
 
     app.add_url_rule("/", endpoint="index")

@@ -12,8 +12,8 @@
     {{ form.title }}
     {% for error in form.title.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-    {{ form.body.label }}
-    {{ form.body }}
+    {{ form.description.label }}
+    {{ form.description }}
 
     {{ form.submit() }}
 </form>
