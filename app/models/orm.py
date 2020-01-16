@@ -62,9 +62,12 @@ class User(UserMixin, db.Model):
         if user and check_password_hash(user.password, password):
             return user
 
+    def has_issues(self):
+        return bool(self.issues.first())
+
     @classmethod
     def is_generic_user_password_unique(cls, password, id=None):
-        """Check the generic account password is unique
+        """Check that the generic account password is unique
 
         Generic account passwords must be unique accross all passwords including user passwords.
         If a generic account and a user shared the same password, a user mistyping his/her username

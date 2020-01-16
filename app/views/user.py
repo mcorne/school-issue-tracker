@@ -27,7 +27,9 @@ def index():
 def delete(id):
     user = User.query.get_or_404(id)
     if id == 1:
-        flash(_("Administrator may not be deleted"))
+        flash(_("Administrator cannot be deleted"))
+    elif user.has_issues():
+        flash(_("User with issues cannot be deleted"))
     else:
         db.session.delete(user)
         db.session.commit()
@@ -92,6 +94,7 @@ def register():
 @login_required
 def update(id):
     user = User.query.get_or_404(id)
+    has_issues = user.has_issues()
     form = UpdateForm(obj=user)
     if not form.disabled.data and (
         user.disabled or not user.generic and form.generic.data
@@ -118,4 +121,6 @@ def update(id):
             db.session.commit()
             return redirect(url_for("user.update", id=id))
 
-    return render_template("user/register.html", form=form, id=id)
+    return render_template(
+        "user/register.html", form=form, has_issues=has_issues, id=id
+    )

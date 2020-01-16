@@ -23,7 +23,7 @@ CREATE TABLE user (
 	CONSTRAINT role CHECK (role IN ('admin', 'teacher', 'it_technician', 'it_manager', 'service_agent', 'service_manager')), 
 	UNIQUE (username)
 );
-INSERT INTO user VALUES(1,'2020-01-16 11:43:18.726812',NULL,0,0,'pbkdf2:sha256:150000$kmq1GkZH$00b43cf4ba55d2ece52f6f5f1eb0824560862900262aa75befafd5404e6e08d8','admin','admin');
+INSERT INTO user VALUES(1,'2020-01-16 15:13:46.773282',NULL,0,0,'pbkdf2:sha256:150000$RZDEP3Jt$490fd3cb3d87eff39b8d7f6653b692fd806cbd96cf15d6857c95a4099b8e5ace','admin','admin');
 CREATE TABLE issue (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
 	created DATETIME NOT NULL, 

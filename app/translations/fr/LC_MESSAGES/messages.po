@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 16:13+0100\n"
-"PO-Revision-Date: 2020-01-15 16:13+0100\n"
+"POT-Creation-Date: 2020-01-16 16:20+0100\n"
+"PO-Revision-Date: 2020-01-16 16:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,35 +19,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/auth/index.html:4
-msgid "Users"
-msgstr "Utilisateurs"
-
-#: templates/auth/login.html:4 templates/base.html:12 forms.py:18
-msgid "Log In"
-msgstr "Se connecter"
-
-#: templates/auth/register.html:6
-msgid "User Update"
-msgstr "Mise à jour de l'utilisateur"
-
-#: templates/auth/register.html:6
-msgid "User Registration"
-msgstr "Enregistrement de l'utilisateur"
-
-#: templates/auth/register.html:43
-msgid "Delete User"
-msgstr "Supprimer l'utilisateur"
-
-#: templates/auth/register.html:47
-msgid ""
-"Note that generic account passwords are used as unique identifiers "
-"regardless of usernames."
-msgstr ""
-"Noter que les mots de passe de compte générique sont utilisés comme "
-"identifiants uniques indépendamment des noms d'utilisateur."
-
-#: templates/base.html:2 templates/base.html:5
+#: templates/base.html:2 templates/base.html:5 templates/issue/index.html:4
 msgid "Issues"
 msgstr "Problèmes"
 
@@ -59,13 +31,13 @@ msgstr "Se déconnecter"
 msgid "Register"
 msgstr "S'inscrire"
 
-#: templates/issue/create.html:4
-msgid "New Post"
-msgstr "Nouvel article"
+#: templates/base.html:12 templates/user/login.html:4 forms.py:42
+msgid "Log In"
+msgstr "Se connecter"
 
-#: templates/issue/index.html:4
-msgid "Posts"
-msgstr "Articles"
+#: templates/issue/create.html:4
+msgid "New Issue"
+msgstr "Nouveau Problème"
 
 #: templates/issue/index.html:6
 msgid "New"
@@ -93,69 +65,99 @@ msgstr "Supprimer"
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
+#: templates/user/index.html:4
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: templates/user/register.html:6
+msgid "User Update"
+msgstr "Mise à jour de l'utilisateur"
+
+#: templates/user/register.html:6
+msgid "User Registration"
+msgstr "Enregistrement de l'utilisateur"
+
+#: templates/user/register.html:44
+msgid "Delete User"
+msgstr "Supprimer l'utilisateur"
+
+#: templates/user/register.html:45
+msgid "Please confirm"
+msgstr "Veuillez confirmer"
+
+#: templates/user/register.html:49
+msgid ""
+"Note that generic account passwords are used as unique identifiers "
+"regardless of usernames."
+msgstr ""
+"Noter que les mots de passe de compte générique sont utilisés comme "
+"identifiants uniques indépendamment des noms d'utilisateur."
+
 #: __init__.py:42
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
-#: controllers/auth.py:39
-msgid "Administrator may not be deleted"
-msgstr "Interdiction de supprimer l'administrateur"
+#: forms.py:19
+msgid "Computer Number (if applicable)"
+msgstr "Numéro d'ordinateur (le cas échéant)"
 
-#: controllers/auth.py:63
-msgid "Invalid username or password"
-msgstr "Nom d'utilisateur ou mot de passe invalide"
+#: forms.py:20
+msgid "Description"
+msgstr "Description"
 
-#: controllers/auth.py:81
-msgid "Username already registered"
-msgstr "Nom d'utilisateur déjà enregistré"
+#: forms.py:22
+msgid "Location (classroom, building, outside etc.)"
+msgstr "Emplacement (salle de classe, bâtiment, extérieur, etc.)"
 
-#: controllers/auth.py:83 controllers/auth.py:119
-msgid "Password already used for a generic account"
-msgstr "Mot de passe déjà utilisé pour un compte générique"
+#: forms.py:25
+msgid "Site"
+msgstr "Site"
 
-#: controllers/auth.py:111
-msgid "Administrator may not be disabled"
-msgstr "Interdiction de désactiver l'administrateur"
-
-#: controllers/auth.py:113
-msgid "Username already used"
-msgstr "Nom d'utilisateur déjà utilisé"
-
-#: forms.py:17 forms.py:30 forms.py:46
-msgid "Password"
-msgstr "Mot de passe"
-
-#: forms.py:19 forms.py:38 models/user.py:37
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: forms.py:23
-msgid "Body"
-msgstr "Corps"
-
-#: forms.py:24 forms.py:37
+#: forms.py:30 forms.py:55
 msgid "Save"
 msgstr "Enregistrer"
 
-#: forms.py:25
-msgid "Title"
-msgstr "Titre"
+#: forms.py:31
+msgid "Subject"
+msgstr "Sujet"
 
-#: forms.py:29
+#: forms.py:33
+msgid "Type"
+msgstr "Type"
+
+#: forms.py:41 forms.py:48 forms.py:64
+msgid "Password"
+msgstr "Mot de passe"
+
+#: forms.py:43 forms.py:56 models/user.py:37
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: forms.py:47
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:32 models/user.py:42
+#: forms.py:50 models/user.py:42
 msgid "Role"
 msgstr "Rôle"
 
-#: forms.py:42
+#: forms.py:60
 msgid "Account Disabled"
 msgstr "Compte désactivé"
 
-#: forms.py:43
+#: forms.py:61
 msgid "Password (leave blank if unchanged)"
 msgstr "Mot de passe (laisser vide si inchangé)"
+
+#: models/issue.py:30
+msgid "Computer related issue or request"
+msgstr "Problème ou demande informatique"
+
+#: models/issue.py:32
+msgid ""
+"Technical issue (heating, electricity, broken equipment, cleanliness etc.)"
+msgstr ""
+"Problème technique (chauffage, électricité, équipement cassé, propreté, etc.)"
 
 #: models/user.py:8
 msgid "Administrator"
@@ -200,6 +202,46 @@ msgstr "Non"
 #: models/user.py:44
 msgid "Disabled"
 msgstr "Désactivé"
+
+#: views/user.py:30
+msgid "Administrator cannot be deleted"
+msgstr "Interdiction de supprimer l'administrateur"
+
+#: views/user.py:32
+msgid "User with issues cannot be deleted"
+msgstr "Interdiction de supprimer un utilisateur avec des problèmes"
+
+#: views/user.py:57
+msgid "Invalid username or password"
+msgstr "Nom d'utilisateur ou mot de passe invalide"
+
+#: views/user.py:75
+msgid "Username already registered"
+msgstr "Nom d'utilisateur déjà enregistré"
+
+#: views/user.py:77 views/user.py:114
+msgid "Password already used for a generic account"
+msgstr "Mot de passe déjà utilisé pour un compte générique"
+
+#: views/user.py:106
+msgid "Administrator may not be disabled"
+msgstr "Interdiction de désactiver l'administrateur"
+
+#: views/user.py:108
+msgid "Username already used"
+msgstr "Nom d'utilisateur déjà utilisé"
+
+#~ msgid "New Post"
+#~ msgstr "Nouvel article"
+
+#~ msgid "Posts"
+#~ msgstr "Articles"
+
+#~ msgid "Body"
+#~ msgstr "Corps"
+
+#~ msgid "Title"
+#~ msgstr "Titre"
 
 #~ msgid "Incorrect username"
 #~ msgstr "Nom d'utilisateur incorrect"
