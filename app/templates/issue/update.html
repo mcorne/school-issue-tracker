@@ -8,19 +8,9 @@
 <form method="post">
     {{ form.hidden_tag() }}
 
-    {{ form.title.label }}
-    {{ form.title }}
-    {% for error in form.title.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
-
-    {{ form.description.label }}
-    {{ form.description }}
+    {{ form.content.label }}
+    {{ form.content }}
 
     {{ form.submit() }}
-</form>
-<hr>
-<form action="{{ url_for('issue.delete', id=id) }}" method="post">
-    <button class="danger" type="submit"
-        onclick="return confirm('{{ _("Are you sure?") }}');">{{ _('Delete') }}</button>
-    <!-- _("Are you sure?") is needed here for gettext extraction -->
 </form>
 {% endblock %}

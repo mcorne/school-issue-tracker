@@ -25,8 +25,19 @@ class Issue(db.Model):
     type = db.Column(db.Enum(Type), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     username = db.Column(db.Text)  # for generic accounts, null for regular users
-
+    # links
     user = db.relationship("User", back_populates="issues")
+    messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
+
+
+class Message(db.Model):
+    content = db.Column(db.Text)
+    issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    username = db.Column(db.Text)  # for generic accounts, null for regular users
+    # links
+    issue = db.relationship("Issue", back_populates="messages")
+    user = db.relationship("User", back_populates="messages")
 
 
 class User(UserMixin, db.Model):
@@ -35,8 +46,9 @@ class User(UserMixin, db.Model):
     password = db.Column(db.Text, nullable=False)
     role = db.Column(db.Enum(Role), nullable=False)
     username = db.Column(db.Text, nullable=False, unique=True)
-
+    # links
     issues = db.relationship("Issue", back_populates="user", lazy="dynamic")
+    messages = db.relationship("Message", back_populates="user", lazy="dynamic")
 
     @classmethod
     def create_admin(cls):

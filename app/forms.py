@@ -43,6 +43,11 @@ class LoginForm(FlaskForm):
     username = StringField(_l("Username"), validators=[DataRequired()])
 
 
+class MessageForm(FlaskForm):
+    content = TextAreaField(_l("Content"))
+    submit = SubmitField(_l("Save"))
+
+
 class RegisterForm(FlaskForm):
     generic = BooleanField(_l("Generic Account"))
     password = PasswordField(_l("Password"), validators=[DataRequired()],)

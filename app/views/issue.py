@@ -4,8 +4,8 @@ from flask_login import current_user, login_required
 from werkzeug.exceptions import abort
 
 from app import db
-from app.forms import IssueForm
-from app.models.orm import Issue, User
+from app.forms import IssueForm, MessageForm
+from app.models.orm import Issue, Message, User
 
 bp = Blueprint("issue", __name__)
 
@@ -42,23 +42,25 @@ def create():
     return render_template("issue/create.html", form=form)
 
 
-@bp.route("/<int:id>/delete", methods=("POST",))
-@login_required
-def delete(id):
-    issue = Issue.query.get_or_404(id)
-    db.session.delete(issue)
-    db.session.commit()
-    return redirect(url_for("issue.index"))
-
-
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
     issue = Issue.query.get_or_404(id)
-    form = IssueForm(obj=issue)
+    messages = issue.messages.all()  # TODO: fix !!!
+    form = MessageForm()
     if form.validate_on_submit():
-        form.populate_obj(issue)
+        if current_user.generic:  # TODO: refactor !!!
+            username = session.get("username")
+        else:
+            username = None
+        message = Message(
+            content=form.content.data,
+            issue_id=id,
+            user_id=current_user.id,
+            username=username,
+        )
+        db.session.add(message)
         db.session.commit()
-        return redirect(url_for("issue.index"))
+        return redirect(url_for("issue.update", id=id))
 
     return render_template("issue/update.html", form=form, id=id)
