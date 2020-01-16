@@ -48,7 +48,7 @@ def create_app(test_config=None):
     toolbar.init_app(app)
 
     from . import filters
-    from .controllers import issue, user
+    from .views import issue, user
     from .models.orm import User
 
     app.register_blueprint(filters.bp)
