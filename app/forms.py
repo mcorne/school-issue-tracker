@@ -23,7 +23,7 @@ class IssueForm(FlaskForm):
     )
     site = RadioField(
         _l("Site"),
-        choices=Site.get_choices(),
+        choices=Site.get_options(),
         coerce=Site.coerce,
         validators=[DataRequired()],
     )
@@ -31,7 +31,7 @@ class IssueForm(FlaskForm):
     title = StringField(_l("Subject"), validators=[DataRequired()])
     type = RadioField(
         _l("Type"),
-        choices=Type.get_choices(),
+        choices=Type.get_options(),
         coerce=Type.coerce,
         validators=[DataRequired()],
     )
@@ -48,7 +48,7 @@ class RegisterForm(FlaskForm):
     password = PasswordField(_l("Password"), validators=[DataRequired()],)
     role = SelectField(
         _l("Role"),
-        choices=Role.get_choices(),
+        choices=Role.get_options(_l("-- Choose a role --")),
         coerce=Role.coerce,
         validators=[DataRequired()],
     )
