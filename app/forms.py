@@ -16,7 +16,7 @@ from app.models.user import Role
 
 
 class IssueForm(FlaskForm):
-    computer_number = StringField(_l("Computer Number (if applicable)"))
+    computer_number = StringField(_l("Equipment Number (if applicable)"))
     description = TextAreaField(_l("Description"))
     location = StringField(
         _l("Location (classroom, building, outside etc.)"), validators=[DataRequired()]
