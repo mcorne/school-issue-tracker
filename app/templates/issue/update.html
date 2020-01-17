@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}{{ _('Edit "%(title)s"', title=form.title.data) }}{% endblock %}</h1>
+<h1>{% block title %}{{ issue.title }}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
+<div>{{ _('Computer issue') if issue.type.name == "computer" else _('Technical issue') }}</div>
+<div>{{ _('opened by %(username)s', username=issue.username) }}</div>
+<div>{{ _('on %(datetime)s', datetime=issue.created|local_datetime) }}</div>
+{% if issue.closed %}
+<div>{{ _('closed on %(datetime)s', datetime=issue.closed|local_datetime) }}</div>
+{% endif %}
+<div>{{ _('at %(site)s - %(location)s', site=issue.site, location=issue.location) }}</div>
+{% if issue.computer_number %}
+<div>{{ _('Computer(s): %(computer_number)s', computer_number=issue.computer_number) }}</div>
+{% endif %}
+{% if issue.description %}
+<div>{{ issue.description }}</div>
+{% endif %}
+<hr>
 <form method="post">
     {{ form.hidden_tag() }}
 

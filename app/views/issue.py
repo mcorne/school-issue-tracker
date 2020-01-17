@@ -46,7 +46,9 @@ def create():
 @login_required
 def update(id):
     issue = Issue.query.get_or_404(id)
-    messages = issue.messages.all()  # TODO: fix !!!
+    if not issue.username:
+        issue.username = issue.user.username
+    messages = issue.messages.all()
     form = MessageForm()
     if form.validate_on_submit():
         if current_user.generic:  # TODO: refactor !!!
@@ -63,4 +65,6 @@ def update(id):
         db.session.commit()
         return redirect(url_for("issue.update", id=id))
 
-    return render_template("issue/update.html", form=form, id=id)
+    return render_template(
+        "issue/update.html", form=form, id=id, issue=issue, messages=messages
+    )
