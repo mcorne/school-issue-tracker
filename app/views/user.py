@@ -1,9 +1,18 @@
 import functools
 
-from flask import Blueprint, abort, flash, redirect, render_template, session, url_for
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_babel import _
 from flask_login import login_required, login_user, logout_user
-from sqlalchemy import and_
+from sqlalchemy import and_, desc
 from werkzeug.security import generate_password_hash
 
 from app import db
@@ -18,8 +27,13 @@ bp = Blueprint("user", __name__, url_prefix="/user")
 @bp.route("/")
 @login_required
 def index():
-    users = User.query.all()
-    return render_template("user/index.html", table=UserList(users))
+    sort = request.args.get("sort", "username")
+    reverse = request.args.get("direction", "asc") == "desc"
+    if reverse:
+        sort = desc(sort)
+    users = User.query.order_by(sort).all()
+    table = UserList(users, sort_by=sort, sort_reverse=reverse)
+    return render_template("user/index.html", table=table)
 
 
 @bp.route("/<int:id>/delete", methods=("GET", "POST"))
