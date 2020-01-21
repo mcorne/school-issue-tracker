@@ -21,10 +21,6 @@ def index():
 def create():
     form = IssueForm()
     if form.validate_on_submit():
-        if current_user.generic:
-            username = session.get("username")
-        else:
-            username = None
         issue = Issue(
             computer_number=form.computer_number.data,
             description=form.description.data,
@@ -32,8 +28,8 @@ def create():
             site=form.site.data,
             title=form.title.data,
             type=form.type.data,
-            username=username,
             user_id=current_user.id,
+            username=Issue.get_username(),
         )
         db.session.add(issue)
         db.session.commit()
@@ -51,15 +47,11 @@ def update(id):
     messages = issue.messages.all()
     form = MessageForm()
     if form.validate_on_submit():
-        if current_user.generic:  # TODO: refactor !!!
-            username = session.get("username")
-        else:
-            username = None
         message = Message(
             content=form.content.data,
             issue_id=id,
             user_id=current_user.id,
-            username=username,
+            username=Issue.get_username(),
         )
         db.session.add(message)
         db.session.commit()

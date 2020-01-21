@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from flask_login import UserMixin
+from flask import session
+from flask_login import UserMixin, current_user
 from sqlalchemy import and_
 from sqlalchemy.sql import expression
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -28,6 +29,14 @@ class Issue(db.Model):
     # links
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
+
+    @staticmethod
+    def get_username():
+        if current_user.generic:
+            username = session.get("username")
+        else:
+            username = None
+        return username
 
 
 class Message(db.Model):
