@@ -13,6 +13,19 @@ class Role(BaseEnum):
     service_agent = _l("Service Agent")
     service_manager = _l("Service Manager")
 
+    def get_default_url(self):
+        urls = {
+            "admin": {"endpoint": "issue.index"},
+            "teacher": {"endpoint": "issue.create"},
+            "it_technician": {"endpoint": "issue.index", "type": "computer"},
+            "it_manager": {"endpoint": "issue.index", "type": "computer"},
+            "service_agent": {"endpoint": "issue.index", "type": "other"},
+            "service_manager": {"endpoint": "issue.index", "type": "other"},
+        }
+        if self.name not in urls:
+            raise ValueError("Unexpected role: {}".format(self.name))
+        return urls[self.name]
+
 
 class UserList(Table):
     username = LinkCol(

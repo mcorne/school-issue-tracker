@@ -29,7 +29,7 @@
 <hr>
 
 {% for message in messages %}
-<div>{{ _('Response from %(username)s on %(datetime)s',
+<div>{{ _('Message from %(username)s on %(datetime)s',
     username=message.username if message.username else message.user.username,
     datetime=message.created|local_datetime
     ) }}

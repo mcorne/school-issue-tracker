@@ -12,7 +12,11 @@ bp = Blueprint("issue", __name__)
 
 @bp.route("/")
 def index():
-    issues = Issue.query.all()
+    query = Issue.query
+    type = request.args.get("type")
+    if type:
+        query = query.filter_by(type=type)
+    issues = query.all()
     return render_template("issue/index.html", issues=issues)
 
 

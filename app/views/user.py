@@ -63,10 +63,19 @@ def login():
         if user:
             login_user(user)
             session["username"] = user.username
+
             next = None  # session.get("next") TODO: restore/fix since always redirecting to same URL; user/1/update!
             if not is_safe_url(next):
                 return abort(400)
-            return redirect(next or url_for("index"))
+            if next:
+                return redirect(next)
+
+            url = user.role.get_default_url()
+            if "type" in url and url["type"]:
+                location = url_for(url["endpoint"], type=url["type"])
+            else:
+                location = url_for(url["endpoint"])
+            return redirect(location)
 
         flash(_("Invalid username or password"))
 
@@ -77,7 +86,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+    return redirect(url_for("user.login"))
 
 
 @bp.route("/register", methods=("GET", "POST"))

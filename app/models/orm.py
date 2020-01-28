@@ -71,7 +71,7 @@ class User(UserMixin, db.Model):
     @classmethod
     def get_generic_account(cls, password):
         """Return the generic account with the given password"""
-        users = cls.query.filter(and_(cls.disabled == False, cls.generic == True)).all()
+        users = cls.query.filter_by(disabled=False, generic=True).all()
         for user in users:
             if check_password_hash(user.password, password):
                 return user
