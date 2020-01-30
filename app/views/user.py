@@ -53,6 +53,8 @@ def delete(id):
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
+    session["username"] = None
+    session["urls"] = {}
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get_user(form.username.data, form.password.data)
@@ -63,6 +65,7 @@ def login():
         if user:
             login_user(user)
             session["username"] = user.username
+            session["urls"] = user.role.get_urls()
 
             next = None  # session.get("next") TODO: restore/fix since always redirecting to same URL; user/1/update!
             if not is_safe_url(next):
@@ -71,10 +74,7 @@ def login():
                 return redirect(next)
 
             url = user.role.get_default_url()
-            if "type" in url and url["type"]:
-                location = url_for(url["endpoint"], type=url["type"])
-            else:
-                location = url_for(url["endpoint"])
+            location = url_for(url["endpoint"], **url["values"])
             return redirect(location)
 
         flash(_("Invalid username or password"))
@@ -85,6 +85,8 @@ def login():
 @bp.route("/logout")
 @login_required
 def logout():
+    session.pop('urls', None)
+    session.pop('username', None)
     logout_user()
     return redirect(url_for("user.login"))
 

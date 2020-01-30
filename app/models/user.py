@@ -17,14 +17,49 @@ class Role(BaseEnum):
         urls = {
             "admin": {"endpoint": "issue.index"},
             "teacher": {"endpoint": "issue.create"},
-            "it_technician": {"endpoint": "issue.index", "type": "computer"},
-            "it_manager": {"endpoint": "issue.index", "type": "computer"},
-            "service_agent": {"endpoint": "issue.index", "type": "other"},
-            "service_manager": {"endpoint": "issue.index", "type": "other"},
+            "it_technician": {"endpoint": "issue.index", "values": {"type": "computer"}},
+            "it_manager": {"endpoint": "issue.index", "values": {"type": "computer"}},
+            "service_agent": {"endpoint": "issue.index", "values": {"type": "other"}},
+            "service_manager": {"endpoint": "issue.index", "values": {"type": "other"}},
         }
         if self.name not in urls:
             raise ValueError("Unexpected role: {}".format(self.name))
-        return urls[self.name]
+        url = urls[self.name]
+        if "values" not in url:
+            url["values"] = {}
+        return url
+
+    def get_urls(self):
+        urls = {
+            "admin": [
+                {"text": _l("Issues"), "endpoint": "issue.index"},
+                {"text": _l("Users"), "endpoint": "user.index"},
+            ],
+            "teacher": [
+                {"text": _l("Issues"), "endpoint": "issue.index"},
+            ],
+            "it_technician": [
+                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "computer"}},
+            ],
+            "it_manager": [
+                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "computer"}},
+                {"text": _l("IT Technicians"), "endpoint": "user.index", "values": {"role": "it_technician"}},
+            ],
+            "service_agent": [
+                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "other"}},
+            ],
+            "service_manager": [
+                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "other"}},
+                {"text": _l("Service Agents"), "endpoint": "user.index", "values": {"role": "service_agent"}},
+            ],
+        }
+        if self.name not in urls:
+            raise ValueError("Unexpected role: {}".format(self.name))
+        urls = urls[self.name]
+        for url in urls:
+            if "values" not in url:
+                url["values"] = {}
+        return urls
 
 
 class UserList(Table):
