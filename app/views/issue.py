@@ -11,6 +11,7 @@ bp = Blueprint("issue", __name__)
 
 
 @bp.route("/")
+@login_required
 def index():
     query = Issue.query
     type = request.args.get("type")
