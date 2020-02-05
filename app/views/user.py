@@ -16,7 +16,7 @@ from sqlalchemy import and_, desc
 from werkzeug.security import generate_password_hash
 
 from app import db
-from app.forms import LoginForm, RegisterForm, UpdateForm
+from app.forms import LoginForm, UserCreateForm, UserUpdateForm
 from app.helpers import is_safe_url
 from app.models.orm import User
 from app.models.user import UserList
@@ -85,16 +85,16 @@ def login():
 @bp.route("/logout")
 @login_required
 def logout():
-    session.pop('urls', None)
-    session.pop('username', None)
+    session.pop("urls", None)
+    session.pop("username", None)
     logout_user()
     return redirect(url_for("user.login"))
 
 
-@bp.route("/register", methods=("GET", "POST"))
+@bp.route("/create", methods=("GET", "POST"))
 @login_required
-def register():
-    form = RegisterForm()
+def create():
+    form = UserCreateForm()
     if form.validate_on_submit():
         if not User.is_username_unique(form.username.data):
             flash(_("Username already registered"))
@@ -112,7 +112,7 @@ def register():
             db.session.commit()
             return redirect(url_for("user.index"))
 
-    return render_template("user/register.html", form=form)
+    return render_template("user/edit.html", form=form)
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
@@ -120,7 +120,7 @@ def register():
 def update(id):
     user = User.query.get_or_404(id)
     has_issues = user.has_issues()
-    form = UpdateForm(obj=user)
+    form = UserUpdateForm(obj=user)
     if not form.disabled.data and (
         user.disabled or not user.generic and form.generic.data
     ):
@@ -147,5 +147,5 @@ def update(id):
             return redirect(url_for("user.update", id=id))
 
     return render_template(
-        "user/register.html", form=form, has_issues=has_issues, id=id
+        "user/edit.html", form=form, has_issues=has_issues, id=id
     )

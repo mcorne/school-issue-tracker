@@ -8,7 +8,6 @@
         <li><span>{{ current_user.username}}</span>
         <li><a href="{{ url_for('user.logout') }}">{{ _('Log Out') }}</a>
             {% else %}
-        <li><a href="{{ url_for('user.register') }}">{{ _('Register') }}</a>
         <li><a href="{{ url_for('user.login') }}">{{ _('Log In') }}</a>
             {% endif %}
     </ul>

@@ -4,4 +4,7 @@
 <h1>{% block title %}{{ _('Users') }}{% endblock %}</h1>
 {% endblock %}
 
-{% block content %}{{ table }}{% endblock %}
+{% block content %}
+{{ table }}
+<div><a href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</div>
+{% endblock %}

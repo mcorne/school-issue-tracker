@@ -48,7 +48,7 @@ class MessageForm(FlaskForm):
     submit = SubmitField(_l("Save"))
 
 
-class RegisterForm(FlaskForm):
+class UserCreateForm(FlaskForm):
     generic = BooleanField(_l("Generic Account"))
     password = PasswordField(_l("Password"), validators=[DataRequired()],)
     role = SelectField(
@@ -61,7 +61,7 @@ class RegisterForm(FlaskForm):
     username = StringField(_l("Username"), validators=[DataRequired()])
 
 
-class UpdateForm(RegisterForm):
+class UserUpdateForm(UserCreateForm):
     disabled = BooleanField(_l("Account Disabled"))
     password = PasswordField(_l("Password (leave blank if unchanged)"))
 
