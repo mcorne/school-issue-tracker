@@ -50,4 +50,11 @@
 
     {{ form.submit() }}
 </form>
+
+<!-- TODO: display only for admin and managers !!! -->
+<div><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+        onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') if issue.type.name == 'computer' else _('Change to computer issue') }}</a>
+    <!-- _('Please confirm') is needed as a comment for gettext extraction -->
+</div>
+
 {% endblock %}

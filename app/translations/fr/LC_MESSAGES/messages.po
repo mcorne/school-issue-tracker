@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-05 15:21+0100\n"
-"PO-Revision-Date: 2020-02-05 15:24+0100\n"
+"POT-Creation-Date: 2020-02-05 18:06+0100\n"
+"PO-Revision-Date: 2020-02-05 18:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -44,7 +44,7 @@ msgstr "Nouveau"
 #: templates/issue/index.html:17
 #, python-format
 msgid "by %(username)s on %(datetime)s"
-msgstr "par %(username)s le %(datetime)s"
+msgstr "de %(username)s le %(datetime)s"
 
 #: templates/issue/index.html:21
 msgid "Edit"
@@ -83,6 +83,18 @@ msgstr "Équipement : %(computer_number)s"
 msgid "Message from %(username)s on %(datetime)s"
 msgstr "Message de %(username)s le %(datetime)s"
 
+#: templates/issue/update.html:56 views/issue.py:35
+msgid "Change to technical issue"
+msgstr "Changer en problème technique"
+
+#: templates/issue/update.html:56 views/issue.py:39
+msgid "Change to computer issue"
+msgstr "Changer en problème informatique"
+
+#: templates/issue/update.html:57 templates/user/edit.html:45
+msgid "Please confirm"
+msgstr "Veuillez confirmer"
+
 #: templates/user/edit.html:6
 msgid "User Update"
 msgstr "Mise à jour de l'utilisateur"
@@ -94,10 +106,6 @@ msgstr "Enregistrement de l'utilisateur"
 #: templates/user/edit.html:44
 msgid "Delete User"
 msgstr "Supprimer l'utilisateur"
-
-#: templates/user/edit.html:45
-msgid "Please confirm"
-msgstr "Veuillez confirmer"
 
 #: templates/user/edit.html:49
 msgid ""
@@ -237,6 +245,14 @@ msgstr "Non"
 msgid "Disabled"
 msgstr "Désactivé"
 
+#: views/issue.py:37
+msgid "Changed to technical issue successfully"
+msgstr "Changé en problème technique avec succès"
+
+#: views/issue.py:41
+msgid "Changed to computer issue successfully"
+msgstr "Changé en problème informatique avec succès"
+
 #: views/user.py:44
 msgid "Administrator cannot be deleted"
 msgstr "Interdiction de supprimer l'administrateur"
@@ -264,6 +280,12 @@ msgstr "Interdiction de désactiver l'administrateur"
 #: views/user.py:133
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
+
+#~ msgid "Reclassify issue"
+#~ msgstr "Requalifier la question"
+
+#~ msgid "Issue requalified"
+#~ msgstr "Problème requalifié"
 
 #~ msgid "Register"
 #~ msgstr "S'inscrire"

@@ -6,6 +6,7 @@ from werkzeug.exceptions import abort
 from app import db
 from app.forms import IssueForm, MessageForm
 from app.models.orm import Issue, Message, User
+from app.models.issue import Type
 
 bp = Blueprint("issue", __name__)
 
@@ -21,8 +22,36 @@ def index():
     type = request.args.get("type")
     if type:
         query = query.filter_by(type=type)
-    issues = query.all()
+    issues = query.all()  # TODO: sort in reverse order !!!
     return render_template("issue/index.html", issues=issues)
+
+
+@bp.route("/<int:id>/change_type")
+@login_required
+def change_type(id):
+    # TODO: user is admin or manager !!!
+    issue = Issue.query.get_or_404(id)
+    if issue.type.name == "computer":
+        content = _("Change to technical issue")
+        issue.type = "other"
+        notification = _("Changed to technical issue successfully")
+    else:
+        content = _("Change to computer issue")
+        issue.type = "computer"
+        notification = _("Changed to computer issue successfully")
+
+    message = Message(
+        content=content,
+        issue_id=id,
+        user_id=current_user.id,
+        username=Issue.get_username(),
+    )
+    db.session.add(message)
+    db.session.commit()
+    flash(notification)
+    return redirect(
+        url_for("issue.index", id=id)
+    )  # TODO: filter list according to role !!!
 
 
 @bp.route("/create", methods=("GET", "POST"))
