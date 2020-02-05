@@ -23,6 +23,7 @@
 
     {% block content %}{% endblock %}
 
+    <hr>
     {% for url in session["urls"] %}
     <div><a href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</div>
     {% endfor %}

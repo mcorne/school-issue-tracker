@@ -6,5 +6,9 @@
 
 {% block content %}
 {{ table }}
+
+{% if current_user.role.name == 'admin' %}
+<hr>
 <div><a href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</div>
+{% endif %}
 {% endblock %}
