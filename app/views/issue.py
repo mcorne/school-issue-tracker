@@ -11,8 +11,12 @@ bp = Blueprint("issue", __name__)
 
 
 @bp.route("/")
-@login_required
 def index():
+    # Not using the login_required decorator so the login message is not displayed.
+    # The login message is unwanted when a user click on a link to the app.
+    if not current_user.is_authenticated:
+        return redirect(url_for("user.login"))
+
     query = Issue.query
     type = request.args.get("type")
     if type:
