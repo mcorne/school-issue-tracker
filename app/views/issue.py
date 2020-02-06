@@ -1,4 +1,7 @@
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from datetime import datetime
+
+from flask import (Blueprint, flash, redirect, render_template, request,
+                   session, url_for)
 from flask_babel import _
 from flask_login import current_user, login_required
 from sqlalchemy import desc
@@ -30,7 +33,8 @@ def index():
 
 @bp.route("/<int:id>/change_type")
 @login_required
-@roles_required("admin", "it_manager", "it_technician", "service_agent", "service_manager")
+@roles_required("admin", "it_manager", "it_technician", "service_agent",
+                "service_manager")
 def change_type(id):
     issue = Issue.query.get_or_404(id)
     if issue.type.name == "computer":
@@ -51,9 +55,27 @@ def change_type(id):
     db.session.add(message)
     db.session.commit()
     flash(notification)
-    return redirect(
-        url_for("issue.index", id=id)
-    )  # TODO: filter list according to role !!!
+    # TODO: filter list according to role !!!
+    return redirect(url_for("issue.index", id=id))
+
+
+@bp.route("/<int:id>/close")
+@login_required
+@roles_required("admin", "it_manager", "service_manager")
+def close(id):
+    issue = Issue.query.get_or_404(id)
+    issue.closed = datetime.utcnow()
+    message = Message(
+        content=_("Closing of the issue"),
+        issue_id=id,
+        user_id=current_user.id,
+        username=Issue.get_username(),
+    )
+    db.session.add(message)
+    db.session.commit()
+    flash(_("Issue closed"))
+    # TODO: filter list according to role !!!
+    return redirect(url_for("issue.index", id=id))
 
 
 @bp.route("/create", methods=("GET", "POST"))
@@ -100,6 +122,8 @@ def update(id):
         flash(_("Issue updated"))
         return redirect(url_for("issue.update", id=id))
 
-    return render_template(
-        "issue/update.html", form=form, id=id, issue=issue, messages=messages
-    )
+    return render_template("issue/update.html",
+                           form=form,
+                           id=id,
+                           issue=issue,
+                           messages=messages)

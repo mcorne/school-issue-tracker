@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-05 18:06+0100\n"
-"PO-Revision-Date: 2020-02-06 10:50+0100\n"
+"POT-Creation-Date: 2020-02-06 19:22+0100\n"
+"PO-Revision-Date: 2020-02-06 19:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
 #: templates/base.html:2 templates/base.html:5 templates/issue/index.html:4
-#: models/user.py:35 models/user.py:39 models/user.py:42 models/user.py:45
-#: models/user.py:49 models/user.py:52
+#: models/user.py:38 models/user.py:41 models/user.py:44 models/user.py:51
+#: models/user.py:63 models/user.py:70
 msgid "Issues"
 msgstr "Problèmes"
 
@@ -51,27 +51,25 @@ msgid "Edit"
 msgstr "Mettre à jour"
 
 #: templates/issue/update.html:10
-#, python-format
-msgid "Closed on %(datetime)s"
-msgstr "Fermé le %(datetime)s"
-
-#: templates/issue/update.html:14
 msgid "Computer issue"
 msgstr "Problème informatique"
 
-#: templates/issue/update.html:14
+#: templates/issue/update.html:10
 msgid "Technical issue"
 msgstr "Problème technique"
 
-#: templates/issue/update.html:13
+#: templates/issue/update.html:9
 #, python-format
-msgid "%(issue)s submitted by %(username)s on %(datetime)s"
-msgstr "%(issue)s entré par %(username)s le %(datetime)s"
+msgid ""
+"%(issue)s submitted by %(username)s on %(datetime)s at %(site)s - "
+"%(location)s"
+msgstr ""
+"%(issue)s entré par %(username)s le %(datetime)s à %(site)s - %(location)s"
 
-#: templates/issue/update.html:20
+#: templates/issue/update.html:19
 #, python-format
-msgid "Location: %(site)s - %(location)s"
-msgstr "Emplacement : %(site)s - %(location)s"
+msgid "Closed on %(datetime)s"
+msgstr "Clôturé le %(datetime)s"
 
 #: templates/issue/update.html:23
 #, python-format
@@ -83,15 +81,19 @@ msgstr "Équipement : %(computer_number)s"
 msgid "Message from %(username)s on %(datetime)s"
 msgstr "Message de %(username)s le %(datetime)s"
 
-#: templates/issue/update.html:56 views/issue.py:35
+#: templates/issue/update.html:56 views/issue.py:41
 msgid "Change to technical issue"
-msgstr "Changement en problème technique"
+msgstr "Requalifier en problème technique"
 
-#: templates/issue/update.html:56 views/issue.py:39
+#: templates/issue/update.html:56 views/issue.py:45
 msgid "Change to computer issue"
-msgstr "Changement en problème informatique"
+msgstr "Requalifier en problème informatique"
 
-#: templates/issue/update.html:57 templates/user/edit.html:45
+#: templates/issue/update.html:61
+msgid "Close issue"
+msgstr "Clôturer le problème"
+
+#: templates/issue/update.html:63 templates/user/edit.html:45
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
@@ -115,7 +117,7 @@ msgstr ""
 "Noter que les mots de passe de compte générique sont utilisés comme "
 "identifiants uniques indépendamment des noms d'utilisateur."
 
-#: templates/user/index.html:4 models/user.py:36
+#: templates/user/index.html:4 models/user.py:39
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -159,7 +161,7 @@ msgstr "Type"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:43 forms.py:61 models/user.py:67
+#: forms.py:43 forms.py:61 models/user.py:92
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -171,7 +173,7 @@ msgstr "Contenu"
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:55 models/user.py:69
+#: forms.py:55 models/user.py:94
 msgid "Role"
 msgstr "Rôle"
 
@@ -221,37 +223,53 @@ msgstr "Agent de service"
 msgid "Service Manager"
 msgstr "Manager des services"
 
-#: models/user.py:46
+#: models/user.py:56
 msgid "IT Technicians"
 msgstr "Techniciens informatique"
 
-#: models/user.py:53
+#: models/user.py:75
 msgid "Service Agents"
 msgstr "Agents de service"
 
-#: models/user.py:70
+#: models/user.py:95
 msgid "Generic"
 msgstr "Générique"
 
-#: models/user.py:70 models/user.py:71
+#: models/user.py:95 models/user.py:96
 msgid "Yes"
 msgstr "Oui"
 
-#: models/user.py:70 models/user.py:71
+#: models/user.py:95 models/user.py:96
 msgid "No"
 msgstr "Non"
 
-#: models/user.py:71
+#: models/user.py:96
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: views/issue.py:37
-msgid "Changed to technical issue successfully"
-msgstr "Changé en problème technique avec succès"
+#: views/issue.py:43
+msgid "Issue changed to technical issue"
+msgstr "Problème requalifié en problème technique"
 
-#: views/issue.py:41
-msgid "Changed to computer issue successfully"
-msgstr "Changé en problème informatique avec succès"
+#: views/issue.py:47
+msgid "Issue changed to computer issue"
+msgstr "Problème requalifié en problème informatique"
+
+#: views/issue.py:69
+msgid "Closing of the issue"
+msgstr "Clôture du problème"
+
+#: views/issue.py:76
+msgid "Issue closed"
+msgstr "Problème clos"
+
+#: views/issue.py:98
+msgid "New issue created"
+msgstr "Nouveau problème enregistré"
+
+#: views/issue.py:122
+msgid "Issue updated"
+msgstr "Problème mise à jour"
 
 #: views/user.py:44
 msgid "Administrator cannot be deleted"
@@ -281,11 +299,18 @@ msgstr "Interdiction de désactiver l'administrateur"
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
 
+#, python-format
+#~ msgid "Location: %(site)s - %(location)s"
+#~ msgstr "Emplacement : %(site)s - %(location)s"
+
+#~ msgid "Changed to technical issue successfully"
+#~ msgstr "Changé en problème technique avec succès"
+
+#~ msgid "Changed to computer issue successfully"
+#~ msgstr "Changé en problème informatique avec succès"
+
 #~ msgid "Reclassify issue"
 #~ msgstr "Requalifier la question"
-
-#~ msgid "Issue requalified"
-#~ msgstr "Problème requalifié"
 
 #~ msgid "Register"
 #~ msgstr "S'inscrire"
