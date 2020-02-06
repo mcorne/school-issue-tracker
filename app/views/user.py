@@ -40,7 +40,7 @@ def index():
 @login_required
 def delete(id):
     user = User.query.get_or_404(id)
-    if id == 1:
+    if user.is_original_admin():
         flash(_("Administrator cannot be deleted"))
     elif user.has_issues():
         flash(_("User with issues cannot be deleted"))
@@ -127,7 +127,7 @@ def update(id):
         # Force the password to be reentered if the user/account is reenabled or changed to generic
         form.set_password_required()
     if form.validate_on_submit():
-        if id == 1 and form.disabled.data:
+        if user.is_original_admin() and form.disabled.data:
             flash(_("Administrator may not be disabled"))
         elif not User.is_username_unique(form.username.data, id):
             flash(_("Username already used"))

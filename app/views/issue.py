@@ -1,12 +1,14 @@
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 from flask_babel import _
 from flask_login import current_user, login_required
+from sqlalchemy import desc
 from werkzeug.exceptions import abort
 
 from app import db
+from app.decorators import authorize_action
 from app.forms import IssueForm, MessageForm
-from app.models.orm import Issue, Message, User
 from app.models.issue import Type
+from app.models.orm import Issue, Message, User
 
 bp = Blueprint("issue", __name__)
 
@@ -22,14 +24,14 @@ def index():
     type = request.args.get("type")
     if type:
         query = query.filter_by(type=type)
-    issues = query.all()  # TODO: sort in reverse order !!!
+    issues = query.order_by(desc("updated")).all()
     return render_template("issue/index.html", issues=issues)
 
 
 @bp.route("/<int:id>/change_type")
 @login_required
+@authorize_action
 def change_type(id):
-    # TODO: user is admin or manager !!!
     issue = Issue.query.get_or_404(id)
     if issue.type.name == "computer":
         content = _("Change to technical issue")

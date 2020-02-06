@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-05 18:06+0100\n"
-"PO-Revision-Date: 2020-02-05 18:13+0100\n"
+"PO-Revision-Date: 2020-02-06 10:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -85,11 +85,11 @@ msgstr "Message de %(username)s le %(datetime)s"
 
 #: templates/issue/update.html:56 views/issue.py:35
 msgid "Change to technical issue"
-msgstr "Changer en problème technique"
+msgstr "Changement en problème technique"
 
 #: templates/issue/update.html:56 views/issue.py:39
 msgid "Change to computer issue"
-msgstr "Changer en problème informatique"
+msgstr "Changement en problème informatique"
 
 #: templates/issue/update.html:57 templates/user/edit.html:45
 msgid "Please confirm"

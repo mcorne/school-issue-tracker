@@ -17,7 +17,10 @@ class Role(BaseEnum):
         urls = {
             "admin": {"endpoint": "issue.index"},
             "teacher": {"endpoint": "issue.create"},
-            "it_technician": {"endpoint": "issue.index", "values": {"type": "computer"}},
+            "it_technician": {
+                "endpoint": "issue.index",
+                "values": {"type": "computer"},
+            },
             "it_manager": {"endpoint": "issue.index", "values": {"type": "computer"}},
             "service_agent": {"endpoint": "issue.index", "values": {"type": "other"}},
             "service_manager": {"endpoint": "issue.index", "values": {"type": "other"}},
@@ -35,22 +38,44 @@ class Role(BaseEnum):
                 {"text": _l("Issues"), "endpoint": "issue.index"},
                 {"text": _l("Users"), "endpoint": "user.index"},
             ],
-            "teacher": [
-                {"text": _l("Issues"), "endpoint": "issue.index"},
-            ],
+            "teacher": [{"text": _l("Issues"), "endpoint": "issue.index"},],
             "it_technician": [
-                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "computer"}},
+                {
+                    "text": _l("Issues"),
+                    "endpoint": "issue.index",
+                    "values": {"type": "computer"},
+                },
             ],
             "it_manager": [
-                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "computer"}},
-                {"text": _l("IT Technicians"), "endpoint": "user.index", "values": {"role": "it_technician"}},
+                {
+                    "text": _l("Issues"),
+                    "endpoint": "issue.index",
+                    "values": {"type": "computer"},
+                },
+                {
+                    "text": _l("IT Technicians"),
+                    "endpoint": "user.index",
+                    "values": {"role": "it_technician"},
+                },
             ],
             "service_agent": [
-                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "other"}},
+                {
+                    "text": _l("Issues"),
+                    "endpoint": "issue.index",
+                    "values": {"type": "other"},
+                },
             ],
             "service_manager": [
-                {"text": _l("Issues"), "endpoint": "issue.index", "values": {"type": "other"}},
-                {"text": _l("Service Agents"), "endpoint": "user.index", "values": {"role": "service_agent"}},
+                {
+                    "text": _l("Issues"),
+                    "endpoint": "issue.index",
+                    "values": {"type": "other"},
+                },
+                {
+                    "text": _l("Service Agents"),
+                    "endpoint": "user.index",
+                    "values": {"role": "service_agent"},
+                },
             ],
         }
         if self.name not in urls:

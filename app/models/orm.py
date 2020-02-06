@@ -100,6 +100,9 @@ class User(UserMixin, db.Model):
                 return False
         return True
 
+    def is_original_admin(self):
+        return self.id == 1
+
     @classmethod
     def is_username_unique(cls, username, id=None):
         """Check that the username is unique"""
