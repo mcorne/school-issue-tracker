@@ -57,8 +57,14 @@
 </div>
 
 <!-- TODO: display only for admin and managers !!! -->
-<div><a href="{{ url_for('issue.close', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+<div>
+    {% if issue.closed %}
+    <a href="{{ url_for('issue.reopen', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+        onclick="return confirm(this.dataset.confirmation)">{{ _('Reopen issue') }}</a>
+    {% else %}
+    <a href="{{ url_for('issue.close', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Close issue') }}</a>
+    {% endif %}
 </div>
 <!-- _('Please confirm') is needed as a comment for gettext extraction -->
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-06 19:22+0100\n"
-"PO-Revision-Date: 2020-02-06 19:24+0100\n"
+"POT-Creation-Date: 2020-02-06 19:38+0100\n"
+"PO-Revision-Date: 2020-02-06 19:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -89,11 +89,15 @@ msgstr "Requalifier en problème technique"
 msgid "Change to computer issue"
 msgstr "Requalifier en problème informatique"
 
-#: templates/issue/update.html:61
+#: templates/issue/update.html:63
+msgid "Reopen issue"
+msgstr "Rouvrir le problème"
+
+#: templates/issue/update.html:66
 msgid "Close issue"
 msgstr "Clôturer le problème"
 
-#: templates/issue/update.html:63 templates/user/edit.html:45
+#: templates/issue/update.html:69 templates/user/edit.html:45
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
@@ -267,7 +271,15 @@ msgstr "Problème clos"
 msgid "New issue created"
 msgstr "Nouveau problème enregistré"
 
-#: views/issue.py:122
+#: views/issue.py:111
+msgid "Reopening of the issue"
+msgstr "Réouverture du problème"
+
+#: views/issue.py:118
+msgid "Issue reopened"
+msgstr "Problème rouvert"
+
+#: views/issue.py:140
 msgid "Issue updated"
 msgstr "Problème mise à jour"
 

@@ -101,6 +101,24 @@ def create():
     return render_template("issue/create.html", form=form)
 
 
+
+@bp.route("/<int:id>/reopen")
+@login_required
+def reopen(id):
+    issue = Issue.query.get_or_404(id)
+    issue.closed = None
+    message = Message(
+        content=_("Reopening of the issue"),
+        issue_id=id,
+        user_id=current_user.id,
+        username=Issue.get_username(),
+    )
+    db.session.add(message)
+    db.session.commit()
+    flash(_("Issue reopened"))
+    # TODO: filter list according to role !!!
+    return redirect(url_for("issue.index", id=id))
+
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
