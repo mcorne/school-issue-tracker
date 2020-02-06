@@ -5,7 +5,7 @@ from sqlalchemy import desc
 from werkzeug.exceptions import abort
 
 from app import db
-from app.decorators import authorize_action
+from app.decorators import roles_required
 from app.forms import IssueForm, MessageForm
 from app.models.issue import Type
 from app.models.orm import Issue, Message, User
@@ -30,17 +30,17 @@ def index():
 
 @bp.route("/<int:id>/change_type")
 @login_required
-@authorize_action
+@roles_required("admin", "it_manager", "it_technician", "service_agent", "service_manager")
 def change_type(id):
     issue = Issue.query.get_or_404(id)
     if issue.type.name == "computer":
         content = _("Change to technical issue")
         issue.type = "other"
-        notification = _("Changed to technical issue successfully")
+        notification = _("Issue changed to technical issue")
     else:
         content = _("Change to computer issue")
         issue.type = "computer"
-        notification = _("Changed to computer issue successfully")
+        notification = _("Issue changed to computer issue")
 
     message = Message(
         content=content,
@@ -73,6 +73,7 @@ def create():
         )
         db.session.add(issue)
         db.session.commit()
+        flash(_("New issue created"))
         return redirect(url_for("issue.index"))
 
     return render_template("issue/create.html", form=form)
@@ -85,6 +86,7 @@ def update(id):
     if not issue.username:
         issue.username = issue.user.username
     messages = issue.messages.all()
+
     form = MessageForm()
     if form.validate_on_submit():
         message = Message(
@@ -95,6 +97,7 @@ def update(id):
         )
         db.session.add(message)
         db.session.commit()
+        flash(_("Issue updated"))
         return redirect(url_for("issue.update", id=id))
 
     return render_template(
