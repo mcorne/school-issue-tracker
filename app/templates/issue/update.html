@@ -51,34 +51,22 @@
     {{ form.submit() }}
 </form>
 
-{% if issue.type.name == 'computer' %}
-
-{% if current_user.role.name in ('admin', 'it_manager', 'it_technician') %}
+{% if current_user.role.authorized('change_to_technical_issue', issue=issue) %}
 <div><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></div>
 {% endif %}
 
-{% if not issue.closed and current_user.role.name in ('admin', 'it_manager') %}
-<div><a href="{{ url_for('issue.close', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-        onclick="return confirm(this.dataset.confirmation)">{{ _('Close issue') }}</a></div>
-{% endif %}
-
-{% else %}
-<!-- 'other' -->
-
-{% if current_user.role.name in ('admin', 'service_manager', 'service_agent') %}
+{% if current_user.role.authorized('change_to_computer_issue', issue=issue) %}
 <div><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></div>
 {% endif %}
 
-{% if not issue.closed and current_user.role.name in ('admin', 'service_manager') %}
+{% if current_user.role.authorized('close_issue', issue=issue) %}
 <div><a href="{{ url_for('issue.close', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Close issue') }}</a></div>
 {% endif %}
 
-{% endif %}
-
-{% if issue.closed %}
+{% if current_user.role.authorized('reopen_issue', issue=issue) %}
 <div><a href="{{ url_for('issue.reopen', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Reopen issue') }}</a></div>
 {% endif %}

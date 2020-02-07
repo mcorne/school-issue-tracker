@@ -69,6 +69,9 @@ def change_type(id):
 @roles_required("admin", "it_manager", "service_manager")
 def close(id):
     issue = Issue.query.get_or_404(id)
+    if not current_user.role.authorized("close_issue", issue=issue):
+        return redirect_unauthorized_action()
+
     issue.closed = datetime.utcnow()
     message = Message(
         content=_("Closing of the issue"),
@@ -110,6 +113,9 @@ def create():
 @login_required
 def reopen(id):
     issue = Issue.query.get_or_404(id)
+    if not current_user.role.authorized("reopen_issue", issue=issue):
+        return redirect_unauthorized_action()
+
     issue.closed = None
     message = Message(
         content=_("Reopening of the issue"),
