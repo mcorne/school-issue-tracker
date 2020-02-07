@@ -15,27 +15,23 @@ class Role(BaseEnum):
 
     def authorized(self, action, **kwargs):
         authorizations = {
-            "change_to_computer_issue": lambda role, **kwargs: not kwargs[
-                "issue"
-            ].closed
-            and kwargs["issue"].type.name == "other"
-            and role in ("admin", "it_manager", "it_technician"),
-            ##
-            "change_to_technical_issue": lambda role, **kwargs: not kwargs[
-                "issue"
-            ].closed
-            and kwargs["issue"].type.name == "computer"
+            "change_to_computer_issue": lambda role, issue: not issue.closed
+            and issue.type.name == "other"
             and role in ("admin", "service_manager", "service_agent"),
             ##
-            "close_issue": lambda role, **kwargs: not kwargs["issue"].closed
+            "change_to_technical_issue": lambda role, issue: not issue.closed
+            and issue.type.name == "computer"
+            and role in ("admin", "it_manager", "it_technician"),
+            ##
+            "close_issue": lambda role, issue: not issue.closed
             and (
-                kwargs["issue"].type.name == "computer"
+                issue.type.name == "computer"
                 and role in ("admin", "it_manager")
-                or kwargs["issue"].type.name == "other"
+                or issue.type.name == "other"
                 and role in ("admin", "service_manager")
             ),
             ##
-            "reopen_issue": lambda role, **kwargs: bool(kwargs["issue"].closed),
+            "reopen_issue": lambda role, issue: bool(issue.closed),
         }
 
         if action not in authorizations:
