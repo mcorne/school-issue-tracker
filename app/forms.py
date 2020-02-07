@@ -44,7 +44,7 @@ class LoginForm(FlaskForm):
 
 
 class MessageForm(FlaskForm):
-    content = TextAreaField(_l("Content"))
+    content = TextAreaField(_l("Message"))
     submit = SubmitField(_l("Save"))
 
 

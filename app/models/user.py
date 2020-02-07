@@ -13,6 +13,21 @@ class Role(BaseEnum):
     service_agent = _l("Service Agent")
     service_manager = _l("Service Manager")
 
+    def authorized(self, action, **kwargs):
+        authorizations = {
+            "change_to_computer_issue": lambda role, **kwargs: role
+            in ("admin", "it_manager", "it_technician")
+            and kwargs["issue"].type.name == "other",
+            "change_to_technical_issue": lambda role, **kwargs: role
+            in ("admin", "service_manager", "service_agent")
+            and kwargs["issue"].type.name == "computer",
+        }
+
+        if action not in authorizations:
+            raise ValueError("Unexpected action: {}".format(action))
+
+        return authorizations[action](self.name, **kwargs)
+
     def get_default_url(self):
         urls = {
             "admin": {"endpoint": "issue.index"},
@@ -78,8 +93,10 @@ class Role(BaseEnum):
                 },
             ],
         }
+
         if self.name not in urls:
             raise ValueError("Unexpected role: {}".format(self.name))
+
         urls = urls[self.name]
         for url in urls:
             if "values" not in url:
