@@ -10,7 +10,7 @@ from app import db
 from app.decorators import roles_required
 from app.forms import IssueForm, MessageForm
 from app.helpers import redirect_unauthorized_action
-from app.models.issue import IssueType
+from app.models.issue import Type
 from app.models.orm import Issue, Message, User
 
 bp = Blueprint("issue", __name__)
@@ -27,9 +27,8 @@ def index():
     type = request.args.get("type")
     if type:
         query = query.filter_by(type=type)
+    # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
     issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
-    # TODO: find out why the following query does not sort the result although it generates the right SQL statement
-    # query = query.order_by(desc(func.ifnull("updated", "created")))
     return render_template("issue/index.html", issues=issues)
 
 
@@ -63,29 +62,7 @@ def change_type(id):
     db.session.commit()
     flash(notification)
     # TODO: filter list according to role !!!
-    return redirect(url_for("issue.index", id=id))
-
-
-@bp.route("/<int:id>/close")
-@login_required
-@roles_required("admin", "it_manager", "service_manager")
-def close(id):
-    issue = Issue.query.get_or_404(id)
-    if not current_user.role.authorized("close_issue", issue=issue):
-        return redirect_unauthorized_action()
-
-    issue.closed = datetime.utcnow()
-    message = Message(
-        content=_("Closing of the issue"),
-        issue_id=id,
-        user_id=current_user.id,
-        username=Issue.get_username(),
-    )
-    db.session.add(message)
-    db.session.commit()
-    flash(_("Issue closed"))
-    # TODO: filter list according to role !!!
-    return redirect(url_for("issue.index", id=id))
+    return redirect(url_for("issue.index"))
 
 
 @bp.route("/create", methods=("GET", "POST"))
@@ -111,27 +88,6 @@ def create():
     return render_template("issue/create.html", form=form)
 
 
-@bp.route("/<int:id>/reopen")
-@login_required
-def reopen(id):
-    issue = Issue.query.get_or_404(id)
-    if not current_user.role.authorized("reopen_issue", issue=issue):
-        return redirect_unauthorized_action()
-
-    issue.closed = None
-    message = Message(
-        content=_("Reopening of the issue"),
-        issue_id=id,
-        user_id=current_user.id,
-        username=Issue.get_username(),
-    )
-    db.session.add(message)
-    db.session.commit()
-    flash(_("Issue reopened"))
-    # TODO: filter list according to role !!!
-    return redirect(url_for("issue.index", id=id))
-
-
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
@@ -142,17 +98,28 @@ def update(id):
 
     form = MessageForm()
     if form.validate_on_submit():
-        close = form.close.data  # TODO: remove !!!
-        submit = form.submit.data  # TODO: remove !!!
-        message = Message(
-            content=form.content.data,
-            issue_id=id,
-            user_id=current_user.id,
-            username=Issue.get_username(),
-        )
-        db.session.add(message)
+        content = form.content.data.strip()
+        if content:
+            Message.add_message(content, issue_id=id)
+
+        if form.close.data:
+            if not current_user.role.authorized("close_issue", issue=issue):
+                return redirect_unauthorized_action()
+            Message.add_message(_("Closing of the issue"), issue_id=id)
+            issue.closed = datetime.utcnow()
+            flash(_("Issue closed"))
+        elif form.reopen.data:
+            if not current_user.role.authorized("reopen_issue", issue=issue):
+                return redirect_unauthorized_action()
+            Message.add_message(_("Reopening of the issue"), issue_id=id)
+            issue.closed = None
+            flash(_("Issue reopened"))
+        else:
+            if not current_user.role.authorized("update_issue", issue=issue):
+                return redirect_unauthorized_action()
+            flash(_("Issue updated"))
+
         db.session.commit()
-        flash(_("Issue updated"))
         return redirect(url_for("issue.update", id=id))
 
     return render_template(

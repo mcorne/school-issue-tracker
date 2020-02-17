@@ -32,6 +32,8 @@ class Role(BaseEnum):
             ),
             ##
             "reopen_issue": lambda role, issue: bool(issue.closed),
+            ##
+            "update_issue": lambda role, issue: not issue.closed,
         }
 
         if action not in authorizations:

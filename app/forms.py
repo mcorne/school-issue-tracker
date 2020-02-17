@@ -11,7 +11,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired
 
-from app.models.issue import IssueType, Site
+from app.models.issue import Site, Type
 from app.models.user import Role
 
 
@@ -31,8 +31,8 @@ class IssueForm(FlaskForm):
     title = StringField(_l("Subject"), validators=[DataRequired()])
     type = RadioField(
         _l("Type"),
-        choices=IssueType.get_options(),
-        coerce=IssueType.coerce,
+        choices=Type.get_options(),
+        coerce=Type.coerce,
         validators=[DataRequired()],
     )
 

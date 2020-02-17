@@ -43,30 +43,32 @@
 {% endfor %}
 
 <form method="post">
-        {{ form.hidden_tag() }}
+    {{ form.hidden_tag() }}
 
-        {{ form.content.label }}
-        {{ form.content }}
+    {{ form.content.label }}
+    {{ form.content }}
 
-        {{ form.submit() }}
+    {% if current_user.role.authorized('update_issue', issue=issue) %}
+    {{ form.submit() }}
+    {% endif %}
 
-        {% if current_user.role.authorized('close_issue', issue=issue) %}
-        {{ form.close() }}
-        {% endif %}
+    {% if current_user.role.authorized('close_issue', issue=issue) %}
+    {{ form.close() }}
+    {% endif %}
 
-        {% if current_user.role.authorized('reopen_issue', issue=issue) %}
-        {{ form.reopen() }}
-        {% endif %}
+    {% if current_user.role.authorized('reopen_issue', issue=issue) %}
+    {{ form.reopen() }}
+    {% endif %}
 </form>
 
 {% if current_user.role.authorized('change_to_technical_issue', issue=issue) %}
 <div><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-                onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></div>
+        onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></div>
 {% endif %}
 
 {% if current_user.role.authorized('change_to_computer_issue', issue=issue) %}
 <div><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-                onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></div>
+        onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></div>
 {% endif %}
 
 <!-- _('Please confirm') is needed as a comment for gettext extraction -->
