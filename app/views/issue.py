@@ -3,14 +3,14 @@ from datetime import datetime
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 from flask_babel import _
 from flask_login import current_user, login_required
-from sqlalchemy import desc
+from sqlalchemy import desc, func, text
 from werkzeug.exceptions import abort
 
 from app import db
 from app.decorators import roles_required
 from app.forms import IssueForm, MessageForm
 from app.helpers import redirect_unauthorized_action
-from app.models.issue import Type
+from app.models.issue import IssueType
 from app.models.orm import Issue, Message, User
 
 bp = Blueprint("issue", __name__)
@@ -27,7 +27,9 @@ def index():
     type = request.args.get("type")
     if type:
         query = query.filter_by(type=type)
-    issues = query.order_by(desc("updated")).all()
+    issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
+    # TODO: find out why the following query does not sort the result although it generates the right SQL statement
+    # query = query.order_by(desc(func.ifnull("updated", "created")))
     return render_template("issue/index.html", issues=issues)
 
 
@@ -140,6 +142,8 @@ def update(id):
 
     form = MessageForm()
     if form.validate_on_submit():
+        close = form.close.data  # TODO: remove !!!
+        submit = form.submit.data  # TODO: remove !!!
         message = Message(
             content=form.content.data,
             issue_id=id,

@@ -7,7 +7,7 @@ from sqlalchemy.sql import expression
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
-from app.models.issue import Site, Type
+from app.models.issue import IssueType, Site
 from app.models.user import Role
 
 db.Model.__table_args__ = {"sqlite_autoincrement": True}
@@ -23,7 +23,7 @@ class Issue(db.Model):
     location = db.Column(db.Text, nullable=False)
     site = db.Column(db.Enum(Site), nullable=False)
     title = db.Column(db.Text, nullable=False)
-    type = db.Column(db.Enum(Type), nullable=False)
+    type = db.Column(db.Enum(IssueType), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     username = db.Column(db.Text)  # for generic accounts, null for regular users
     # links
@@ -47,6 +47,7 @@ class Message(db.Model):
     # links
     issue = db.relationship("Issue", back_populates="messages")
     user = db.relationship("User", back_populates="messages")
+    # TODO: add type: message or closure or reopening !!!
 
 
 class User(UserMixin, db.Model):
