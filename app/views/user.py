@@ -74,7 +74,7 @@ def login():
                 return redirect(next)
 
             url = user.role.get_default_url()
-            location = url_for(url["endpoint"], **url["values"])
+            location = url_for(url)
             return redirect(location)
 
         flash(_("Invalid username or password"))
@@ -146,6 +146,4 @@ def update(id):
             db.session.commit()
             return redirect(url_for("user.update", id=id))
 
-    return render_template(
-        "user/edit.html", form=form, has_issues=has_issues, id=id
-    )
+    return render_template("user/edit.html", form=form, has_issues=has_issues, id=id)

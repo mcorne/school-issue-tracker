@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import Blueprint, flash, redirect, render_template, session, url_for
 from flask_babel import _
 from flask_login import current_user, login_required
 from sqlalchemy import desc, func, text
@@ -24,7 +24,7 @@ def index():
         return redirect(url_for("user.login"))
 
     query = Issue.query
-    type = request.args.get("type")
+    type = current_user.role.get_issue_type()
     if type:
         query = query.filter_by(type=type)
     # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
@@ -61,7 +61,6 @@ def change_type(id):
     db.session.add(message)
     db.session.commit()
     flash(notification)
-    # TODO: filter list according to role !!!
     return redirect(url_for("issue.index"))
 
 

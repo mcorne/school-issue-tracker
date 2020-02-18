@@ -1,4 +1,4 @@
-from flask import url_for
+from flask import request, url_for
 from flask_babel import lazy_gettext as _l
 from flask_table import BoolCol, Col, LinkCol, Table
 
@@ -43,22 +43,30 @@ class Role(BaseEnum):
 
     def get_default_url(self):
         urls = {
-            "admin": {"endpoint": "issue.index"},
-            "teacher": {"endpoint": "issue.create"},
-            "it_technician": {
-                "endpoint": "issue.index",
-                "values": {"type": "computer"},
-            },
-            "it_manager": {"endpoint": "issue.index", "values": {"type": "computer"}},
-            "service_agent": {"endpoint": "issue.index", "values": {"type": "other"}},
-            "service_manager": {"endpoint": "issue.index", "values": {"type": "other"}},
+            "admin": "issue.index",
+            "teacher": "issue.create",
+            "it_technician": "issue.index",
+            "it_manager": "issue.index",
+            "service_agent": "issue.index",
+            "service_manager": "issue.index",
         }
-        if self.name not in urls:
-            raise ValueError("Unexpected role: {}".format(self.name))
-        url = urls[self.name]
-        if "values" not in url:
-            url["values"] = {}
-        return url
+        self.validate_role(urls)
+        return urls[self.name]
+
+    def get_issue_type(self):
+        if "issue_type" in request.cookies:
+            return request.cookies.get("issue_type")
+
+        issue_types = {
+            "admin": None,
+            "teacher": None,
+            "it_technician": "computer",
+            "it_manager": "computer",
+            "service_agent": "other",
+            "service_manager": "other",
+        }
+        self.validate_role(issue_types)
+        return issue_types[self.name]
 
     def get_urls(self):
         urls = {
@@ -107,14 +115,16 @@ class Role(BaseEnum):
             ],
         }
 
-        if self.name not in urls:
-            raise ValueError("Unexpected role: {}".format(self.name))
-
+        self.validate_role(urls)
         urls = urls[self.name]
         for url in urls:
             if "values" not in url:
                 url["values"] = {}
         return urls
+
+    def validate_role(self, urls):
+        if self.name not in urls:
+            raise ValueError("Unexpected role: {}".format(self.name))
 
 
 class UserList(Table):
