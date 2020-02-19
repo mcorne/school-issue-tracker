@@ -11,7 +11,7 @@ from flask import (
     url_for,
 )
 from flask_babel import _
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import and_, desc
 from werkzeug.security import generate_password_hash
 
@@ -27,11 +27,14 @@ bp = Blueprint("user", __name__, url_prefix="/user")
 @bp.route("/")
 @login_required
 def index():
+    query = User.query
+    role = current_user.role.get_user_role()
+    if role:
+        query = query.filter_by(role=role)
     sort = request.args.get("sort", "username")
     reverse = request.args.get("direction", "asc") == "desc"
-    if reverse:
-        sort = desc(sort)
-    users = User.query.order_by(sort).all()
+    order_by = desc(sort) if reverse else sort
+    users = query.order_by(order_by).all()
     table = UserList(users, sort_by=sort, sort_reverse=reverse)
     return render_template("user/index.html", table=table)
 

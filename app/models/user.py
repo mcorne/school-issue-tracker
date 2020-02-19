@@ -7,11 +7,11 @@ from app.models.common import BaseEnum
 
 class Role(BaseEnum):
     admin = _l("Administrator")
-    teacher = _l("Teacher")
-    it_technician = _l("IT Technician")
     it_manager = _l("IT Manager")
+    it_technician = _l("IT Technician")
     service_agent = _l("Service Agent")
     service_manager = _l("Service Manager")
+    teacher = _l("Teacher")
 
     def authorized(self, action, **kwargs):
         authorizations = {
@@ -44,11 +44,11 @@ class Role(BaseEnum):
     def get_default_url(self):
         urls = {
             "admin": "issue.index",
-            "teacher": "issue.create",
-            "it_technician": "issue.index",
             "it_manager": "issue.index",
+            "it_technician": "issue.index",
             "service_agent": "issue.index",
             "service_manager": "issue.index",
+            "teacher": "issue.create",
         }
         self.validate_role(urls)
         return urls[self.name]
@@ -59,11 +59,11 @@ class Role(BaseEnum):
 
         issue_types = {
             "admin": None,
-            "teacher": None,
-            "it_technician": "computer",
             "it_manager": "computer",
+            "it_technician": "computer",
             "service_agent": "other",
             "service_manager": "other",
+            "teacher": None,
         }
         self.validate_role(issue_types)
         return issue_types[self.name]
@@ -74,45 +74,17 @@ class Role(BaseEnum):
                 {"text": _l("Issues"), "endpoint": "issue.index"},
                 {"text": _l("Users"), "endpoint": "user.index"},
             ],
-            "teacher": [{"text": _l("Issues"), "endpoint": "issue.index"},],
-            "it_technician": [
-                {
-                    "text": _l("Issues"),
-                    "endpoint": "issue.index",
-                    "values": {"type": "computer"},
-                },
-            ],
             "it_manager": [
-                {
-                    "text": _l("Issues"),
-                    "endpoint": "issue.index",
-                    "values": {"type": "computer"},
-                },
-                {
-                    "text": _l("IT Technicians"),
-                    "endpoint": "user.index",
-                    "values": {"role": "it_technician"},
-                },
+                {"text": _l("Issues"), "endpoint": "issue.index"},
+                {"text": _l("IT Technicians"), "endpoint": "user.index"},
             ],
-            "service_agent": [
-                {
-                    "text": _l("Issues"),
-                    "endpoint": "issue.index",
-                    "values": {"type": "other"},
-                },
-            ],
+            "it_technician": [{"text": _l("Issues"), "endpoint": "issue.index"}],
+            "service_agent": [{"text": _l("Issues"), "endpoint": "issue.index"}],
             "service_manager": [
-                {
-                    "text": _l("Issues"),
-                    "endpoint": "issue.index",
-                    "values": {"type": "other"},
-                },
-                {
-                    "text": _l("Service Agents"),
-                    "endpoint": "user.index",
-                    "values": {"role": "service_agent"},
-                },
+                {"text": _l("Issues"), "endpoint": "issue.index"},
+                {"text": _l("Service Agents"), "endpoint": "user.index"},
             ],
+            "teacher": [{"text": _l("Issues"), "endpoint": "issue.index"}],
         }
 
         self.validate_role(urls)
@@ -121,6 +93,21 @@ class Role(BaseEnum):
             if "values" not in url:
                 url["values"] = {}
         return urls
+
+    def get_user_role(self):
+        if "user_role" in request.cookies:
+            return request.cookies.get("user_role")
+
+        user_roles = {
+            "admin": None,
+            "it_manager": "it_technician",
+            "service_manager": "service_agent",
+            # "it_technician": N/A,
+            # "service_agent": N/A,
+            # "teacher": N/A,
+        }
+        self.validate_role(user_roles)
+        return user_roles[self.name]
 
     def validate_role(self, urls):
         if self.name not in urls:
