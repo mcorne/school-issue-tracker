@@ -74,16 +74,10 @@ class Role(BaseEnum):
                 {"text": _l("Issues"), "endpoint": "issue.index"},
                 {"text": _l("Users"), "endpoint": "user.index"},
             ],
-            "it_manager": [
-                {"text": _l("Issues"), "endpoint": "issue.index"},
-                {"text": _l("IT Technicians"), "endpoint": "user.index"},
-            ],
+            "it_manager": [{"text": _l("Issues"), "endpoint": "issue.index"}],
             "it_technician": [{"text": _l("Issues"), "endpoint": "issue.index"}],
             "service_agent": [{"text": _l("Issues"), "endpoint": "issue.index"}],
-            "service_manager": [
-                {"text": _l("Issues"), "endpoint": "issue.index"},
-                {"text": _l("Service Agents"), "endpoint": "user.index"},
-            ],
+            "service_manager": [{"text": _l("Issues"), "endpoint": "issue.index"}],
             "teacher": [{"text": _l("Issues"), "endpoint": "issue.index"}],
         }
 
@@ -93,21 +87,6 @@ class Role(BaseEnum):
             if "values" not in url:
                 url["values"] = {}
         return urls
-
-    def get_user_role(self):
-        if "user_role" in request.cookies:
-            return request.cookies.get("user_role")
-
-        user_roles = {
-            "admin": None,
-            "it_manager": "it_technician",
-            "service_manager": "service_agent",
-            # "it_technician": N/A,
-            # "service_agent": N/A,
-            # "teacher": N/A,
-        }
-        self.validate_role(user_roles)
-        return user_roles[self.name]
 
     def validate_role(self, urls):
         if self.name not in urls:

@@ -16,6 +16,7 @@ from sqlalchemy import and_, desc
 from werkzeug.security import generate_password_hash
 
 from app import db
+from app.decorators import roles_required
 from app.forms import LoginForm, UserCreateForm, UserUpdateForm
 from app.helpers import is_safe_url
 from app.models.orm import User
@@ -26,21 +27,19 @@ bp = Blueprint("user", __name__, url_prefix="/user")
 
 @bp.route("/")
 @login_required
+@roles_required("admin")
 def index():
-    query = User.query
-    role = current_user.role.get_user_role()
-    if role:
-        query = query.filter_by(role=role)
     sort = request.args.get("sort", "username")
     reverse = request.args.get("direction", "asc") == "desc"
     order_by = desc(sort) if reverse else sort
-    users = query.order_by(order_by).all()
+    users = User.query.order_by(order_by).all()
     table = UserList(users, sort_by=sort, sort_reverse=reverse)
     return render_template("user/index.html", table=table)
 
 
 @bp.route("/<int:id>/delete", methods=("GET", "POST"))
 @login_required
+@roles_required("admin")
 def delete(id):
     user = User.query.get_or_404(id)
     if user.is_original_admin():
@@ -70,7 +69,8 @@ def login():
             session["username"] = user.username
             session["urls"] = user.role.get_urls()
 
-            next = None  # session.get("next") TODO: restore/fix since always redirecting to same URL; user/1/update!
+            # TODO: restore/fix since always redirecting to same URL: user/1/update!
+            next = None  # session.get("next")
             if not is_safe_url(next):
                 return abort(400)
             if next:
@@ -96,6 +96,7 @@ def logout():
 
 @bp.route("/create", methods=("GET", "POST"))
 @login_required
+@roles_required("admin")
 def create():
     form = UserCreateForm()
     if form.validate_on_submit():
@@ -120,6 +121,7 @@ def create():
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
+@roles_required("admin")
 def update(id):
     user = User.query.get_or_404(id)
     has_issues = user.has_issues()
