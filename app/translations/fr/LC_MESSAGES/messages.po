@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 15:10+0100\n"
-"PO-Revision-Date: 2020-03-12 15:13+0100\n"
+"POT-Creation-Date: 2020-03-12 17:35+0100\n"
+"PO-Revision-Date: 2020-03-12 17:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -32,55 +32,52 @@ msgstr "Demandes et problèmes"
 msgid "New"
 msgstr "Nouveau"
 
-#: templates/issue/index.html:16
+#: templates/issue/index.html:14
 #, python-format
 msgid "by %(username)s on %(datetime)s"
 msgstr "de %(username)s le %(datetime)s"
 
-#: templates/issue/index.html:20
+#: templates/issue/index.html:18
 msgid "Edit"
 msgstr "Mettre à jour"
 
 #: templates/issue/update.html:10
+#, python-format
+msgid "At %(site)s - %(location)s"
+msgstr "À %(site)s - %(location)s"
+
+#: templates/issue/update.html:14
+#, python-format
+msgid "Equipment %(computer_number)s"
+msgstr "Équipement %(computer_number)s"
+
+#: templates/issue/update.html:22
 msgid "Computer issue"
 msgstr "Problème informatique"
 
-#: templates/issue/update.html:10
+#: templates/issue/update.html:22
 msgid "Technical issue"
 msgstr "Problème technique"
 
-#: templates/issue/update.html:9
+#: templates/issue/update.html:25 templates/issue/update.html:40
 #, python-format
-msgid ""
-"%(issue)s submitted by %(username)s on %(datetime)s at %(site)s - "
-"%(location)s"
-msgstr ""
-"%(issue)s entré par %(username)s le %(datetime)s à %(site)s - %(location)s"
+msgid "By %(username)s on %(datetime)s"
+msgstr "De %(username)s le %(datetime)s"
 
-#: templates/issue/update.html:19
+#: templates/issue/update.html:32
 #, python-format
 msgid "Closed on %(datetime)s"
 msgstr "Clôturé le %(datetime)s"
 
-#: templates/issue/update.html:23
-#, python-format
-msgid "Equipment: %(computer_number)s"
-msgstr "Équipement : %(computer_number)s"
-
-#: templates/issue/update.html:32
-#, python-format
-msgid "Message from %(username)s on %(datetime)s"
-msgstr "Message de %(username)s le %(datetime)s"
-
-#: templates/issue/update.html:66
+#: templates/issue/update.html:72
 msgid "Change to technical issue"
 msgstr "Requalifier en problème technique"
 
-#: templates/issue/update.html:71
+#: templates/issue/update.html:77
 msgid "Change to computer issue"
 msgstr "Requalifier en problème informatique"
 
-#: templates/issue/update.html:74 templates/user/edit.html:49
+#: templates/issue/update.html:80 templates/user/edit.html:49
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
@@ -99,7 +96,7 @@ msgstr "Le nom d'utilisateur saisi ici est uniquement informatif."
 #: templates/user/edit.html:29
 msgid ""
 "It is the username entered when the user signs in that will used and stored "
-"along messages etc."
+"along with messages etc."
 msgstr ""
 "C'est le nom d'utilisateur entré lorsque l'utilisateur se connecte qui sera "
 "utilisé et stocké avec les messages etc."
@@ -158,7 +155,7 @@ msgstr "Nom d'utilisateur"
 
 #: forms.py:47
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: forms.py:49
 msgid "Close"
@@ -254,27 +251,27 @@ msgstr "Problème requalifié en problème technique"
 msgid "Issue changed to computer issue"
 msgstr "Problème requalifié en problème informatique"
 
-#: views/issue.py:84
+#: views/issue.py:78
 msgid "New issue created"
 msgstr "Nouveau problème enregistré"
 
-#: views/issue.py:107
+#: views/issue.py:101
 msgid "Closing of the issue"
 msgstr "Clôture du problème"
 
-#: views/issue.py:109
+#: views/issue.py:103
 msgid "Issue closed"
 msgstr "Problème clos"
 
-#: views/issue.py:113
+#: views/issue.py:107
 msgid "Reopening of the issue"
 msgstr "Réouverture du problème"
 
-#: views/issue.py:115
+#: views/issue.py:109
 msgid "Issue reopened"
 msgstr "Problème rouvert"
 
-#: views/issue.py:119
+#: views/issue.py:113
 msgid "Issue updated"
 msgstr "Problème mise à jour"
 

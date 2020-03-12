@@ -52,13 +52,7 @@ def change_type(id):
         issue.type = "computer"
         notification = _("Issue changed to computer issue")
 
-    message = Message(
-        content=content,
-        issue_id=id,
-        user_id=current_user.id,
-        username=Issue.get_username(),
-    )
-    db.session.add(message)
+    Message.add_message(content, issue_id=id)
     db.session.commit()
     flash(notification)
     return redirect(url_for("issue.index"))

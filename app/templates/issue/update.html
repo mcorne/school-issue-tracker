@@ -1,76 +1,82 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h1>{% block title %}{{ issue.title }}{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
+<div class="w3-container">
+    <h1>{{ issue.title }}</h1>
 
-<div>{{ _('%(issue)s submitted by %(username)s on %(datetime)s at %(site)s - %(location)s',
-    issue=_('Computer issue') if issue.type.name == "computer" else _('Technical issue'),
+    <ul class="w3-ul w3-card-4 w3-margin-bottom">
+        <li>
+            <div class="w3-large">
+                {{ _('At %(site)s - %(location)s', site=issue.site, location=issue.location) }}
+            </div>
+
+            {% if issue.computer_number %}
+            <div class="w3-large">{{ _('Equipment %(computer_number)s', computer_number=issue.computer_number) }}</div>
+            {% endif %}
+
+            {% if issue.description %}
+            <div class="w3-panel w3-leftbar">{{ issue.description }}</div>
+            {% endif %}
+
+            <div class="w3-small w3-text-grey">
+                {{ _('Computer issue') if issue.type.name == "computer" else _('Technical issue') }}
+            </div>
+
+            <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
     username=issue.username,
     datetime=issue.created|local_datetime,
-    site=issue.site,
-    location=issue.location,
     ) }}
-</div>
+            </div>
 
-{% if issue.closed %}
-<div>{{ _('Closed on %(datetime)s', datetime=issue.closed|local_datetime) }}</div>
-{% endif %}
+            {% if issue.closed %}
+            <div class="w3-small w3-text-grey">{{ _('Closed on %(datetime)s', datetime=issue.closed|local_datetime) }}
+            </div>
+            {% endif %}
+        </li>
 
-{% if issue.computer_number %}
-<div>{{ _('Equipment: %(computer_number)s', computer_number=issue.computer_number) }}</div>
-{% endif %}
-
-{% if issue.description %}
-<div>{{ issue.description }}</div>
-{% endif %}
-<hr>
-
-{% for message in messages %}
-<div>{{ _('Message from %(username)s on %(datetime)s',
+        {% for message in messages %}
+        <li>
+            <div>{{ message.content }}</div>
+            <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
     username=message.username if message.username else message.user.username,
-    datetime=message.created|local_datetime
-    ) }}
+    datetime=message.created|local_datetime) }}</div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.content.label }}
+            {{ form.content(class_="w3-input w3-border w3-hover-border-green w3-margin-bottom") }}
+        </p>
+
+        <p class="w3-center">
+            {% if current_user.role.authorized('update_issue', issue=issue) %}
+            {{ form.submit(class_="w3-btn w3-ripple w3-green") }}
+            {% endif %}
+
+            {% if current_user.role.authorized('close_issue', issue=issue) %}
+            {{ form.close(class_="w3-btn w3-ripple w3-green") }}
+            {% endif %}
+
+            {% if current_user.role.authorized('reopen_issue', issue=issue) %}
+            {{ form.reopen(class_="w3-btn w3-ripple w3-green") }}
+            {% endif %}
+        </p>
+    </form>
+
+    {% if current_user.role.authorized('change_to_technical_issue', issue=issue) %}
+    <p><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+            onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></p>
+    {% endif %}
+
+    {% if current_user.role.authorized('change_to_computer_issue', issue=issue) %}
+    <p><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+            onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></p>
+    {% endif %}
+
+    <!-- _('Please confirm') is needed as a comment for gettext extraction -->
 </div>
-
-{% if message.content %}
-<div>{{ message.content }}</div>
-{% endif %}
-
-<hr>
-{% endfor %}
-
-<form method="post">
-    {{ form.hidden_tag() }}
-
-    {{ form.content.label }}
-    {{ form.content }}
-
-    {% if current_user.role.authorized('update_issue', issue=issue) %}
-    {{ form.submit() }}
-    {% endif %}
-
-    {% if current_user.role.authorized('close_issue', issue=issue) %}
-    {{ form.close() }}
-    {% endif %}
-
-    {% if current_user.role.authorized('reopen_issue', issue=issue) %}
-    {{ form.reopen() }}
-    {% endif %}
-</form>
-
-{% if current_user.role.authorized('change_to_technical_issue', issue=issue) %}
-<div><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-        onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></div>
-{% endif %}
-
-{% if current_user.role.authorized('change_to_computer_issue', issue=issue) %}
-<div><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-        onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></div>
-{% endif %}
-
-<!-- _('Please confirm') is needed as a comment for gettext extraction -->
-
 {% endblock %}
