@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-17 17:00+0100\n"
-"PO-Revision-Date: 2020-02-17 17:00+0100\n"
+"POT-Creation-Date: 2020-03-12 12:21+0100\n"
+"PO-Revision-Date: 2020-03-12 12:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,19 +19,15 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/base.html:2 templates/base.html:5 templates/issue/index.html:4
-#: models/user.py:66 models/user.py:69 models/user.py:72 models/user.py:79
-#: models/user.py:91 models/user.py:98
+#: templates/base.html:10 templates/issue/index.html:4 models/user.py:74
+#: models/user.py:77 models/user.py:78 models/user.py:79 models/user.py:80
+#: models/user.py:81
 msgid "Issues"
 msgstr "Problèmes"
 
-#: templates/base.html:9
-msgid "Log Out"
-msgstr "Se déconnecter"
-
-#: templates/base.html:11 templates/user/login.html:4 forms.py:42
-msgid "Log In"
-msgstr "Se connecter"
+#: templates/base.html:20
+msgid "Requests & Issues"
+msgstr "Demandes et problèmes"
 
 #: templates/issue/create.html:4
 msgid "New Issue"
@@ -113,7 +109,7 @@ msgstr ""
 "Noter que les mots de passe de compte générique sont utilisés comme "
 "identifiants uniques indépendamment des noms d'utilisateur."
 
-#: templates/user/index.html:4 models/user.py:67
+#: templates/user/index.html:4 models/user.py:75
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -157,7 +153,11 @@ msgstr "Type"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:43 forms.py:63 models/user.py:122
+#: forms.py:42
+msgid "Log In"
+msgstr "Se connecter"
+
+#: forms.py:43 forms.py:63 models/user.py:98
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -177,7 +177,7 @@ msgstr "Rouvrir"
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:57 models/user.py:124
+#: forms.py:57 models/user.py:100
 msgid "Role"
 msgstr "Rôle"
 
@@ -212,46 +212,38 @@ msgid "Administrator"
 msgstr "Administrateur"
 
 #: models/user.py:10
-msgid "Teacher"
-msgstr "Enseignant"
+msgid "IT Manager"
+msgstr "Manager informatique"
 
 #: models/user.py:11
 msgid "IT Technician"
 msgstr "Technicien informatique"
 
 #: models/user.py:12
-msgid "IT Manager"
-msgstr "Manager informatique"
-
-#: models/user.py:13
 msgid "Service Agent"
 msgstr "Agent de service"
 
-#: models/user.py:14
+#: models/user.py:13
 msgid "Service Manager"
 msgstr "Manager des services"
 
-#: models/user.py:84
-msgid "IT Technicians"
-msgstr "Techniciens informatique"
+#: models/user.py:14
+msgid "Teacher"
+msgstr "Enseignant"
 
-#: models/user.py:103
-msgid "Service Agents"
-msgstr "Agents de service"
-
-#: models/user.py:125
+#: models/user.py:101
 msgid "Generic"
 msgstr "Générique"
 
-#: models/user.py:125 models/user.py:126
+#: models/user.py:101 models/user.py:102
 msgid "Yes"
 msgstr "Oui"
 
-#: models/user.py:125 models/user.py:126
+#: models/user.py:101 models/user.py:102
 msgid "No"
 msgstr "Non"
 
-#: models/user.py:126
+#: models/user.py:102
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -263,54 +255,63 @@ msgstr "Problème requalifié en problème technique"
 msgid "Issue changed to computer issue"
 msgstr "Problème requalifié en problème informatique"
 
-#: views/issue.py:85
+#: views/issue.py:84
 msgid "New issue created"
 msgstr "Nouveau problème enregistré"
 
-#: views/issue.py:108
+#: views/issue.py:107
 msgid "Closing of the issue"
 msgstr "Clôture du problème"
 
-#: views/issue.py:110
+#: views/issue.py:109
 msgid "Issue closed"
 msgstr "Problème clos"
 
-#: views/issue.py:114
+#: views/issue.py:113
 msgid "Reopening of the issue"
 msgstr "Réouverture du problème"
 
-#: views/issue.py:116
+#: views/issue.py:115
 msgid "Issue reopened"
 msgstr "Problème rouvert"
 
-#: views/issue.py:120
+#: views/issue.py:119
 msgid "Issue updated"
 msgstr "Problème mise à jour"
 
-#: views/user.py:44
+#: views/user.py:46
 msgid "Administrator cannot be deleted"
 msgstr "Interdiction de supprimer l'administrateur"
 
-#: views/user.py:46
+#: views/user.py:48
 msgid "User with issues cannot be deleted"
 msgstr "Interdiction de supprimer un utilisateur avec des problèmes"
 
-#: views/user.py:80
+#: views/user.py:83
 msgid "Invalid username or password"
 msgstr "Nom d'utilisateur ou mot de passe invalide"
 
-#: views/user.py:100
+#: views/user.py:104
 msgid "Username already registered"
 msgstr "Nom d'utilisateur déjà enregistré"
 
-#: views/user.py:102 views/user.py:139
+#: views/user.py:106 views/user.py:144
 msgid "Password already used for a generic account"
 msgstr "Mot de passe déjà utilisé pour un compte générique"
 
-#: views/user.py:131
+#: views/user.py:136
 msgid "Administrator may not be disabled"
 msgstr "Interdiction de désactiver l'administrateur"
 
-#: views/user.py:133
+#: views/user.py:138
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
+
+#~ msgid "Log Out"
+#~ msgstr "Se déconnecter"
+
+#~ msgid "IT Technicians"
+#~ msgstr "Techniciens informatique"
+
+#~ msgid "Service Agents"
+#~ msgstr "Agents de service"

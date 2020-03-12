@@ -17,37 +17,33 @@
                     class="fas fa-bars fa-lg"></i></a>
         </span>
 
-        <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-grey">{{ _('Issues') }}</a>
+        <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-grey">{{ _('Requests & Issues') }}</a>
 
         <span class="w3-large w3-right">
-            <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-grey"><i class="fas fa-home fa-lg"
-                    aria-hidden="true"></i></a>
-
             <a href="{{ url_for('user.logout') }}" class="w3-text-white w3-hover-grey"><i
                     class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i></a>
         </span>
     </header>
 
-    <section class="content">
-        <header>
-            {% block header %}{% endblock %}
-        </header>
-
-        {% for category, message in get_flashed_messages(with_categories=true) %}
-        {% if category == "error" %}
-        <div class="w3-container w3-red w3-margin-bottom">{{ message }}</div>
-        {% else %}
-        <div class="w3-container w3-green w3-margin-bottom">{{ message }}</div>
-        {% endif %}
-        {% endfor %}
-
-        {% block content %}{% endblock %}
-
-        <hr>
+    <div class="w3-sidebar w3-bar-block w3-border-right w3-text-green" id="sidebar">
         {% for url in session["urls"] %}
-        <div><a href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</div>
+        <a class="w3-bar-item w3-button" href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</a>
         {% endfor %}
-    </section>
+    </div>
+    <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    {% if category == "error" %}
+    <div class="w3-container w3-red w3-margin-bottom">{{ message }}</div>
+    {% else %}
+    <div class="w3-container w3-green w3-margin-bottom">{{ message }}</div>
+    {% endif %}
+    {% endfor %}
+
+    {% block header %}{% endblock %}
+    {% block content %}{% endblock %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='application.js') }}"></script>
 </body>
 
 </html>
