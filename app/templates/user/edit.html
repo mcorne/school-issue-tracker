@@ -44,12 +44,10 @@
     </form>
 
     {% if id is defined and id != 1 and not has_issues %}
-    <div><a href="{{ url_for('user.delete', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+    <p><a href="{{ url_for('user.delete', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
             onclick="return confirm(this.dataset.confirmation)">{{ _('Delete User') }}</a>
         <!-- _('Please confirm') is needed as a comment for gettext extraction -->
-    </div>
+    </p>
     {% endif %}
-
-
 </div>
 {% endblock %}

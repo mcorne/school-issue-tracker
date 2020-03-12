@@ -1,29 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post">
-    {{ form.hidden_tag() }}
+<div class="w3-container">
+    <form method="post">
+        {{ form.hidden_tag() }}
 
-    {% for error in form.type.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.type(class_="no-bullets") }}
+        <p>
+            {% for error in form.type.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+            {% for type in form.type %}
+            <div>
+                {{ type(class_="w3-radio") }}
+                {{ type.label }}
+            </div>
+            {% endfor %}
+        </p>
 
-    {{ form.location.label }}
-    {% for error in form.location.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.location }}
-    {% for error in form.site.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.site(class_="no-bullets") }}
+        {{ form.location.label }}
+        {% for error in form.location.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+        {{ form.location(class_="w3-input w3-border w3-hover-border-green w3-margin-bottom") }}
 
-    {{ form.title.label }}
-    {% for error in form.title.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.title }}
+        <p>
+            {% for error in form.site.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+            {% for site in form.site %}
+            <div>
+                {{ site(class_="w3-radio") }}
+                {{ site.label }}
+            </div>
+            {% endfor %}
+        </p>
 
-    {{ form.computer_number.label }}
-    {% for error in form.computer_number.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.computer_number }}
+        {{ form.title.label }}
+        {% for error in form.title.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+        {{ form.title(class_="w3-input w3-border w3-hover-border-green w3-margin-bottom") }}
 
-    {{ form.description.label }}
-    {{ form.description }}
+        {{ form.computer_number.label }}
+        {% for error in form.computer_number.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+        {{ form.computer_number(class_="w3-input w3-border w3-hover-border-green w3-margin-bottom") }}
 
-    {{ form.submit() }}
-</form>
+        {{ form.description.label }}
+        {{ form.description(class_="w3-input w3-border w3-hover-border-green w3-margin-bottom") }}
+
+        <p class="w3-center">
+            {{ form.submit(class_="w3-btn w3-ripple w3-green") }}
+        </p>
+    </form>
+</div>
 {% endblock %}
