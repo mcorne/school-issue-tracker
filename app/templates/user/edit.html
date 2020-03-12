@@ -1,40 +1,41 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h1>
-    {% block title %}
-    {{ _('User Update') if id is defined else _('User Registration') }}
-    {% endblock %}
-</h1>
-{% endblock %}
-
 {% block content %}
 <div class="w3-container">
     <form method="post">
         {{ form.hidden_tag() }}
 
         {{ form.username.label }}
-        {{ form.username(class_="w3-input w3-border w3-margin-bottom") }}
-        {% for error in form.username.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {% for error in form.username.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+        {{ form.username(class_="w3-input w3-border w3-hover-border-green w3-margin-bottom") }}
 
         {{ form.password.label }}
-        {{ form.password(class_="w3-input w3-border w3-margin-bottom") }}
-        {% for error in form.password.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {% for error in form.password.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+        {{ form.password(class_="w3-input w3-border w3-hover-border-green w3-margin-bottom") }}
 
         {{ form.role.label }}
-        {{ form.role(class_="w3-select w3-border w3-pale-green w3-margin-bottom") }}
-        {% for error in form.role.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {% for error in form.role.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+        {{ form.role(class_="w3-select w3-border w3-hover-border-green w3-margin-bottom w3-pale-green") }}
 
         {% if id is not defined or id != 1 %}
-        {{ form.generic.label }}
-        {{ form.generic(class_="w3-check") }}
-        {% for error in form.generic.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        <p>
+            {{ form.generic.label }}
+            {% for error in form.generic.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+            {{ form.generic(class_="w3-check") }}
+        </p>
+        <p class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
+            {{ _('The password of a generic account uniquely identifies this account regardless of the username.') }}
+            {{ _('The username entered here is only informational.') }}
+            {{ _('It is the username entered when the user signs in that will used and stored along with messages etc.') }}
+        </p>
         {% endif %}
 
         {% if id is defined and id != 1 %}
-        {{ form.disabled.label }}
-        {{ form.disabled(class_="w3-check") }}
-        {% for error in form.disabled.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        <p>
+            {{ form.disabled.label }}
+            {% for error in form.disabled.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+            {{ form.disabled(class_="w3-check") }}
+        </p>
         {% endif %}
 
         <p class="w3-center">
@@ -49,6 +50,6 @@
     </div>
     {% endif %}
 
-    {{ _('Note that generic account passwords are used as unique identifiers regardless of usernames.') }}
+
 </div>
 {% endblock %}

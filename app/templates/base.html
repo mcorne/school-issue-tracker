@@ -30,6 +30,8 @@
     </div>
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>
 
+    {% block header %}{% endblock %}
+
     {% for category, message in get_flashed_messages(with_categories=true) %}
     {% if category == "error" %}
     <div class="w3-container w3-red w3-margin-bottom">{{ message }}</div>
@@ -38,7 +40,6 @@
     {% endif %}
     {% endfor %}
 
-    {% block header %}{% endblock %}
     {% block content %}{% endblock %}
 
     <script type="text/javascript" src="{{ url_for('static', filename='application.js') }}"></script>

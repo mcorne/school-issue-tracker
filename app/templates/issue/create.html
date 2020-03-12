@@ -1,29 +1,25 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h1>{% block title %}{{ _('New Issue') }}{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
 <form method="post">
     {{ form.hidden_tag() }}
 
+    {% for error in form.type.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
     {{ form.type(class_="no-bullets") }}
-    {% for error in form.type.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
     {{ form.location.label }}
+    {% for error in form.location.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
     {{ form.location }}
-    {% for error in form.location.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+    {% for error in form.site.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
     {{ form.site(class_="no-bullets") }}
-    {% for error in form.site.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
     {{ form.title.label }}
+    {% for error in form.title.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
     {{ form.title }}
-    {% for error in form.title.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
     {{ form.computer_number.label }}
+    {% for error in form.computer_number.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
     {{ form.computer_number }}
-    {% for error in form.computer_number.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
     {{ form.description.label }}
     {{ form.description }}

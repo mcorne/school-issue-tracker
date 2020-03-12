@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 12:21+0100\n"
-"PO-Revision-Date: 2020-03-12 12:26+0100\n"
+"POT-Creation-Date: 2020-03-12 15:10+0100\n"
+"PO-Revision-Date: 2020-03-12 15:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,30 +19,25 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/base.html:10 templates/issue/index.html:4 models/user.py:74
-#: models/user.py:77 models/user.py:78 models/user.py:79 models/user.py:80
-#: models/user.py:81
+#: templates/base.html:8 models/user.py:74 models/user.py:77 models/user.py:78
+#: models/user.py:79 models/user.py:80 models/user.py:81
 msgid "Issues"
 msgstr "Problèmes"
 
-#: templates/base.html:20
+#: templates/base.html:18
 msgid "Requests & Issues"
 msgstr "Demandes et problèmes"
 
-#: templates/issue/create.html:4
-msgid "New Issue"
-msgstr "Nouveau Problème"
-
-#: templates/issue/index.html:6
+#: templates/issue/index.html:5
 msgid "New"
 msgstr "Nouveau"
 
-#: templates/issue/index.html:17
+#: templates/issue/index.html:16
 #, python-format
 msgid "by %(username)s on %(datetime)s"
 msgstr "de %(username)s le %(datetime)s"
 
-#: templates/issue/index.html:21
+#: templates/issue/index.html:20
 msgid "Edit"
 msgstr "Mettre à jour"
 
@@ -85,35 +80,35 @@ msgstr "Requalifier en problème technique"
 msgid "Change to computer issue"
 msgstr "Requalifier en problème informatique"
 
-#: templates/issue/update.html:74 templates/user/edit.html:45
+#: templates/issue/update.html:74 templates/user/edit.html:49
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
-#: templates/user/edit.html:6
-msgid "User Update"
-msgstr "Mise à jour de l'utilisateur"
+#: templates/user/edit.html:27
+msgid ""
+"The password of a generic account uniquely identifies this account "
+"regardless of the username."
+msgstr ""
+"Le mot de passe d'un compte générique identifie ce compte de manière unique "
+"quel que soit le nom d'utilisateur."
 
-#: templates/user/edit.html:6
-msgid "User Registration"
-msgstr "Enregistrement de l'utilisateur"
+#: templates/user/edit.html:28
+msgid "The username entered here is only informational."
+msgstr "Le nom d'utilisateur saisi ici est uniquement informatif."
 
-#: templates/user/edit.html:44
+#: templates/user/edit.html:29
+msgid ""
+"It is the username entered when the user signs in that will used and stored "
+"along messages etc."
+msgstr ""
+"C'est le nom d'utilisateur entré lorsque l'utilisateur se connecte qui sera "
+"utilisé et stocké avec les messages etc."
+
+#: templates/user/edit.html:48
 msgid "Delete User"
 msgstr "Supprimer l'utilisateur"
 
-#: templates/user/edit.html:49
-msgid ""
-"Note that generic account passwords are used as unique identifiers "
-"regardless of usernames."
-msgstr ""
-"Noter que les mots de passe de compte générique sont utilisés comme "
-"identifiants uniques indépendamment des noms d'utilisateur."
-
-#: templates/user/index.html:4 models/user.py:75
-msgid "Users"
-msgstr "Utilisateurs"
-
-#: templates/user/index.html:12
+#: templates/user/index.html:5
 msgid "Add a new user"
 msgstr "Ajouter un nouvel utilisateur"
 
@@ -231,6 +226,10 @@ msgstr "Manager des services"
 msgid "Teacher"
 msgstr "Enseignant"
 
+#: models/user.py:75
+msgid "Users"
+msgstr "Utilisateurs"
+
 #: models/user.py:101
 msgid "Generic"
 msgstr "Générique"
@@ -306,12 +305,3 @@ msgstr "Interdiction de désactiver l'administrateur"
 #: views/user.py:138
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
-
-#~ msgid "Log Out"
-#~ msgstr "Se déconnecter"
-
-#~ msgid "IT Technicians"
-#~ msgstr "Techniciens informatique"
-
-#~ msgid "Service Agents"
-#~ msgstr "Agents de service"

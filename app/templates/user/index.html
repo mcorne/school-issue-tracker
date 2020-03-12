@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h1>{% block title %}{{ _('Users') }}{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-{{ table }}
-
 {% if current_user.role.name == 'admin' %}
-<hr>
-<div><a href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</div>
+<p><a href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</p>
 {% endif %}
+
+{{ table }}
 {% endblock %}
