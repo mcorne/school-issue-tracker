@@ -40,6 +40,7 @@ def create_app(test_config=None):
 
     app.debug = True
     login_manager.login_message = lazy_gettext("Please log in to access this page.")
+    login_manager.login_message_category = "error"
     login_manager.login_view = "user.login"
 
     babel.init_app(app)

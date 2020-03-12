@@ -80,7 +80,7 @@ def login():
             location = url_for(url)
             return redirect(location)
 
-        flash(_("Invalid username or password"))
+        flash(_("Invalid username or password"), "error")
 
     return render_template("user/login.html", form=form)
 

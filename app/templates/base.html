@@ -1,33 +1,53 @@
-<!doctype html>
-<title>{% block title %}{% endblock %} - {{ _('Issues') }}</title>
+<!DOCTYPE html>
+<html>
 <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-5.12.1-web/css/all.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='w3.css') }}">
+<!-- TODO: remove when not needed anymore -->
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='application.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ _('Issues') }}</title>
 
-<nav>
-    <h1>{{ _('Issues') }}</h1>
-    <ul>
-        {% if current_user.is_authenticated %}
-        <li><span>{{ current_user.username}}</span>
-        <li><a href="{{ url_for('user.logout') }}">{{ _('Log Out') }}</a>
-            {% else %}
-        <li><a href="{{ url_for('user.login') }}">{{ _('Log In') }}</a>
-            {% endif %}
-    </ul>
-</nav>
-<section class="content">
-    <header>
-        {% block header %}{% endblock %}
+<body class="w3-content">
+
+    <header class="w3-display-container w3-green w3-xlarge w3-padding w3-margin-bottom">
+        <span class="w3-large">
+            <a href="javascript:open_sidebar()" class="w3-text-white w3-hover-grey"><i
+                    class="fas fa-bars fa-lg"></i></a>
+        </span>
+
+        <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-grey">{{ _('Issues') }}</a>
+
+        <span class="w3-large w3-right">
+            <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-grey"><i class="fas fa-home fa-lg"
+                    aria-hidden="true"></i></a>
+
+            <a href="{{ url_for('user.logout') }}" class="w3-text-white w3-hover-grey"><i
+                    class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i></a>
+        </span>
     </header>
 
-    {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %}
+    <section class="content">
+        <header>
+            {% block header %}{% endblock %}
+        </header>
 
-    {% block content %}{% endblock %}
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+        {% if category == "error" %}
+        <div class="w3-container w3-red w3-margin-bottom">{{ message }}</div>
+        {% else %}
+        <div class="w3-container w3-green w3-margin-bottom">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
 
-    <hr>
-    {% for url in session["urls"] %}
-    <div><a href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</div>
-    {% endfor %}
-</section>
+        {% block content %}{% endblock %}
+
+        <hr>
+        {% for url in session["urls"] %}
+        <div><a href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</div>
+        {% endfor %}
+    </section>
+</body>
+
+</html>
