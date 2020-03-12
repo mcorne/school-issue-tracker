@@ -42,13 +42,13 @@ def change_type(id):
     if issue.type.name == "computer":
         if not current_user.role.authorized("change_to_technical_issue", issue=issue):
             return redirect_unauthorized_action()
-        content = _("Issue changed to technical issue")
+        content = _("Changed to technical issue")
         issue.type = "other"
         notification = _("Issue changed to technical issue")
     else:
         if not current_user.role.authorized("change_to_computer_issue", issue=issue):
             return redirect_unauthorized_action()
-        content = _("Issue changed to computer issue")
+        content = _("Changed to computer issue")
         issue.type = "computer"
         notification = _("Issue changed to computer issue")
 

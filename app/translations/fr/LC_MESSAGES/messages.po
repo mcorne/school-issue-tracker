@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 17:35+0100\n"
-"PO-Revision-Date: 2020-03-12 17:35+0100\n"
+"POT-Creation-Date: 2020-03-12 17:40+0100\n"
+"PO-Revision-Date: 2020-03-12 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -243,11 +243,19 @@ msgstr "Non"
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: views/issue.py:45 views/issue.py:47
+#: views/issue.py:45
+msgid "Changed to technical issue"
+msgstr "Requalifié en problème technique"
+
+#: views/issue.py:47
 msgid "Issue changed to technical issue"
 msgstr "Problème requalifié en problème technique"
 
-#: views/issue.py:51 views/issue.py:53
+#: views/issue.py:51
+msgid "Changed to computer issue"
+msgstr "Requalifié en problème informatique"
+
+#: views/issue.py:53
 msgid "Issue changed to computer issue"
 msgstr "Problème requalifié en problème informatique"
 
