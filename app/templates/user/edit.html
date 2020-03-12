@@ -9,42 +9,46 @@
 {% endblock %}
 
 {% block content %}
-<form method="post">
-    {{ form.hidden_tag() }}
+<div class="w3-container">
+    <form method="post">
+        {{ form.hidden_tag() }}
 
-    {{ form.username.label }}
-    {{ form.username }}
-    {% for error in form.username.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {{ form.username.label }}
+        {{ form.username(class_="w3-input w3-border w3-margin-bottom") }}
+        {% for error in form.username.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-    {{ form.password.label }}
-    {{ form.password }}
-    {% for error in form.password.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {{ form.password.label }}
+        {{ form.password(class_="w3-input w3-border w3-margin-bottom") }}
+        {% for error in form.password.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-    {{ form.role.label }}
-    {{ form.role }}
-    {% for error in form.role.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {{ form.role.label }}
+        {{ form.role(class_="w3-select w3-border w3-pale-green w3-margin-bottom") }}
+        {% for error in form.role.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-    {% if id is not defined or id != 1 %}
-    {{ form.generic.label }}
-    {{ form.generic }}
-    {% for error in form.generic.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {% if id is not defined or id != 1 %}
+        {{ form.generic.label }}
+        {{ form.generic(class_="w3-check") }}
+        {% for error in form.generic.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {% endif %}
+
+        {% if id is defined and id != 1 %}
+        {{ form.disabled.label }}
+        {{ form.disabled(class_="w3-check") }}
+        {% for error in form.disabled.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
+        {% endif %}
+
+        <p class="w3-center">
+            {{ form.submit(class_="w3-btn w3-ripple w3-green") }}
+        </p>
+    </form>
+
+    {% if id is defined and id != 1 and not has_issues %}
+    <div><a href="{{ url_for('user.delete', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+            onclick="return confirm(this.dataset.confirmation)">{{ _('Delete User') }}</a>
+        <!-- _('Please confirm') is needed as a comment for gettext extraction -->
+    </div>
     {% endif %}
 
-    {% if id is defined and id != 1 %}
-    {{ form.disabled.label }}
-    {{ form.disabled }}
-    {% for error in form.disabled.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
-    {% endif %}
-
-    {{ form.submit() }}
-</form>
-
-{% if id is defined and id != 1 and not has_issues %}
-<div><a href="{{ url_for('user.delete', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-        onclick="return confirm(this.dataset.confirmation)">{{ _('Delete User') }}</a>
-    <!-- _('Please confirm') is needed as a comment for gettext extraction -->
+    {{ _('Note that generic account passwords are used as unique identifiers regardless of usernames.') }}
 </div>
-{% endif %}
-
-{{ _('Note that generic account passwords are used as unique identifiers regardless of usernames.') }}
 {% endblock %}

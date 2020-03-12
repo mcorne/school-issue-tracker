@@ -13,7 +13,9 @@
         {{ form.password(class_="w3-input w3-border w3-margin-bottom") }}
         {% for error in form.password.errors %}<div style="color: red;">{{ error }}</div>{% endfor %}
 
-        {{ form.submit(class_="w3-button w3-green w3-section w3-padding") }}
+        <p class="w3-center">
+            {{ form.submit(class_="w3-button w3-green w3-section w3-padding") }}
+        </p>
     </form>
 </div>
 {% endblock %}
