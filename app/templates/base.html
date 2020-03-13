@@ -32,9 +32,9 @@
 
     {% for category, message in get_flashed_messages(with_categories=true) %}
     {% if category == "error" %}
-    <div class="w3-container w3-red w3-margin-bottom">{{ message }}</div>
+    <div class="w3-container w3-pale-red w3-margin-bottom">{{ message }}</div>
     {% else %}
-    <div class="w3-container w3-green w3-margin-bottom">{{ message }}</div>
+    <div class="w3-container w3-pale-green w3-margin-bottom">{{ message }}</div>
     {% endif %}
     {% endfor %}
 

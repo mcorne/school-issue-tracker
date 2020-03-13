@@ -43,9 +43,9 @@ def index():
 def delete(id):
     user = User.query.get_or_404(id)
     if user.is_original_admin():
-        flash(_("Administrator cannot be deleted"))
+        flash(_("Administrator cannot be deleted"), "error")
     elif user.has_issues():
-        flash(_("User with issues cannot be deleted"))
+        flash(_("User with issues cannot be deleted"), "error")
     else:
         db.session.delete(user)
         db.session.commit()
@@ -101,9 +101,9 @@ def create():
     form = UserCreateForm()
     if form.validate_on_submit():
         if not User.is_username_unique(form.username.data):
-            flash(_("Username already registered"))
+            flash(_("Username already registered"), "error")
         elif not User.is_generic_user_password_unique(form.password.data):
-            flash(_("Password already used for a generic account"))
+            flash(_("Password already used for a generic account"), "error")
         else:
             password = generate_password_hash(form.password.data)
             user = User(
@@ -133,15 +133,15 @@ def update(id):
         form.set_password_required()
     if form.validate_on_submit():
         if user.is_original_admin() and form.disabled.data:
-            flash(_("Administrator may not be disabled"))
+            flash(_("Administrator may not be disabled"), "error")
         elif not User.is_username_unique(form.username.data, id):
-            flash(_("Username already used"))
+            flash(_("Username already used"), "error")
         elif (
             form.password.data
             and not form.disabled.data
             and not User.is_generic_user_password_unique(form.password.data, id)
         ):
-            flash(_("Password already used for a generic account"))
+            flash(_("Password already used for a generic account"), "error")
         else:
             if not form.password.data:
                 form.password.data = user.password

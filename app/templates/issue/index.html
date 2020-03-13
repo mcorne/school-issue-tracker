@@ -1,27 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if current_user.is_authenticated %}
-<a class="action" href="{{ url_for('issue.create') }}">{{ _('New') }}</a>
-{% endif %}
+<div class="w3-container">
+    {% if current_user.is_authenticated %}
+    <p><a class="action" href="{{ url_for('issue.create') }}">{{ _('Make a request or report an issue') }}</a></p>
+    {% endif %}
 
-{% for issue in issues %}
-<article class="issue">
-    <header>
-        <div>
-            <h1>{{ issue.title }}</h1>
-            <div class="about">
-                {{ _('by %(username)s on %(datetime)s', username=issue.user.username, datetime=issue.created|local_datetime) }}
+    <ul class="w3-ul w3-card-4 w3-margin-bottom">
+        {% for issue in issues %}
+        <li>
+            {% if current_user.id == issue.user_id %}
+            <a href="{{ url_for('issue.update', id=issue.id) }}">
+                <h2>{{ issue.title }}</h2>
+            </a>
+            {% else %}
+            <h2>{{ issue.title }}</h2>
+            {% endif %}
+
+            <div class="w3-large">
+                {{ _('At %(site)s - %(location)s', site=issue.site, location=issue.location) }}
             </div>
-        </div>
-        {% if current_user.id == issue.user_id %}
-        <a class="action" href="{{ url_for('issue.update', id=issue.id) }}">{{ _('Edit') }}</a>
-        {% endif %}
-    </header>
-    <p class="description">{{ issue.description }}</p>
-</article>
-{% if not loop.last %}
-<hr>
-{% endif %}
-{% endfor %}
+
+            <div class="w3-small w3-text-grey">
+                {{ _('Computer issue') if issue.type.name == "computer" else _('Technical issue') }}
+            </div>
+
+            <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
+    username=issue.username,
+    datetime=issue.created|local_datetime,
+    ) }}
+            </div>
+
+            {% if issue.closed %}
+            <div class="w3-small w3-text-grey">{{ _('Closed on %(datetime)s', datetime=issue.closed|local_datetime) }}
+            </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

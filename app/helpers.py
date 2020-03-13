@@ -12,5 +12,5 @@ def is_safe_url(target):
 
 
 def redirect_unauthorized_action():
-    flash(_("You are not authorized to perform this action."))
+    flash(_("You are not authorized to perform this action."), "error")
     return redirect(url_for("user.logout"))

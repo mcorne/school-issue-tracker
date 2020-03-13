@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 17:40+0100\n"
-"PO-Revision-Date: 2020-03-12 17:41+0100\n"
+"POT-Creation-Date: 2020-03-13 10:27+0100\n"
+"PO-Revision-Date: 2020-03-13 10:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -26,48 +26,40 @@ msgstr "Problèmes"
 
 #: templates/base.html:18
 msgid "Requests & Issues"
-msgstr "Demandes et problèmes"
+msgstr "Demandes & Problèmes"
 
-#: templates/issue/index.html:5
-msgid "New"
-msgstr "Nouveau"
+#: templates/issue/index.html:6
+msgid "Make a request or report an issue"
+msgstr "Faire une demande ou signaler un problème"
 
-#: templates/issue/index.html:14
-#, python-format
-msgid "by %(username)s on %(datetime)s"
-msgstr "de %(username)s le %(datetime)s"
-
-#: templates/issue/index.html:18
-msgid "Edit"
-msgstr "Mettre à jour"
-
-#: templates/issue/update.html:10
+#: templates/issue/index.html:21 templates/issue/update.html:10
 #, python-format
 msgid "At %(site)s - %(location)s"
 msgstr "À %(site)s - %(location)s"
+
+#: templates/issue/index.html:25 templates/issue/update.html:22
+msgid "Computer issue"
+msgstr "Problème informatique"
+
+#: templates/issue/index.html:25 templates/issue/update.html:22
+msgid "Technical issue"
+msgstr "Problème technique"
+
+#: templates/issue/index.html:28 templates/issue/update.html:25
+#: templates/issue/update.html:40
+#, python-format
+msgid "By %(username)s on %(datetime)s"
+msgstr "De %(username)s le %(datetime)s"
+
+#: templates/issue/index.html:35 templates/issue/update.html:32
+#, python-format
+msgid "Closed on %(datetime)s"
+msgstr "Clôturé le %(datetime)s"
 
 #: templates/issue/update.html:14
 #, python-format
 msgid "Equipment %(computer_number)s"
 msgstr "Équipement %(computer_number)s"
-
-#: templates/issue/update.html:22
-msgid "Computer issue"
-msgstr "Problème informatique"
-
-#: templates/issue/update.html:22
-msgid "Technical issue"
-msgstr "Problème technique"
-
-#: templates/issue/update.html:25 templates/issue/update.html:40
-#, python-format
-msgid "By %(username)s on %(datetime)s"
-msgstr "De %(username)s le %(datetime)s"
-
-#: templates/issue/update.html:32
-#, python-format
-msgid "Closed on %(datetime)s"
-msgstr "Clôturé le %(datetime)s"
 
 #: templates/issue/update.html:72
 msgid "Change to technical issue"
@@ -248,40 +240,40 @@ msgid "Changed to technical issue"
 msgstr "Requalifié en problème technique"
 
 #: views/issue.py:47
-msgid "Issue changed to technical issue"
-msgstr "Problème requalifié en problème technique"
+msgid "Issue changed to technical issue with success"
+msgstr "Problème requalifié en problème technique avec succès"
 
 #: views/issue.py:51
 msgid "Changed to computer issue"
 msgstr "Requalifié en problème informatique"
 
 #: views/issue.py:53
-msgid "Issue changed to computer issue"
-msgstr "Problème requalifié en problème informatique"
+msgid "Issue changed to computer issue with success"
+msgstr "Problème requalifié en problème informatique avec succès"
 
 #: views/issue.py:78
-msgid "New issue created"
-msgstr "Nouveau problème enregistré"
+msgid "New issue created with success"
+msgstr "Nouveau problème enregistré avec succès"
 
 #: views/issue.py:101
 msgid "Closing of the issue"
 msgstr "Clôture du problème"
 
 #: views/issue.py:103
-msgid "Issue closed"
-msgstr "Problème clos"
+msgid "Issue closed with success"
+msgstr "Problème clôturé  avec succès"
 
 #: views/issue.py:107
 msgid "Reopening of the issue"
 msgstr "Réouverture du problème"
 
 #: views/issue.py:109
-msgid "Issue reopened"
-msgstr "Problème rouvert"
+msgid "Issue reopened with success"
+msgstr "Problème rouvert avec succès"
 
 #: views/issue.py:113
-msgid "Issue updated"
-msgstr "Problème mise à jour"
+msgid "Issue updated with success"
+msgstr "Problème mise à jour avec succès"
 
 #: views/user.py:46
 msgid "Administrator cannot be deleted"
@@ -310,3 +302,13 @@ msgstr "Interdiction de désactiver l'administrateur"
 #: views/user.py:138
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
+
+#~ msgid "New"
+#~ msgstr "Nouveau"
+
+#, python-format
+#~ msgid "by %(username)s on %(datetime)s"
+#~ msgstr "de %(username)s le %(datetime)s"
+
+#~ msgid "Edit"
+#~ msgstr "Mettre à jour"

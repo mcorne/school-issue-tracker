@@ -44,13 +44,13 @@ def change_type(id):
             return redirect_unauthorized_action()
         content = _("Changed to technical issue")
         issue.type = "other"
-        notification = _("Issue changed to technical issue")
+        notification = _("Issue changed to technical issue with success")
     else:
         if not current_user.role.authorized("change_to_computer_issue", issue=issue):
             return redirect_unauthorized_action()
         content = _("Changed to computer issue")
         issue.type = "computer"
-        notification = _("Issue changed to computer issue")
+        notification = _("Issue changed to computer issue with success")
 
     Message.add_message(content, issue_id=id)
     db.session.commit()
@@ -75,7 +75,7 @@ def create():
         )
         db.session.add(issue)
         db.session.commit()
-        flash(_("New issue created"))
+        flash(_("New issue created with success"))
         return redirect(url_for("issue.index"))
 
     return render_template("issue/create.html", form=form)
@@ -100,17 +100,17 @@ def update(id):
                 return redirect_unauthorized_action()
             Message.add_message(_("Closing of the issue"), issue_id=id)
             issue.closed = datetime.utcnow()
-            flash(_("Issue closed"))
+            flash(_("Issue closed with success"))
         elif form.reopen.data:
             if not current_user.role.authorized("reopen_issue", issue=issue):
                 return redirect_unauthorized_action()
             Message.add_message(_("Reopening of the issue"), issue_id=id)
             issue.closed = None
-            flash(_("Issue reopened"))
+            flash(_("Issue reopened with success"))
         else:
             if not current_user.role.authorized("update_issue", issue=issue):
                 return redirect_unauthorized_action()
-            flash(_("Issue updated"))
+            flash(_("Issue updated with success"))
 
         db.session.commit()
         return redirect(url_for("issue.update", id=id))
