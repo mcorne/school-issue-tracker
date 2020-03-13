@@ -11,13 +11,14 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired
 
+from app.filters import fix_nl
 from app.models.issue import Site, Type
 from app.models.user import Role
 
 
 class IssueForm(FlaskForm):
     computer_number = StringField(_l("Equipment Number (if applicable)"))
-    description = TextAreaField(_l("Description"))
+    description = TextAreaField(_l("Description"), filters=[fix_nl])
     location = StringField(
         _l("Location (classroom, building, outside etc.)"), validators=[DataRequired()]
     )
@@ -44,7 +45,7 @@ class LoginForm(FlaskForm):
 
 
 class MessageForm(FlaskForm):
-    content = TextAreaField(_l("Message"))
+    content = TextAreaField(_l("Message"), filters=[fix_nl])
     submit = SubmitField(_l("Save"))
     close = SubmitField(_l("Close"))
     reopen = SubmitField(_l("Reopen"))

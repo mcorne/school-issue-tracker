@@ -15,7 +15,7 @@
             {% endif %}
 
             {% if issue.description %}
-            <div class="w3-panel w3-leftbar">{{ issue.description }}</div>
+            <div class="w3-panel w3-leftbar">{{ issue.description|nl2br }}</div>
             {% endif %}
 
             <div class="w3-small w3-text-grey">
@@ -36,7 +36,7 @@
 
         {% for message in messages %}
         <li>
-            <div>{{ message.content }}</div>
+            <div>{{ message.content|nl2br }}</div>
             <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
     username=message.username if message.username else message.user.username,
     datetime=message.created|local_datetime) }}</div>
