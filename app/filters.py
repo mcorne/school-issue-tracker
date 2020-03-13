@@ -8,16 +8,16 @@ from jinja2 import Markup, escape
 bp = Blueprint("filters", __name__)
 
 
-@jinja2.contextfilter
-@bp.app_template_filter()
-def local_datetime(context, datetime):
-    return format_datetime(datetime, format="short")
-
-
 def fix_nl(string):
     if string:
         fixed = re.sub("(\r\n|\r)", "\n", string)
         return fixed
+
+
+@jinja2.contextfilter
+@bp.app_template_filter()
+def local_datetime(context, datetime):
+    return format_datetime(datetime, format="short")
 
 
 @jinja2.contextfilter

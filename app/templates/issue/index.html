@@ -9,7 +9,7 @@
     <ul class="w3-ul w3-card-4 w3-margin-bottom">
         {% for issue in issues %}
         <li>
-            {% if current_user.id == issue.user_id %}
+            {% if current_user.role.authorized("update_issue", issue=issue) %}
             <a href="{{ url_for('issue.update', id=issue.id) }}">
                 <h2>{{ issue.title }}</h2>
             </a>
