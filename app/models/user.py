@@ -33,7 +33,7 @@ class Role(BaseEnum):
             ##
             "reopen_issue": lambda role, issue: bool(issue.closed),
             ##
-            "update_issue": lambda role, issue: not issue.closed,
+            "update_issue": lambda role, issue: not issue.closed,  # TODO: fix, not consistent with can_user_update_role !!!
         }
 
         if action not in authorizations:

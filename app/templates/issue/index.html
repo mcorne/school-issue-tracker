@@ -9,12 +9,21 @@
     <ul class="w3-ul w3-card-4 w3-margin-bottom">
         {% for issue in issues %}
         <li>
-            {% if current_user.role.authorized("update_issue", issue=issue) %}
+            {% if issue.can_user_update_issue() %}
             <a href="{{ url_for('issue.update', id=issue.id) }}">
-                <h2>{{ issue.title }}</h2>
+                {% endif %}
+                <h2>
+                    {% if issue.closed %}
+                    <i class="fas fa-check-circle"></i>
+                    {% elif issue.processing %}
+                    <i class="fas fa-user-circle"></i>
+                    {% else %}
+                    <i class="fas fa-exclamation-circle"></i>
+                    {% endif %}
+                    {{ issue.title }}
+                </h2>
+                {% if issue.can_user_update_issue() %}
             </a>
-            {% else %}
-            <h2>{{ issue.title }}</h2>
             {% endif %}
 
             <div class="w3-large">

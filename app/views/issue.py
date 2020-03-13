@@ -52,6 +52,7 @@ def change_type(id):
         issue.type = "computer"
         notification = _("Issue changed to computer issue with success")
 
+    issue.reset_processing()
     Message.add_message(content, issue_id=id)
     db.session.commit()
     flash(notification)
@@ -91,7 +92,7 @@ def update(id):
 
     form = MessageForm()
     if form.validate_on_submit():
-        content = form.content.data.strip()
+        content = form.content.data
         if content:
             Message.add_message(content, issue_id=id)
 
@@ -100,16 +101,19 @@ def update(id):
                 return redirect_unauthorized_action()
             Message.add_message(_("Closing of the issue"), issue_id=id)
             issue.closed = datetime.utcnow()
+            issue.reset_processing()
             flash(_("Issue closed with success"))
         elif form.reopen.data:
             if not current_user.role.authorized("reopen_issue", issue=issue):
                 return redirect_unauthorized_action()
             Message.add_message(_("Reopening of the issue"), issue_id=id)
             issue.closed = None
+            issue.reset_processing()
             flash(_("Issue reopened with success"))
         else:
             if not current_user.role.authorized("update_issue", issue=issue):
                 return redirect_unauthorized_action()
+            issue.set_processing()
             flash(_("Issue updated with success"))
 
         db.session.commit()

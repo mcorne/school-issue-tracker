@@ -10,7 +10,7 @@ bp = Blueprint("filters", __name__)
 
 def fix_nl(string):
     if string:
-        fixed = re.sub("(\r\n|\r)", "\n", string)
+        fixed = re.sub("(\r\n|\r)", "\n", string.strip())
         return fixed
 
 

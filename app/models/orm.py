@@ -21,6 +21,9 @@ class Issue(db.Model):
     computer_number = db.Column(db.Text)  # for computer related issues
     description = db.Column(db.Text)
     location = db.Column(db.Text, nullable=False)
+    processing = db.Column(
+        db.Boolean, server_default=expression.false(), nullable=False
+    )
     site = db.Column(db.Enum(Site), nullable=False)
     title = db.Column(db.Text, nullable=False)
     type = db.Column(db.Enum(Type), nullable=False)
@@ -30,6 +33,20 @@ class Issue(db.Model):
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
 
+    def can_role_update_issue(self):
+        if self.type.name == "computer":
+            if current_user.role.name in ("admin", "it_manager", "it_technician"):
+                return True
+        else:
+            if current_user.role.name in ("admin", "service_agent", "service_manager"):
+                return True
+        return False
+
+    def can_user_update_issue(self):
+        if current_user.id == self.user.id:
+            return True
+        return self.can_role_update_issue()
+
     @staticmethod
     def get_username():
         if current_user.generic:
@@ -37,6 +54,13 @@ class Issue(db.Model):
         else:
             username = None
         return username
+
+    def reset_processing(self):
+        self.processing = False
+
+    def set_processing(self):
+        if self.can_role_update_issue():
+            self.processing = True
 
 
 class Message(db.Model):
