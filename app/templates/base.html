@@ -9,21 +9,21 @@
 
 <body class="w3-content">
 
-    <header class="w3-display-container w3-green w3-xlarge w3-padding w3-margin-bottom">
+    <header class="w3-display-container w3-blue w3-xlarge w3-padding w3-margin-bottom">
         <span class="w3-large">
-            <a href="javascript:open_sidebar()" class="w3-text-white w3-hover-grey"><i
+            <a href="javascript:open_sidebar()" class="w3-text-white w3-hover-text-grey"><i
                     class="fas fa-bars fa-lg"></i></a>
         </span>
 
-        <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-grey">{{ _('Requests & Issues') }}</a>
+        <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-text-grey">{{ _('Requests & Issues') }}</a>
 
         <span class="w3-large w3-right">
-            <a href="{{ url_for('user.logout') }}" class="w3-text-white w3-hover-grey"><i
+            <a href="{{ url_for('user.logout') }}" class="w3-text-white w3-hover-text-grey"><i
                     class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i></a>
         </span>
     </header>
 
-    <div class="w3-sidebar w3-bar-block w3-border-right w3-text-green" id="sidebar">
+    <div class="w3-sidebar w3-bar-block w3-border-right w3-text-blue" id="sidebar">
         {% for url in session["urls"] %}
         <a class="w3-bar-item w3-button" href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</a>
         {% endfor %}
@@ -34,7 +34,7 @@
     {% if category == "error" %}
     <div class="w3-container w3-pale-red w3-margin-bottom">{{ message }}</div>
     {% else %}
-    <div class="w3-container w3-pale-green w3-margin-bottom">{{ message }}</div>
+    <div class="w3-container w3-pale-blue w3-margin-bottom">{{ message }}</div>
     {% endif %}
     {% endfor %}
 

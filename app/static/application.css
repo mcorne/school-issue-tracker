@@ -13,12 +13,12 @@
 }
 
 a {
-    color: #4CAF50;
+    color: #2196F3; /* w3-blue */
     text-decoration: none;
 }
 
 a:hover {
-    color: black;
+    color: gray;
 }
 
 th {
