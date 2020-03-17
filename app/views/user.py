@@ -132,8 +132,12 @@ def update(id):
         # Force the password to be reentered if the user/account is reenabled or changed to generic
         form.set_password_required()
     if form.validate_on_submit():
-        if user.is_original_admin() and form.disabled.data:
-            flash(_("Administrator may not be disabled"), "error")
+        if user.is_original_admin() and (
+            form.disabled.data or form.role.data != "admin"
+        ):
+            flash(
+                _("Original administrator role may not be changed or disabled"), "error"
+            )
         elif not User.is_username_unique(form.username.data, id):
             flash(_("Username already used"), "error")
         elif (

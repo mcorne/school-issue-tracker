@@ -13,11 +13,12 @@
         {% for error in form.password.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
         {{ form.password(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
 
+        {% if id is not defined or id != 1 %}
+
         {{ form.role.label }}
         {% for error in form.role.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
         {{ form.role(class_="w3-select w3-border w3-hover-border-blue w3-margin-bottom w3-pale-blue") }}
 
-        {% if id is not defined or id != 1 %}
         <p>
             {{ form.generic.label }}
             {% for error in form.generic.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}

@@ -33,7 +33,9 @@ class Role(BaseEnum):
             ##
             "reopen_issue": lambda role, issue: bool(issue.closed),
             ##
-            "update_issue": lambda role, issue: not issue.closed,  # TODO: fix, not consistent with can_user_update_role !!!
+            "update_issue":
+            # TODO: fix, not consistent with can_user_update_role !!!
+            lambda role, issue: not issue.closed,
         }
 
         if action not in authorizations:
@@ -94,6 +96,7 @@ class Role(BaseEnum):
 
 
 class UserList(Table):
+    classes = ["w3-table-all", "w3-hoverable"]
     username = LinkCol(
         _l("Username"), "user.update", url_kwargs=dict(id="id"), attr="username"
     )  # TODO: escape with flask markup
