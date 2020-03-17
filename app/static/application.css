@@ -12,12 +12,12 @@
     }
 }
 
-aZZZ { /* TODO: remove */
+.link {
     color: #2196F3; /* w3-blue */
     text-decoration: none;
 }
 
-aZZZ:hover { /* TODO: remove */
+.link:hover {
     color: gray;
 }
 

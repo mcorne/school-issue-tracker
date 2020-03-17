@@ -68,12 +68,12 @@
     </form>
 
     {% if current_user.role.authorized('change_to_technical_issue', issue=issue) %}
-    <p><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+    <p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
             onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></p>
     {% endif %}
 
     {% if current_user.role.authorized('change_to_computer_issue', issue=issue) %}
-    <p><a href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+    <p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
             onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></p>
     {% endif %}
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-17 15:23+0100\n"
-"PO-Revision-Date: 2020-03-17 15:29+0100\n"
+"POT-Creation-Date: 2020-03-17 18:59+0100\n"
+"PO-Revision-Date: 2020-03-17 19:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,9 +19,9 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/base.html:8 templates/base.html:18
-msgid "Requests & Issues"
-msgstr "Demandes & Problèmes"
+#: templates/base.html:8 templates/base.html:16
+msgid "Technical and Computer Issues"
+msgstr "Problèmes techniques et informatiques"
 
 #: templates/issue/index.html:6
 msgid "Make a request or report an issue"
@@ -64,11 +64,11 @@ msgstr "Requalifier en problème technique"
 msgid "Change to computer issue"
 msgstr "Requalifier en problème informatique"
 
-#: templates/issue/update.html:80 templates/user/edit.html:49
+#: templates/issue/update.html:80 templates/user/edit.html:50
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
-#: templates/user/edit.html:27
+#: templates/user/edit.html:28
 msgid ""
 "The password of a generic account uniquely identifies this account "
 "regardless of the username."
@@ -76,11 +76,11 @@ msgstr ""
 "Le mot de passe d'un compte générique identifie ce compte de manière unique "
 "quel que soit le nom d'utilisateur."
 
-#: templates/user/edit.html:28
+#: templates/user/edit.html:29
 msgid "The username entered here is only informational."
 msgstr "Le nom d'utilisateur saisi ici est uniquement informatif."
 
-#: templates/user/edit.html:29
+#: templates/user/edit.html:30
 msgid ""
 "It is the username entered when the user signs in that will used and stored "
 "along with messages etc."
@@ -88,7 +88,7 @@ msgstr ""
 "C'est le nom d'utilisateur entré lorsque l'utilisateur se connecte qui sera "
 "utilisé et stocké avec les messages etc."
 
-#: templates/user/edit.html:48
+#: templates/user/edit.html:49
 msgid "Delete User"
 msgstr "Supprimer l'utilisateur"
 
@@ -136,7 +136,7 @@ msgstr "Mot de passe"
 msgid "Log In"
 msgstr "Se connecter"
 
-#: forms.py:44 forms.py:64 models/user.py:120
+#: forms.py:44 forms.py:64 models/user.py:101
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -156,7 +156,7 @@ msgstr "Rouvrir"
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:58 models/user.py:124
+#: forms.py:58 models/user.py:103
 msgid "Role"
 msgstr "Rôle"
 
@@ -177,8 +177,8 @@ msgid "You are not authorized to perform this action."
 msgstr "Vous n'êtes pas autorisé à effectuer cette action."
 
 #: models/issue.py:12
-msgid "Computer related issue or request"
-msgstr "Problème ou demande informatique"
+msgid "Computer related issue"
+msgstr "Problème informatique"
 
 #: models/issue.py:14
 msgid ""
@@ -210,28 +210,28 @@ msgstr "Manager des services"
 msgid "Teacher"
 msgstr "Enseignant"
 
-#: models/user.py:76 models/user.py:85 models/user.py:89 models/user.py:93
-#: models/user.py:97 models/user.py:101
+#: models/user.py:76 models/user.py:79 models/user.py:80 models/user.py:81
+#: models/user.py:82 models/user.py:83
 msgid "Issues"
 msgstr "Problèmes"
 
-#: models/user.py:80
+#: models/user.py:77
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: models/user.py:125
+#: models/user.py:104
 msgid "Generic"
 msgstr "Générique"
 
-#: models/user.py:126 models/user.py:129
+#: models/user.py:104 models/user.py:105
 msgid "Yes"
 msgstr "Oui"
 
-#: models/user.py:127 models/user.py:130
+#: models/user.py:104 models/user.py:105
 msgid "No"
 msgstr "Non"
 
-#: models/user.py:128
+#: models/user.py:105
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -273,7 +273,7 @@ msgstr "Problème rouvert avec succès"
 
 #: views/issue.py:117
 msgid "Issue updated with success"
-msgstr "Problème mise à jour avec succès"
+msgstr "Problème mis à jour avec succès"
 
 #: views/user.py:46
 msgid "Administrator cannot be deleted"
@@ -304,6 +304,9 @@ msgstr ""
 #: views/user.py:142
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
+
+#~ msgid "Requests & Issues"
+#~ msgstr "Demandes & Problèmes"
 
 #~ msgid "New"
 #~ msgstr "Nouveau"

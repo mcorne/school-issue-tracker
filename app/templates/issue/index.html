@@ -3,14 +3,14 @@
 {% block content %}
 <div class="w3-container">
     {% if current_user.is_authenticated %}
-    <p><a class="action" href="{{ url_for('issue.create') }}">{{ _('Make a request or report an issue') }}</a></p>
+    <p><a class="link" href="{{ url_for('issue.create') }}">{{ _('Make a request or report an issue') }}</a></p>
     {% endif %}
 
     <ul class="w3-ul w3-card-4 w3-margin-bottom">
         {% for issue in issues %}
         <li>
             {% if issue.can_user_update_issue() %}
-            <a href="{{ url_for('issue.update', id=issue.id) }}">
+            <a class="link" href="{{ url_for('issue.update', id=issue.id) }}">
                 {% endif %}
                 <h2>
                     {% if issue.closed %}

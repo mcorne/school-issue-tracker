@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='application.css') }}">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ _('Requests & Issues') }}</title>
+<title>{{ _('Technical and Computer Issues') }}</title>
 
 <body class="w3-content">
 
@@ -13,7 +13,7 @@
         <a class="w3-bar-item w3-hover-gray w3-button" href="javascript:open_sidebar()"><i class="fas fa-bars"></i></a>
 
         <a class="w3-bar-item w3-hover-gray w3-button"
-            href="{{ url_for('issue.index') }}">{{ _('Requests & Issues') }}</a>
+            href="{{ url_for('issue.index') }}">{{ _('Technical and Computer Issues') }}</a>
 
         <a class="w3-bar-item w3-right w3-hover-gray w3-button" href="{{ url_for('user.logout') }}"><i
                 class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
@@ -35,9 +35,9 @@
 
     {% for category, message in get_flashed_messages(with_categories=true) %}
     {% if category == "error" %}
-    <div class="w3-container w3-pale-red w3-margin-bottom">{{ message }}</div>
+    <div class="w3-container w3-red w3-margin-top">{{ message }}</div>
     {% else %}
-    <div class="w3-container w3-pale-blue w3-margin-bottom">{{ message }}</div>
+    <div class="w3-container w3-blue w3-margin-top">{{ message }}</div>
     {% endif %}
     {% endfor %}
 
