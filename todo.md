@@ -6,5 +6,3 @@ add IP address management
 
 fix issue sort order (latest pending, latest processing, latest closed issue)
 add options > issue type (set cookie)
-
-add user name in top bar, fix limited space for small display
