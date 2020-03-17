@@ -12,28 +12,19 @@
     }
 }
 
-a {
+aZZZ { /* TODO: remove */
     color: #2196F3; /* w3-blue */
     text-decoration: none;
 }
 
-a:hover {
+aZZZ:hover { /* TODO: remove */
     color: gray;
-}
-
-th {
-    white-space: nowrap;
-}
-
-#manage_books, #my_account, #users {
-    padding-left: 16px;
 }
 
 #sidebar {
     display: none;
-    max-height: 150px;
+    max-height: 120px;
     max-width: 400px;
-    /* right: 0; */
     width: 80%;
-    z-index: 5;
+    z-index: 4;
 }

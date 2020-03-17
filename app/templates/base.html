@@ -9,23 +9,26 @@
 
 <body class="w3-content">
 
-    <header class="w3-display-container w3-blue w3-xlarge w3-padding w3-margin-bottom">
-        <span class="w3-large">
-            <a href="javascript:open_sidebar()" class="w3-text-white w3-hover-text-grey"><i
-                    class="fas fa-bars fa-lg"></i></a>
+    <div class="w3-bar w3-blue w3-xlarge">
+        <a class="w3-bar-item w3-hover-gray w3-button" href="javascript:open_sidebar()"><i class="fas fa-bars"></i></a>
+
+        <a class="w3-bar-item w3-hover-gray w3-button"
+            href="{{ url_for('issue.index') }}">{{ _('Requests & Issues') }}</a>
+
+        <a class="w3-bar-item w3-right w3-hover-gray w3-button" href="{{ url_for('user.logout') }}"><i
+                class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
+
+        <span class="w3-bar-item w3-right w3-hide-small">
+            {% if current_user.username is defined %}
+            {{ current_user.username }}
+            {% endif %}
         </span>
+    </div>
 
-        <a href="{{ url_for('issue.index') }}" class="w3-text-white w3-hover-text-grey">{{ _('Requests & Issues') }}</a>
-
-        <span class="w3-large w3-right">
-            <a href="{{ url_for('user.logout') }}" class="w3-text-white w3-hover-text-grey"><i
-                    class="fas fa-sign-out-alt fa-lg" aria-hidden="true"></i></a>
-        </span>
-    </header>
-
-    <div class="w3-sidebar w3-bar-block w3-border-right w3-text-blue" id="sidebar">
+    <div class="w3-sidebar w3-bar-block" id="sidebar">
         {% for url in session["urls"] %}
-        <a class="w3-bar-item w3-button" href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</a>
+        <a class="w3-bar-item w3-button w3-hover-blue"
+            href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</a>
         {% endfor %}
     </div>
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>
