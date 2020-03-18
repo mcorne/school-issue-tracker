@@ -1,7 +1,7 @@
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) { /* w3-hide-small */
     /* mobile */
     body {
-        font-size: 19px;
+        font-size: 19px; /* TODO: remove if not necessary !!! */
     }
 }
 
