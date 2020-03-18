@@ -19,8 +19,8 @@
                 class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
 
         <span class="w3-bar-item w3-right w3-hide-small">
-            {% if current_user.username is defined %}
-            {{ current_user.username }}
+            {% if session.get("username") %}
+            {{ session.get("username") }}
             {% endif %}
         </span>
     </div>

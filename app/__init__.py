@@ -58,11 +58,7 @@ def create_app(test_config=None):
 
     @login_manager.user_loader
     def load_user(user_id):
-        user = User.query.get(int(user_id))
-        if user:
-            # TODO: seems to change prof username account with login username !!!
-            user.username = session.get("username")
-        return user
+        return User.query.get(int(user_id))
 
     app.add_url_rule("/", endpoint="index")
 
