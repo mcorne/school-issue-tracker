@@ -2,10 +2,10 @@
 
 {% block content %}
 {% if current_user.role.name == 'admin' %}
-<p><a class="link" href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</a></p>
+<div class="w3-margin-bottom">
+    <a class="link" href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</a>
+</div>
 {% endif %}
 
-<div class="w3-responsive">
-    {{ table }}
-</div>
+<div class="w3-responsive">{{ table }}</div>
 {% endblock %}

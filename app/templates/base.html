@@ -40,15 +40,21 @@
     </div>
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>
 
-    {% for category, message in get_flashed_messages(with_categories=true) %}
-    {% if category == "error" %}
-    <div class="w3-container w3-red w3-margin-top">{{ message }}</div>
-    {% else %}
-    <div class="w3-container w3-blue w3-margin-top">{{ message }}</div>
-    {% endif %}
-    {% endfor %}
+    <div class="w3-panel">
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+        {% if category == "error" %}
+        <div class="w3-panel w3-red">
+            <p>{{ message }}</p>
+        </div>
+        {% else %}
+        <div class="w3-panel w3-blue">
+            <p>{{ message }}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
+    </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='application.js') }}"></script>
 </body>
