@@ -102,21 +102,20 @@ class UserList(Table):
         "user.update",
         anchor_attrs={"class": "link"},
         attr="username",
-        th_html_attrs={"class": "w3-blue"},
+        th_html_attrs={"class": "w3-blue w3-hover-gray"},
         url_kwargs=dict(id="id"),
     )  # TODO: escape with flask markup
-    # TODO: remove links underlines, add pale blue background and blue borders !!!
-    role = Col(_l("Role"), th_html_attrs={"class": "w3-blue"})
+    role = Col(_l("Role"), th_html_attrs={"class": "w3-blue w3-hover-gray"})
     generic = BoolCol(
         _l("Generic"),
         no_display=_l("No"),
-        th_html_attrs={"class": "w3-blue"},
+        th_html_attrs={"class": "w3-blue w3-hover-gray"},
         yes_display=_l("Yes"),
     )
     disabled = BoolCol(
         _l("Disabled"),
         no_display=_l("No"),
-        th_html_attrs={"class": "w3-blue"},
+        th_html_attrs={"class": "w3-blue w3-hover-gray"},
         yes_display=_l("Yes"),
     )
 
