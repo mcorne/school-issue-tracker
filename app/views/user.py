@@ -47,6 +47,7 @@ def create():
             )
             db.session.add(user)
             db.session.commit()
+            flash(_("New user created with success"))
             return redirect(url_for("user.index"))
 
     return render_template("user/edit.html", form=form)
@@ -64,6 +65,7 @@ def delete(id):
     else:
         db.session.delete(user)
         db.session.commit()
+        flash(_("User deleted with success"))
 
     return redirect(url_for("user.index"))
 
@@ -157,6 +159,7 @@ def update(id):
                 form.password.data = generate_password_hash(form.password.data)
             form.populate_obj(user)
             db.session.commit()
+            flash(_("User updated with success"))
             return redirect(url_for("user.index"))
 
     return render_template("user/edit.html", form=form, has_issues=has_issues, id=id)
