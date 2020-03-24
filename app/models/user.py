@@ -98,12 +98,27 @@ class Role(BaseEnum):
 class UserList(Table):
     classes = ["w3-table-all", "w3-hoverable"]
     username = LinkCol(
-        _l("Username"), "user.update", url_kwargs=dict(id="id"), attr="username"
+        _l("Username"),
+        "user.update",
+        anchor_attrs={"class": "link"},
+        attr="username",
+        th_html_attrs={"class": "w3-blue"},
+        url_kwargs=dict(id="id"),
     )  # TODO: escape with flask markup
     # TODO: remove links underlines, add pale blue background and blue borders !!!
-    role = Col(_l("Role"))
-    generic = BoolCol(_l("Generic"), yes_display=_l("Yes"), no_display=_l("No"))
-    disabled = BoolCol(_l("Disabled"), yes_display=_l("Yes"), no_display=_l("No"))
+    role = Col(_l("Role"), th_html_attrs={"class": "w3-blue"})
+    generic = BoolCol(
+        _l("Generic"),
+        no_display=_l("No"),
+        th_html_attrs={"class": "w3-blue"},
+        yes_display=_l("Yes"),
+    )
+    disabled = BoolCol(
+        _l("Disabled"),
+        no_display=_l("No"),
+        th_html_attrs={"class": "w3-blue"},
+        yes_display=_l("Yes"),
+    )
 
     allow_sort = True
 
