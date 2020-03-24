@@ -2,7 +2,6 @@ from datetime import datetime
 
 from flask import session
 from flask_login import UserMixin, current_user
-from sqlalchemy import and_
 from sqlalchemy.sql import expression
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -121,14 +120,20 @@ class User(UserMixin, db.Model):
         return bool(self.issues.first())
 
     @classmethod
-    def is_generic_user_password_unique(cls, password, id=None):
+    def is_generic_user_password_unique(cls, password, generic, id=None):
         """Check that the generic account password is unique
 
         Generic account passwords must be unique accross all passwords including user passwords.
         If a generic account and a user shared the same password, a user mistyping his/her username
         could possibly and wrongly login into a generic account.
         """
-        users = cls.query.filter(and_(cls.disabled == False, cls.id != id)).all()
+        query = cls.query.filter(cls.disabled == False)
+        if id:
+            query = query.filter(cls.id != id)
+        if not generic:
+            query = query.filter(cls.generic == True)
+        users = query.all()
+
         for user in users:
             if check_password_hash(user.password, password):
                 return False
@@ -140,5 +145,5 @@ class User(UserMixin, db.Model):
     @classmethod
     def is_username_unique(cls, username, id=None):
         """Check that the username is unique"""
-        user = cls.query.filter(and_(cls.username == username, cls.id != id)).first()
+        user = cls.query.filter(cls.username == username, cls.id != id).first()
         return not user

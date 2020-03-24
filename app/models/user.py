@@ -100,6 +100,7 @@ class UserList(Table):
     username = LinkCol(
         _l("Username"), "user.update", url_kwargs=dict(id="id"), attr="username"
     )  # TODO: escape with flask markup
+    # TODO: remove links underlines, add pale blue background and blue borders !!!
     role = Col(_l("Role"))
     generic = BoolCol(_l("Generic"), yes_display=_l("Yes"), no_display=_l("No"))
     disabled = BoolCol(_l("Disabled"), yes_display=_l("Yes"), no_display=_l("No"))

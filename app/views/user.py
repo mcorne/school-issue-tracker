@@ -12,7 +12,7 @@ from flask import (
 )
 from flask_babel import _
 from flask_login import current_user, login_required, login_user, logout_user
-from sqlalchemy import and_, desc
+from sqlalchemy import desc
 from werkzeug.security import generate_password_hash
 
 from app import db
@@ -33,7 +33,9 @@ def create():
     if form.validate_on_submit():
         if not User.is_username_unique(form.username.data):
             flash(_("Username already registered"), "error")
-        elif not User.is_generic_user_password_unique(form.password.data):
+        elif not User.is_generic_user_password_unique(
+            form.password.data, form.generic.data
+        ):
             flash(_("Password already used for a generic account"), "error")
         else:
             password = generate_password_hash(form.password.data)
@@ -47,7 +49,7 @@ def create():
             db.session.commit()
             return redirect(url_for("user.index"))
 
-    return render_template("user/edit.html")
+    return render_template("user/edit.html", form=form)
 
 
 @bp.route("/<int:id>/delete", methods=("GET", "POST"))
@@ -143,7 +145,9 @@ def update(id):
         elif (
             form.password.data
             and not form.disabled.data
-            and not User.is_generic_user_password_unique(form.password.data, id)
+            and not User.is_generic_user_password_unique(
+                form.password.data, form.generic.data, id
+            )
         ):
             flash(_("Password already used for a generic account"), "error")
         else:
@@ -153,6 +157,6 @@ def update(id):
                 form.password.data = generate_password_hash(form.password.data)
             form.populate_obj(user)
             db.session.commit()
-            return redirect(url_for("user.update", id=id))
+            return redirect(url_for("user.index"))
 
     return render_template("user/edit.html", form=form, has_issues=has_issues, id=id)
