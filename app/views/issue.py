@@ -16,22 +16,6 @@ from app.models.orm import Issue, Message, User
 bp = Blueprint("issue", __name__)
 
 
-@bp.route("/")
-def index():
-    # Not using the login_required decorator so the login message is not displayed.
-    # The login message is unwanted when a user click on a link to the app.
-    if not current_user.is_authenticated:
-        return redirect(url_for("user.login"))
-
-    query = Issue.query
-    type = current_user.role.get_issue_type()
-    if type:
-        query = query.filter_by(type=type)
-    # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
-    issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
-    return render_template("issue/index.html", issues=issues)
-
-
 @bp.route("/<int:id>/change_type")
 @login_required
 @roles_required(
@@ -80,6 +64,22 @@ def create():
         return redirect(url_for("issue.index"))
 
     return render_template("issue/create.html", form=form)
+
+
+@bp.route("/")
+def index():
+    # Not using the login_required decorator so the login message is not displayed.
+    # The login message is unwanted when a user click on a link to the app.
+    if not current_user.is_authenticated:
+        return redirect(url_for("user.login"))
+
+    query = Issue.query
+    type = current_user.role.get_issue_type()
+    if type:
+        query = query.filter_by(type=type)
+    # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
+    issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
+    return render_template("issue/index.html", issues=issues)
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))

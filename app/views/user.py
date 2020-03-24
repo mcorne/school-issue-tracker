@@ -25,16 +25,29 @@ from app.models.user import UserList
 bp = Blueprint("user", __name__, url_prefix="/user")
 
 
-@bp.route("/")
+@bp.route("/create", methods=("GET", "POST"))
 @login_required
 @roles_required("admin")
-def index():
-    sort = request.args.get("sort", "username")
-    reverse = request.args.get("direction", "asc") == "desc"
-    order_by = desc(sort) if reverse else sort
-    users = User.query.order_by(order_by).all()
-    table = UserList(users, sort_by=sort, sort_reverse=reverse)
-    return render_template("user/index.html", table=table)
+def create():
+    form = UserCreateForm()
+    if form.validate_on_submit():
+        if not User.is_username_unique(form.username.data):
+            flash(_("Username already registered"), "error")
+        elif not User.is_generic_user_password_unique(form.password.data):
+            flash(_("Password already used for a generic account"), "error")
+        else:
+            password = generate_password_hash(form.password.data)
+            user = User(
+                generic=form.generic.data,
+                password=password,
+                role=form.role.data,
+                username=form.username.data,
+            )
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for("user.index"))
+
+    return render_template("user/edit.html")
 
 
 @bp.route("/<int:id>/delete", methods=("GET", "POST"))
@@ -51,6 +64,18 @@ def delete(id):
         db.session.commit()
 
     return redirect(url_for("user.index"))
+
+
+@bp.route("/")
+@login_required
+@roles_required("admin")
+def index():
+    sort = request.args.get("sort", "username")
+    reverse = request.args.get("direction", "asc") == "desc"
+    order_by = desc(sort) if reverse else sort
+    users = User.query.order_by(order_by).all()
+    table = UserList(users, sort_by=sort, sort_reverse=reverse)
+    return render_template("user/index.html", table=table)
 
 
 @bp.route("/login", methods=("GET", "POST"))
@@ -92,31 +117,6 @@ def logout():
     session.pop("username", None)
     logout_user()
     return redirect(url_for("user.login"))
-
-
-@bp.route("/create", methods=("GET", "POST"))
-@login_required
-@roles_required("admin")
-def create():
-    form = UserCreateForm()
-    if form.validate_on_submit():
-        if not User.is_username_unique(form.username.data):
-            flash(_("Username already registered"), "error")
-        elif not User.is_generic_user_password_unique(form.password.data):
-            flash(_("Password already used for a generic account"), "error")
-        else:
-            password = generate_password_hash(form.password.data)
-            user = User(
-                generic=form.generic.data,
-                password=password,
-                role=form.role.data,
-                username=form.username.data,
-            )
-            db.session.add(user)
-            db.session.commit()
-            return redirect(url_for("user.index"))
-
-    return render_template("user/edit.html", form=form)
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
