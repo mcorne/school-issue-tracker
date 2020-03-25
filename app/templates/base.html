@@ -10,7 +10,11 @@
 <body class="w3-content">
 
     <div class="w3-bar w3-blue w3-xlarge">
+        {% if session["urls"] %}
         <a class="w3-bar-item w3-hover-gray w3-button" href="javascript:open_sidebar()"><i class="fas fa-bars"></i></a>
+        {% else %}
+        <a class="w3-bar-item"><i class="fas fa-bars"></i></a>
+        {% endif %}
 
         <a class="w3-bar-item w3-hover-gray w3-button w3-hide-small w3-hide-medium"
             href="{{ url_for('issue.index') }}">{{ _('Technical and Computer Issues') }}</a>
