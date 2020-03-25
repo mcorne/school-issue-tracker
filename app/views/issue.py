@@ -112,6 +112,8 @@ def update(id):
             if not current_user.role.authorized("update_issue", issue=issue):
                 return redirect_unauthorized_action()
             issue.set_processing()
+            # Set updated time in case set_processing() updates nothing
+            issue.updated = datetime.utcnow()
             flash(_("Issue updated with success"))
 
         db.session.commit()

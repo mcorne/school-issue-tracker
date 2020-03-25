@@ -11,11 +11,14 @@ from app.models.user import Role
 
 db.Model.__table_args__ = {"sqlite_autoincrement": True}
 db.Model.id = db.Column(db.Integer, primary_key=True)
-db.Model.created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-db.Model.updated = db.Column(db.DateTime, onupdate=datetime.utcnow())
 
 
-class Issue(db.Model):
+class TimestampMixin(object):
+    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+    updated = db.Column(db.DateTime, onupdate=datetime.utcnow())
+
+
+class Issue(TimestampMixin, db.Model):
     closed = db.Column(db.DateTime)
     computer_number = db.Column(db.Text)  # for computer related issues
     description = db.Column(db.Text)
@@ -62,7 +65,7 @@ class Issue(db.Model):
             self.processing = True
 
 
-class Message(db.Model):
+class Message(TimestampMixin, db.Model):
     content = db.Column(db.Text)
     issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -82,7 +85,7 @@ class Message(db.Model):
         db.session.add(message)
 
 
-class User(UserMixin, db.Model):
+class User(UserMixin, TimestampMixin, db.Model):
     generic = db.Column(db.Boolean, server_default=expression.false(), nullable=False)
     disabled = db.Column(db.Boolean, server_default=expression.false(), nullable=False)
     password = db.Column(db.Text, nullable=False)
