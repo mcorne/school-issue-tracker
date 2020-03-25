@@ -36,7 +36,7 @@
         </div>
 
         <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
-    username=issue.username,
+    username=issue.username if issue.username else issue.user.username,
     datetime=issue.created|local_datetime,
     ) }}
         </div>
