@@ -108,7 +108,7 @@ def update(id):
             issue.closed = None
             issue.reset_processing()
             flash(_("Issue reopened with success"))
-        else:
+        elif content:
             if not current_user.role.authorized("update_issue", issue=issue):
                 return redirect_unauthorized_action()
             issue.set_processing()

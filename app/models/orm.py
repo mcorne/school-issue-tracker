@@ -9,16 +9,15 @@ from app import db
 from app.models.issue import Site, Type
 from app.models.user import Role
 
-db.Model.__table_args__ = {"sqlite_autoincrement": True}
-db.Model.id = db.Column(db.Integer, primary_key=True)
 
-
-class TimestampMixin(object):
+class CommonColumns(object):
+    __table_args__ = {"sqlite_autoincrement": True}
+    id = db.Column(db.Integer, primary_key=True)
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow())
 
 
-class Issue(TimestampMixin, db.Model):
+class Issue(CommonColumns, db.Model):
     closed = db.Column(db.DateTime)
     computer_number = db.Column(db.Text)  # for computer related issues
     description = db.Column(db.Text)
@@ -65,7 +64,7 @@ class Issue(TimestampMixin, db.Model):
             self.processing = True
 
 
-class Message(TimestampMixin, db.Model):
+class Message(CommonColumns, db.Model):
     content = db.Column(db.Text)
     issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -85,7 +84,7 @@ class Message(TimestampMixin, db.Model):
         db.session.add(message)
 
 
-class User(UserMixin, TimestampMixin, db.Model):
+class User(UserMixin, CommonColumns, db.Model):
     generic = db.Column(db.Boolean, server_default=expression.false(), nullable=False)
     disabled = db.Column(db.Boolean, server_default=expression.false(), nullable=False)
     password = db.Column(db.Text, nullable=False)
