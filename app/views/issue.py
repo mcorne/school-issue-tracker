@@ -86,8 +86,6 @@ def index():
 @login_required
 def update(id):
     issue = Issue.query.get_or_404(id)
-    if not issue.username:
-        issue.username = issue.user.username
     messages = issue.messages.all()
 
     form = MessageForm()
