@@ -117,7 +117,7 @@ def update(id):
             flash(_("Issue updated with success"))
 
         db.session.commit()
-        return redirect(url_for("issue.update", id=id))
+        return redirect(url_for("issue.index"))
 
     return render_template(
         "issue/update.html", form=form, id=id, issue=issue, messages=messages
