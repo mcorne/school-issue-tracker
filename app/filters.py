@@ -27,3 +27,9 @@ def nl2br(context, string):
     if context.eval_ctx.autoescape:
         fixed = Markup(fixed)
     return fixed
+
+
+def strip(string):
+    if string:
+        stripped = string.strip()
+        return stripped

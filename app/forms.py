@@ -11,16 +11,20 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired
 
-from app.filters import fix_nl
+from app.filters import fix_nl, strip
 from app.models.issue import Site, Type
 from app.models.user import Role
 
 
 class IssueForm(FlaskForm):
-    computer_number = StringField(_l("Equipment Number (if applicable)"))
+    computer_number = StringField(
+        _l("Equipment Number (if applicable)"), filters=[strip]
+    )
     description = TextAreaField(_l("Description"), filters=[fix_nl])
     location = StringField(
-        _l("Location (classroom, building, outside etc.)"), validators=[DataRequired()]
+        _l("Location (classroom, building, outside etc.)"),
+        filters=[strip],
+        validators=[DataRequired()],
     )
     site = RadioField(
         _l("Site"),
@@ -29,7 +33,7 @@ class IssueForm(FlaskForm):
         validators=[DataRequired()],
     )
     submit = SubmitField(_l("Save"))
-    title = StringField(_l("Subject"), validators=[DataRequired()])
+    title = StringField(_l("Subject"), filters=[strip], validators=[DataRequired()])
     type = RadioField(
         _l("Type"),
         choices=Type.get_options(),
@@ -41,7 +45,7 @@ class IssueForm(FlaskForm):
 class LoginForm(FlaskForm):
     password = PasswordField(_l("Password"), validators=[DataRequired()])
     submit = SubmitField(_l("Log In"))
-    username = StringField(_l("Username"), validators=[DataRequired()])
+    username = StringField(_l("Username"), filters=[strip], validators=[DataRequired()])
 
 
 class MessageForm(FlaskForm):
@@ -61,7 +65,7 @@ class UserCreateForm(FlaskForm):
         validators=[DataRequired()],
     )
     submit = SubmitField(_l("Save"))
-    username = StringField(_l("Username"), validators=[DataRequired()])
+    username = StringField(_l("Username"), filters=[strip], validators=[DataRequired()])
 
 
 class UserUpdateForm(UserCreateForm):
