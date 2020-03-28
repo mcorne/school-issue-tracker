@@ -69,6 +69,11 @@ class Message(CommonColumns, db.Model):
         )
         db.session.add(message)
 
+    @classmethod
+    def has_username(cls, issue_id, username):
+        message = cls.query.filter_by(issue_id=issue_id, username=username).first()
+        return bool(message)
+
 
 class User(UserMixin, CommonColumns, db.Model):
     generic = db.Column(db.Boolean, server_default=expression.false(), nullable=False)
@@ -85,7 +90,13 @@ class User(UserMixin, CommonColumns, db.Model):
             action == "update_issue"
             and not issue.closed
             and current_user.id == issue.user.id
-            and (not current_user.generic or session.get("username") == issue.username)
+            and (
+                not current_user.generic
+                # ex. teacher that created the issue
+                or session.get("username") == issue.username
+                # ex. teacher that reopened the issue
+                or Message.has_username(issue.id, session.get("username"))
+            )
         ):
             return True
         return self.role.authorized(action, issue)
