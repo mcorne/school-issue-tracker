@@ -38,7 +38,7 @@ class Role(BaseEnum):
                 issue.type.name == "computer"
                 and role in ("admin", "it_manager", "it_technician")
                 or issue.type.name == "other"
-                and role in ("admin", "service_manager", "service_manager")
+                and role in ("admin", "service_manager", "service_agent")
             ),
         }
 
