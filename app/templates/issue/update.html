@@ -43,6 +43,7 @@
     {% endfor %}
 </ul>
 
+{% if current_user.authorized('update_issue', issue) or current_user.authorized('close_issue', issue) or current_user.authorized('reopen_issue', issue) %}
 <form method="post">
     {{ form.hidden_tag() }}
 
@@ -65,6 +66,7 @@
         {% endif %}
     </p>
 </form>
+{% endif %}
 
 {% if current_user.authorized('change_to_technical_issue', issue) %}
 <p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"

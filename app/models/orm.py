@@ -83,6 +83,7 @@ class User(UserMixin, CommonColumns, db.Model):
     def authorized(self, action, issue):
         if (
             action == "update_issue"
+            and not issue.closed
             and current_user.id == issue.user.id
             and (not current_user.generic or session.get("username") == issue.username)
         ):
