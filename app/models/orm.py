@@ -34,22 +34,6 @@ class Issue(CommonColumns, db.Model):
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
 
-    def can_role_update_issue(self):  # TODO: remove !!!
-        if self.type.name == "computer":
-            if current_user.role.name in ("admin", "it_manager", "it_technician"):
-                return True
-        else:
-            if current_user.role.name in ("admin", "service_agent", "service_manager"):
-                return True
-        return False
-
-    def can_user_update_issue(self):  # TODO: remove !!!
-        if current_user.id == self.user.id and (
-            not current_user.generic or session.get("username") == self.username
-        ):
-            return True
-        return self.can_role_update_issue()
-
     @staticmethod
     def get_username():
         if current_user.generic:
@@ -61,8 +45,8 @@ class Issue(CommonColumns, db.Model):
     def reset_processing(self):
         self.processing = False
 
-    def set_processing(self):  # TODO: remove !!!
-        if self.can_role_update_issue():
+    def set_processing(self):
+        if current_user.role.authorized("update_issue", self):
             self.processing = True
 
 
@@ -96,17 +80,14 @@ class User(UserMixin, CommonColumns, db.Model):
     issues = db.relationship("Issue", back_populates="user", lazy="dynamic")
     messages = db.relationship("Message", back_populates="user", lazy="dynamic")
 
-    def authorized(self, action, **kwargs):
+    def authorized(self, action, issue):
         if (
             action == "update_issue"
-            and current_user.id == kwargs["issue"].user.id
-            and (
-                not current_user.generic
-                or session.get("username") == kwargs["issue"].username
-            )
+            and current_user.id == issue.user.id
+            and (not current_user.generic or session.get("username") == issue.username)
         ):
             return True
-        return self.role.authorized(action, **kwargs)
+        return self.role.authorized(action, issue)
 
     @classmethod
     def create_admin(cls):

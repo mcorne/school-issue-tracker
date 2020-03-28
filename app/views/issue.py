@@ -24,13 +24,13 @@ bp = Blueprint("issue", __name__)
 def change_type(id):
     issue = Issue.query.get_or_404(id)
     if issue.type.name == "computer":
-        if not current_user.role.authorized("change_to_technical_issue", issue=issue):
+        if not current_user.authorized("change_to_technical_issue", issue):
             return redirect_unauthorized_action()
         content = _("Changed to technical issue")
         issue.type = "other"
         notification = _("Issue changed to technical issue with success")
     else:
-        if not current_user.role.authorized("change_to_computer_issue", issue=issue):
+        if not current_user.authorized("change_to_computer_issue", issue):
             return redirect_unauthorized_action()
         content = _("Changed to computer issue")
         issue.type = "computer"
@@ -95,21 +95,21 @@ def update(id):
             Message.add_message(content, issue_id=id)
 
         if form.close.data:
-            if not current_user.role.authorized("close_issue", issue=issue):
+            if not current_user.authorized("close_issue", issue):
                 return redirect_unauthorized_action()
             Message.add_message(_("Closing of the issue"), issue_id=id)
             issue.closed = datetime.utcnow()
             issue.reset_processing()
             flash(_("Issue closed with success"))
         elif form.reopen.data:
-            if not current_user.role.authorized("reopen_issue", issue=issue):
+            if not current_user.authorized("reopen_issue", issue):
                 return redirect_unauthorized_action()
             Message.add_message(_("Reopening of the issue"), issue_id=id)
             issue.closed = None
             issue.reset_processing()
             flash(_("Issue reopened with success"))
         elif content:
-            if not current_user.authorized("update_issue", issue=issue):
+            if not current_user.authorized("update_issue", issue):
                 return redirect_unauthorized_action()
             issue.set_processing()
             # Set updated time in case set_processing() updates nothing

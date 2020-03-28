@@ -13,7 +13,7 @@ class Role(BaseEnum):
     service_manager = _l("Service Manager")
     teacher = _l("Teacher")
 
-    def authorized(self, action, **kwargs):  # TODO: change to issue !!!
+    def authorized(self, action, issue):
         authorizations = {
             "change_to_computer_issue": lambda role, issue: not issue.closed
             and issue.type.name == "other"
@@ -45,7 +45,7 @@ class Role(BaseEnum):
         if action not in authorizations:
             raise ValueError("Unexpected action: {}".format(action))
 
-        return authorizations[action](self.name, **kwargs)
+        return authorizations[action](self.name, issue)
 
     def get_default_url(self):
         urls = {

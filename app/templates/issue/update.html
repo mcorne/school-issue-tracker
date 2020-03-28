@@ -52,26 +52,26 @@
     </p>
 
     <p class="w3-center">
-        {% if current_user.role.authorized('update_issue', issue=issue) %}
+        {% if current_user.authorized('update_issue', issue) %}
         {{ form.submit(class_="w3-btn w3-ripple w3-blue") }}
         {% endif %}
 
-        {% if current_user.role.authorized('close_issue', issue=issue) %}
+        {% if current_user.authorized('close_issue', issue) %}
         {{ form.close(class_="w3-btn w3-ripple w3-blue") }}
         {% endif %}
 
-        {% if current_user.role.authorized('reopen_issue', issue=issue) %}
+        {% if current_user.authorized('reopen_issue', issue) %}
         {{ form.reopen(class_="w3-btn w3-ripple w3-blue") }}
         {% endif %}
     </p>
 </form>
 
-{% if current_user.role.authorized('change_to_technical_issue', issue=issue) %}
+{% if current_user.authorized('change_to_technical_issue', issue) %}
 <p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></p>
 {% endif %}
 
-{% if current_user.role.authorized('change_to_computer_issue', issue=issue) %}
+{% if current_user.authorized('change_to_computer_issue', issue) %}
 <p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
         onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></p>
 {% endif %}

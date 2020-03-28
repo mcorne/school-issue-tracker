@@ -10,7 +10,7 @@
 <ul class="w3-ul w3-card-4 w3-margin-bottom">
     {% for issue in issues %}
     <li>
-        {% if issue.can_user_update_issue() %}
+        {% if current_user.authorized('update_issue', issue) %}
         <a class="link" href="{{ url_for('issue.update', id=issue.id) }}">
             {% endif %}
             <div class="w3-xlarge">
@@ -23,7 +23,7 @@
                 {% endif %}
                 {{ issue.title }}
             </div>
-            {% if issue.can_user_update_issue() %}
+            {% if current_user.authorized('update_issue', issue) %}
         </a>
         {% endif %}
 
