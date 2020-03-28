@@ -13,8 +13,8 @@ from app.models.user import Role
 class CommonColumns(object):
     __table_args__ = {"sqlite_autoincrement": True}
     id = db.Column(db.Integer, primary_key=True)
-    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-    updated = db.Column(db.DateTime, onupdate=datetime.utcnow())
+    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
 
 class Issue(CommonColumns, db.Model):
@@ -44,7 +44,9 @@ class Issue(CommonColumns, db.Model):
         return False
 
     def can_user_update_issue(self):
-        if current_user.id == self.user.id:
+        if current_user.id == self.user.id and (
+            not current_user.generic or session.get("username") == self.username
+        ):
             return True
         return self.can_role_update_issue()
 
