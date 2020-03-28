@@ -13,7 +13,7 @@ class Role(BaseEnum):
     service_manager = _l("Service Manager")
     teacher = _l("Teacher")
 
-    def authorized(self, action, **kwargs):
+    def authorized(self, action, **kwargs):  # TODO: change to issue !!!
         authorizations = {
             "change_to_computer_issue": lambda role, issue: not issue.closed
             and issue.type.name == "other"
@@ -33,9 +33,13 @@ class Role(BaseEnum):
             ##
             "reopen_issue": lambda role, issue: bool(issue.closed),
             ##
-            "update_issue":
-            # TODO: fix, not consistent with can_user_update_role !!!
-            lambda role, issue: not issue.closed,
+            "update_issue": lambda role, issue: not issue.closed
+            and (
+                issue.type.name == "computer"
+                and role in ("admin", "it_manager", "it_technician")
+                or issue.type.name == "other"
+                and role in ("admin", "service_manager", "service_manager")
+            ),
         }
 
         if action not in authorizations:

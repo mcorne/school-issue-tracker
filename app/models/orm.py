@@ -34,7 +34,7 @@ class Issue(CommonColumns, db.Model):
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
 
-    def can_role_update_issue(self):
+    def can_role_update_issue(self):  # TODO: remove !!!
         if self.type.name == "computer":
             if current_user.role.name in ("admin", "it_manager", "it_technician"):
                 return True
@@ -43,7 +43,7 @@ class Issue(CommonColumns, db.Model):
                 return True
         return False
 
-    def can_user_update_issue(self):
+    def can_user_update_issue(self):  # TODO: remove !!!
         if current_user.id == self.user.id and (
             not current_user.generic or session.get("username") == self.username
         ):
@@ -61,7 +61,7 @@ class Issue(CommonColumns, db.Model):
     def reset_processing(self):
         self.processing = False
 
-    def set_processing(self):
+    def set_processing(self):  # TODO: remove !!!
         if self.can_role_update_issue():
             self.processing = True
 
@@ -95,6 +95,18 @@ class User(UserMixin, CommonColumns, db.Model):
     # links
     issues = db.relationship("Issue", back_populates="user", lazy="dynamic")
     messages = db.relationship("Message", back_populates="user", lazy="dynamic")
+
+    def authorized(self, action, **kwargs):
+        if (
+            action == "update_issue"
+            and current_user.id == kwargs["issue"].user.id
+            and (
+                not current_user.generic
+                or session.get("username") == kwargs["issue"].username
+            )
+        ):
+            return True
+        return self.role.authorized(action, **kwargs)
 
     @classmethod
     def create_admin(cls):
