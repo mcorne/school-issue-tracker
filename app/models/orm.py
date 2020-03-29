@@ -70,8 +70,12 @@ class Message(CommonColumns, db.Model):
         db.session.add(message)
 
     @classmethod
-    def has_username(cls, issue_id, username):
-        message = cls.query.filter_by(issue_id=issue_id, username=username).first()
+    def reopened_by_current_user(cls, issue):
+        query = cls.query.filter_by(issue_id=issue.id, user_id=current_user.id)
+        if current_user.generic:
+            # ex. teacher that reopened the issue
+            query = query.filter_by(username=session.get("username"))
+        message = query.first()
         return bool(message)
 
 
@@ -93,9 +97,9 @@ class User(UserMixin, CommonColumns, db.Model):
             and (
                 not current_user.generic
                 # ex. teacher that created the issue
-                or session.get("username") == issue.username
-                # ex. teacher that reopened the issue
-                or Message.has_username(issue.id, session.get("username"))
+                or issue.username == session.get("username")
+                # ex. someone that reopened the issue
+                or Message.reopened_by_current_user(issue)
             )
         ):
             return True
