@@ -10,7 +10,7 @@ from app import db
 from app.decorators import roles_required
 from app.forms import IssueForm, MessageForm
 from app.helpers import redirect_unauthorized_action
-from app.models.issue import Type
+from app.models.issue import Status, Type
 from app.models.orm import Issue, Message, User
 
 bp = Blueprint("issue", __name__)
@@ -53,6 +53,7 @@ def create():
             description=form.description.data,
             location=form.location.data,
             site=form.site.data,
+            status=Status.pending,
             title=form.title.data,
             type=form.type.data,
             user_id=current_user.id,
@@ -112,8 +113,7 @@ def update(id):
             if not current_user.authorized("update_issue", issue):
                 return redirect_unauthorized_action()
             issue.set_processing()
-            # Set updated time in case set_processing() updates nothing
-            issue.updated = datetime.utcnow()
+            issue.status = Status.processing
             flash(_("Issue updated with success"))
 
         db.session.commit()

@@ -6,7 +6,7 @@ from sqlalchemy.sql import expression
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
-from app.models.issue import Site, Type
+from app.models.issue import Site, Status, Type
 from app.models.user import Role
 
 
@@ -26,10 +26,16 @@ class Issue(CommonColumns, db.Model):
         db.Boolean, server_default=expression.false(), nullable=False
     )
     site = db.Column(db.Enum(Site), nullable=False)
+    status = db.Column(
+        # Store the status value (ex. "1") instead of the name (ex. "pending") to be able to sort issues by status
+        # Cast the value to string to bypass the TypeError exception: "object of type 'int' has no len()"!
+        db.Enum(Status, values_callable=lambda x: [str(e.value) for e in x]),
+        nullable=False,
+    )
     title = db.Column(db.Text, nullable=False)
     type = db.Column(db.Enum(Type), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    username = db.Column(db.Text)  # for generic accounts, null for regular users
+    username = db.Column(db.Text)  # not null for generic accounts, null for regular users
     # links
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
@@ -54,7 +60,7 @@ class Message(CommonColumns, db.Model):
     content = db.Column(db.Text)
     issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    username = db.Column(db.Text)  # for generic accounts, null for regular users
+    username = db.Column(db.Text)  # not null for generic accounts, null for regular users
     # links
     issue = db.relationship("Issue", back_populates="messages")
     user = db.relationship("User", back_populates="messages")

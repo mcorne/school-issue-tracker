@@ -8,6 +8,12 @@ class Site(BaseEnum):
     molière = "Molière"
 
 
+class Status(BaseEnum):
+    pending = 1
+    processing = 2
+    closed = 3
+
+
 class Type(BaseEnum):
     computer = _l("Computer related issue")
     other = _l(
