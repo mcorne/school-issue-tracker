@@ -50,12 +50,12 @@ class Role(BaseEnum):
 
     def get_default_url(self):
         urls = {
-            "admin": "issue.index",
-            "it_manager": "issue.index",
-            "it_technician": "issue.index",
-            "service_agent": "issue.index",
-            "service_manager": "issue.index",
-            "teacher": "issue.create",
+            Role.admin.name: "issue.index",
+            Role.it_manager.name: "issue.index",
+            Role.it_technician.name: "issue.index",
+            Role.service_agent.name: "issue.index",
+            Role.service_manager.name: "issue.index",
+            Role.teacher.name: "issue.create",
         }
         self.validate_role(urls)
         return urls[self.name]
@@ -65,27 +65,33 @@ class Role(BaseEnum):
             return request.cookies.get("issue_type")
 
         issue_types = {
-            "admin": None,
-            "it_manager": "computer",
-            "it_technician": "computer",
-            "service_agent": "other",
-            "service_manager": "other",
-            "teacher": None,
+            Role.admin.name: None,
+            Role.it_manager.name: "computer",
+            Role.it_technician.name: "computer",
+            Role.service_agent.name: "other",
+            Role.service_manager.name: "other",
+            Role.teacher.name: None,
         }
         self.validate_role(issue_types)
         return issue_types[self.name]
 
     def get_urls(self):
         urls = {
-            "admin": [
+            Role.admin.name: [
                 {"text": _l("Issues"), "endpoint": "issue.index"},
                 {"text": _l("Users"), "endpoint": "user.index"},
             ],
-            "it_manager": [{"text": _l("Issues"), "endpoint": "issue.index"}],
-            "it_technician": [{"text": _l("Issues"), "endpoint": "issue.index"}],
-            "service_agent": [{"text": _l("Issues"), "endpoint": "issue.index"}],
-            "service_manager": [{"text": _l("Issues"), "endpoint": "issue.index"}],
-            "teacher": [{"text": _l("Issues"), "endpoint": "issue.index"}],
+            Role.it_manager.name: [{"text": _l("Issues"), "endpoint": "issue.index"}],
+            Role.it_technician.name: [
+                {"text": _l("Issues"), "endpoint": "issue.index"}
+            ],
+            Role.service_agent.name: [
+                {"text": _l("Issues"), "endpoint": "issue.index"}
+            ],
+            Role.service_manager.name: [
+                {"text": _l("Issues"), "endpoint": "issue.index"}
+            ],
+            Role.teacher.name: [{"text": _l("Issues"), "endpoint": "issue.index"}],
         }
 
         self.validate_role(urls)
