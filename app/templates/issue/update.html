@@ -27,7 +27,7 @@
     ) }}
         </div>
 
-        {% if issue.closed %}
+        {% if issue.is_closed() %}
         <div class="w3-small w3-text-grey">{{ _('Closed on %(datetime)s', datetime=issue.closed|local_datetime) }}
         </div>
         {% endif %}

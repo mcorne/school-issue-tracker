@@ -27,7 +27,7 @@ def change_type(id):
         if not current_user.authorized("change_to_technical_issue", issue):
             return redirect_unauthorized_action()
         content = _("Changed to technical issue")
-        issue.type = "other"
+        issue.type = "other"  # TODO: fix Type.other !!!
         notification = _("Issue changed to technical issue with success")
     else:
         if not current_user.authorized("change_to_computer_issue", issue):
@@ -36,7 +36,7 @@ def change_type(id):
         issue.type = "computer"
         notification = _("Issue changed to computer issue with success")
 
-    issue.reset_processing()
+    issue.reset_pending()
     Message.add_message(content, issue_id=id)
     db.session.commit()
     flash(notification)
@@ -99,21 +99,18 @@ def update(id):
             if not current_user.authorized("close_issue", issue):
                 return redirect_unauthorized_action()
             Message.add_message(_("Closing of the issue"), issue_id=id)
-            issue.closed = datetime.utcnow()
-            issue.reset_processing()
+            issue.set_closed()
             flash(_("Issue closed with success"))
         elif form.reopen.data:
             if not current_user.authorized("reopen_issue", issue):
                 return redirect_unauthorized_action()
             Message.add_message(_("Reopening of the issue"), issue_id=id)
-            issue.closed = None
-            issue.reset_processing()
+            issue.reset_pending()
             flash(_("Issue reopened with success"))
         elif content:
             if not current_user.authorized("update_issue", issue):
                 return redirect_unauthorized_action()
             issue.set_processing()
-            issue.status = Status.processing
             flash(_("Issue updated with success"))
 
         db.session.commit()

@@ -22,9 +22,6 @@ class Issue(CommonColumns, db.Model):
     computer_number = db.Column(db.Text)  # for computer related issues
     description = db.Column(db.Text)
     location = db.Column(db.Text, nullable=False)
-    processing = db.Column(
-        db.Boolean, server_default=expression.false(), nullable=False
-    )
     site = db.Column(db.Enum(Site), nullable=False)
     status = db.Column(
         # Store the status value (ex. "1") instead of the name (ex. "pending") to be able to sort issues by status
@@ -35,7 +32,8 @@ class Issue(CommonColumns, db.Model):
     title = db.Column(db.Text, nullable=False)
     type = db.Column(db.Enum(Type), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    username = db.Column(db.Text)  # not null for generic accounts, null for regular users
+    # not null for generic accounts, null for regular users
+    username = db.Column(db.Text)
     # links
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
@@ -48,19 +46,36 @@ class Issue(CommonColumns, db.Model):
             username = None
         return username
 
-    def reset_processing(self):
-        self.processing = False
+    def is_closed(self):
+        return self.status == Status.closed
+
+    def is_processing(self):
+        return self.status == Status.processing
+
+    def reset_pending(self):
+        self.closed = None
+        self.status = Status.pending
+        self.updated = datetime.utcnow()
+
+    def set_closed(self):
+        self.closed = datetime.utcnow()
+        self.status = Status.closed
+        self.updated = datetime.utcnow()
 
     def set_processing(self):
         if current_user.role.authorized("update_issue", self):
-            self.processing = True
+            self.status = Status.processing
+            # note that self.updated is set on update by default
+        else:
+            self.updated = datetime.utcnow()
 
 
 class Message(CommonColumns, db.Model):
     content = db.Column(db.Text)
     issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    username = db.Column(db.Text)  # not null for generic accounts, null for regular users
+    # not null for generic accounts, null for regular users
+    username = db.Column(db.Text)
     # links
     issue = db.relationship("Issue", back_populates="messages")
     user = db.relationship("User", back_populates="messages")
@@ -98,7 +113,7 @@ class User(UserMixin, CommonColumns, db.Model):
     def authorized(self, action, issue):
         if (
             action == "update_issue"
-            and not issue.closed
+            and not issue.is_closed()
             and current_user.id == issue.user.id
             and (
                 not current_user.generic

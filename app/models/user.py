@@ -15,15 +15,15 @@ class Role(BaseEnum):
 
     def authorized(self, action, issue):
         authorizations = {
-            "change_to_computer_issue": lambda role, issue: not issue.closed
+            "change_to_computer_issue": lambda role, issue: not issue.is_closed()
             and issue.type.name == "other"
             and role in ("admin", "service_manager", "service_agent"),
             ##
-            "change_to_technical_issue": lambda role, issue: not issue.closed
+            "change_to_technical_issue": lambda role, issue: not issue.is_closed()
             and issue.type.name == "computer"
             and role in ("admin", "it_manager", "it_technician"),
             ##
-            "close_issue": lambda role, issue: not issue.closed
+            "close_issue": lambda role, issue: not issue.is_closed()
             and (
                 issue.type.name == "computer"
                 and role in ("admin", "it_manager")
@@ -31,9 +31,9 @@ class Role(BaseEnum):
                 and role in ("admin", "service_manager")
             ),
             ##
-            "reopen_issue": lambda role, issue: bool(issue.closed),
+            "reopen_issue": lambda role, issue: issue.is_closed(),
             ##
-            "update_issue": lambda role, issue: not issue.closed
+            "update_issue": lambda role, issue: not issue.is_closed()
             and (
                 issue.type.name == "computer"
                 and role in ("admin", "it_manager", "it_technician")

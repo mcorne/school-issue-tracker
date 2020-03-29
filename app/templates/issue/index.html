@@ -12,9 +12,9 @@
     <li>
         <a class="link" href="{{ url_for('issue.update', id=issue.id) }}">
             <div class="w3-xlarge">
-                {% if issue.closed %}
+                {% if issue.is_closed() %}
                 <i class="fas fa-check-circle"></i>
-                {% elif issue.processing %}
+                {% elif issue.is_processing() %}
                 <i class="fas fa-user-circle"></i>
                 {% else %}
                 <i class="fas fa-exclamation-circle"></i>
@@ -37,7 +37,7 @@
     ) }}
         </div>
 
-        {% if issue.closed %}
+        {% if issue.is_closed() %}
         <div class="w3-small w3-text-grey">{{ _('Closed on %(datetime)s', datetime=issue.closed|local_datetime) }}
         </div>
         {% endif %}
