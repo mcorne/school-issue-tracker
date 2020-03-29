@@ -20,14 +20,14 @@ from app.decorators import roles_required
 from app.forms import LoginForm, UserCreateForm, UserUpdateForm
 from app.helpers import is_safe_url
 from app.models.orm import User
-from app.models.user import UserList
+from app.models.user import Role, UserList
 
 bp = Blueprint("user", __name__, url_prefix="/user")
 
 
 @bp.route("/create", methods=("GET", "POST"))
 @login_required
-@roles_required("admin")
+@roles_required(Role.admin)
 def create():
     form = UserCreateForm()
     if form.validate_on_submit():
@@ -55,7 +55,7 @@ def create():
 
 @bp.route("/<int:id>/delete", methods=("GET", "POST"))
 @login_required
-@roles_required("admin")
+@roles_required(Role.admin)
 def delete(id):
     user = User.query.get_or_404(id)
     if user.is_original_admin():
@@ -72,7 +72,7 @@ def delete(id):
 
 @bp.route("/")
 @login_required
-@roles_required("admin")
+@roles_required(Role.admin)
 def index():
     sort = request.args.get("sort", "username")
     reverse = request.args.get("direction", "asc") == "desc"
@@ -125,7 +125,7 @@ def logout():
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
 @login_required
-@roles_required("admin")
+@roles_required(Role.admin)
 def update(id):
     user = User.query.get_or_404(id)
     has_issues = user.has_issues()
@@ -137,7 +137,7 @@ def update(id):
         form.set_password_required()
     if form.validate_on_submit():
         if user.is_original_admin() and (
-            form.disabled.data or form.role.data != "admin"
+            form.disabled.data or form.role.data != Role.admin.name
         ):
             flash(
                 _("Original administrator role may not be changed or disabled"), "error"

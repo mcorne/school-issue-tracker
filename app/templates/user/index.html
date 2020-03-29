@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if current_user.role.name == 'admin' %}
 <div class="w3-margin-bottom">
     <a class="link" href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</a>
 </div>
-{% endif %}
 
 <div class="w3-responsive">{{ table }}</div>
 {% endblock %}

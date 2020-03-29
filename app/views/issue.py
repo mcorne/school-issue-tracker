@@ -12,6 +12,7 @@ from app.forms import IssueForm, MessageForm
 from app.helpers import redirect_unauthorized_action
 from app.models.issue import Status, Type
 from app.models.orm import Issue, Message, User
+from app.models.user import Role
 
 bp = Blueprint("issue", __name__)
 
@@ -19,7 +20,11 @@ bp = Blueprint("issue", __name__)
 @bp.route("/<int:id>/change_type")
 @login_required
 @roles_required(
-    "admin", "it_manager", "it_technician", "service_agent", "service_manager"
+    Role.admin,
+    Role.it_manager,
+    Role.it_technician,
+    Role.service_agent,
+    Role.service_manager,
 )
 def change_type(id):
     issue = Issue.query.get_or_404(id)

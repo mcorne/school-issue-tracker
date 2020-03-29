@@ -130,7 +130,7 @@ class User(UserMixin, CommonColumns, db.Model):
     def create_admin(cls):
         """Create the administrator user"""
         user = cls(
-            password=generate_password_hash("123456"), role="admin", username="admin"
+            password=generate_password_hash("123456"), role=Role.admin, username="admin"
         )
         db.session.add(user)
         db.session.commit()

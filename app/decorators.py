@@ -10,7 +10,7 @@ def roles_required(*roles):
     def wrapper(f):
         @wraps(f)
         def decorator(*args, **kwargs):
-            if current_user.role.name not in roles:
+            if current_user.role not in roles:
                 return redirect_unauthorized_action()
             return f(*args, **kwargs)
 
