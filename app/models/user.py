@@ -66,10 +66,10 @@ class Role(BaseEnum):
 
         issue_types = {
             Role.admin.name: None,
-            Role.it_manager.name: "computer",
-            Role.it_technician.name: "computer",
-            Role.service_agent.name: "other",
-            Role.service_manager.name: "other",
+            Role.it_manager.name: Type.computer,
+            Role.it_technician.name: Type.computer,
+            Role.service_agent.name: Type.other,
+            Role.service_manager.name: Type.other,
             Role.teacher.name: None,
         }
         self.validate_role(issue_types)

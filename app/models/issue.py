@@ -19,3 +19,6 @@ class Type(BaseEnum):
     other = _l(
         "Technical issue (heating, electricity, broken equipment, cleanliness etc.)"
     )
+
+    def is_computer(self):
+        return self == Type.computer

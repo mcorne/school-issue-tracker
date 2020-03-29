@@ -28,17 +28,17 @@ bp = Blueprint("issue", __name__)
 )
 def change_type(id):
     issue = Issue.query.get_or_404(id)
-    if issue.type.name == "computer":
+    if issue.type.is_computer():
         if not current_user.authorized("change_to_technical_issue", issue):
             return redirect_unauthorized_action()
         content = _("Changed to technical issue")
-        issue.type = "other"  # TODO: fix Type.other !!!
+        issue.type = Type.other
         notification = _("Issue changed to technical issue with success")
     else:
         if not current_user.authorized("change_to_computer_issue", issue):
             return redirect_unauthorized_action()
         content = _("Changed to computer issue")
-        issue.type = "computer"
+        issue.type = Type.computer
         notification = _("Issue changed to computer issue with success")
 
     issue.reset_pending()

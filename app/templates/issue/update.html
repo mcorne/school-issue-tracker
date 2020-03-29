@@ -18,7 +18,7 @@
         {% endif %}
 
         <div class="w3-small w3-text-grey">
-            {{ _('Computer issue') if issue.type.name == "computer" else _('Technical issue') }}
+            {{ _('Computer issue') if issue.type.is_computer() else _('Technical issue') }}
         </div>
 
         <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
