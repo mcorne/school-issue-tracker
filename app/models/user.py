@@ -3,6 +3,7 @@ from flask_babel import lazy_gettext as _l
 from flask_table import BoolCol, Col, LinkCol, Table
 
 from app.models.common import BaseEnum
+from app.models.issue import Type
 
 
 class Role(BaseEnum):
@@ -16,36 +17,36 @@ class Role(BaseEnum):
     def authorized(self, action, issue):
         authorizations = {
             "change_to_computer_issue": lambda role, issue: not issue.is_closed()
-            and issue.type.name == "other"
-            and role in ("admin", "service_manager", "service_agent"),
+            and issue.type == Type.other
+            and role in (Role.admin, Role.service_manager, Role.service_agent),
             ##
             "change_to_technical_issue": lambda role, issue: not issue.is_closed()
-            and issue.type.name == "computer"
-            and role in ("admin", "it_manager", "it_technician"),
+            and issue.type == Type.computer
+            and role in (Role.admin, Role.it_manager, Role.it_technician),
             ##
             "close_issue": lambda role, issue: not issue.is_closed()
             and (
-                issue.type.name == "computer"
-                and role in ("admin", "it_manager")
-                or issue.type.name == "other"
-                and role in ("admin", "service_manager")
+                issue.type == Type.computer
+                and role in (Role.admin, Role.it_manager)
+                or issue.type == Type.other
+                and role in (Role.admin, Role.service_manager)
             ),
             ##
             "reopen_issue": lambda role, issue: issue.is_closed(),
             ##
             "update_issue": lambda role, issue: not issue.is_closed()
             and (
-                issue.type.name == "computer"
-                and role in ("admin", "it_manager", "it_technician")
-                or issue.type.name == "other"
-                and role in ("admin", "service_manager", "service_agent")
+                issue.type == Type.computer
+                and role in (Role.admin, Role.it_manager, Role.it_technician)
+                or issue.type == Type.other
+                and role in (Role.admin, Role.service_manager, Role.service_agent)
             ),
         }
 
         if action not in authorizations:
             raise ValueError("Unexpected action: {}".format(action))
 
-        return authorizations[action](self.name, issue)
+        return authorizations[action](self, issue)
 
     def get_default_url(self):
         urls = {
