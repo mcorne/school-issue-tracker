@@ -67,12 +67,12 @@ class Role(BaseEnum):
             return issue_type
 
         issue_types = {
-            Role.admin.name: None,
+            Role.admin.name: "all",
             Role.it_manager.name: Type.computer,
             Role.it_technician.name: Type.computer,
             Role.service_agent.name: Type.other,
             Role.service_manager.name: Type.other,
-            Role.teacher.name: None,
+            Role.teacher.name: "all",
         }
         self.validate_role(issue_types)
         return issue_types[self.name]

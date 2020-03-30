@@ -91,10 +91,8 @@ def index():
     query = Issue.query
 
     issue_type = current_user.role.get_issue_type()
-    if issue_type and issue_type != "all":
+    if issue_type != "all":
         query = query.filter_by(type=issue_type)
-    else:
-        issue_type = "all"
 
     # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
     issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
