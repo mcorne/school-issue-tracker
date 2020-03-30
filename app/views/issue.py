@@ -45,7 +45,7 @@ def change_type(id):
     Message.add_message(content, issue_id=id)
     db.session.commit()
     flash(notification)
-    return redirect(url_for("issue.index", id=issue.id))
+    return redirect(url_for("issue.index", issue_id=issue.id))
 
 
 @bp.route("/create", methods=("GET", "POST"))
@@ -67,7 +67,7 @@ def create():
         db.session.add(issue)
         db.session.commit()
         flash(_("New issue created with success"))
-        return redirect(url_for("issue.index", id=issue.id))
+        return redirect(url_for("issue.index", issue_id=issue.id))
 
     return render_template("issue/create.html", form=form)
 
@@ -85,12 +85,8 @@ def index():
         query = query.filter_by(type=type)
     # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
     issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
-
-    context = {"issues": issues}
-    issue_id = request.args.get("id", None)
-    if issue_id:
-        context["id"] = int(issue_id)
-    return render_template("issue/index.html", **context)
+    issue_id = request.args.get("issue_id", None)
+    return render_template("issue/index.html", issues=issues, issue_id=issue_id)
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
@@ -124,7 +120,7 @@ def update(id):
             flash(_("Issue updated with success"))
 
         db.session.commit()
-        return redirect(url_for("issue.index", id=issue.id))
+        return redirect(url_for("issue.index", issue_id=issue.id))
 
     return render_template(
         "issue/update.html", form=form, id=id, issue=issue, messages=messages

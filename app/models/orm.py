@@ -65,9 +65,8 @@ class Issue(CommonColumns, db.Model):
     def set_processing(self):
         if current_user.role.authorized("update_issue", self):
             self.status = Status.processing
-            # note that self.updated is set on update by default
-        else:
-            self.updated = datetime.utcnow()
+        # Always set the updated date that would not be set (on update by default) if there is no change
+        self.updated = datetime.utcnow()
 
 
 class Message(CommonColumns, db.Model):

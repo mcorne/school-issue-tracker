@@ -9,7 +9,7 @@
 
 <ul class="w3-ul w3-card-4 w3-margin-bottom">
     {% for issue in issues %}
-    {% if id is defined and issue.id == id %}
+    {% if issue_id is defined and issue.id == issue_id|int %}
     <li class="w3-pale-green">
         {% else %}
     <li>
