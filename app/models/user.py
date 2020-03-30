@@ -2,6 +2,7 @@ from flask import request, url_for
 from flask_babel import lazy_gettext as _l
 from flask_table import BoolCol, Col, LinkCol, Table
 
+from app.helpers import get_arg_or_cookie
 from app.models.common import BaseEnum
 from app.models.issue import Type
 
@@ -61,8 +62,9 @@ class Role(BaseEnum):
         return urls[self.name]
 
     def get_issue_type(self):
-        if "issue_type" in request.cookies:
-            return request.cookies.get("issue_type")
+        issue_type = get_arg_or_cookie("issue_type")
+        if issue_type:
+            return issue_type
 
         issue_types = {
             Role.admin.name: None,

@@ -1,6 +1,15 @@
 from datetime import datetime
 
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import (
+    Blueprint,
+    flash,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_babel import _
 from flask_login import current_user, login_required
 from sqlalchemy import desc, func, text
@@ -80,13 +89,22 @@ def index():
         return redirect(url_for("user.login"))
 
     query = Issue.query
-    type = current_user.role.get_issue_type()
-    if type:
-        query = query.filter_by(type=type)
+
+    issue_type = current_user.role.get_issue_type()
+    if issue_type and issue_type != "all":
+        query = query.filter_by(type=issue_type)
+    else:
+        issue_type = "all"
+
     # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
     issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
     issue_id = request.args.get("issue_id", None)
-    return render_template("issue/index.html", issues=issues, issue_id=issue_id)
+
+    response = make_response(
+        render_template("issue/index.html", issues=issues, issue_id=issue_id)
+    )
+    response.set_cookie("issue_type", issue_type)
+    return response
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))

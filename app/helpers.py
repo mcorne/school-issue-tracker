@@ -4,6 +4,13 @@ from flask import flash, redirect, request, url_for
 from flask_babel import _
 
 
+def get_arg_or_cookie(name):
+    if name in request.args:
+        return request.args.get(name)
+    if name in request.cookies:
+        return request.cookies.get(name)
+
+
 # see https://github.com/fengsp/flask-snippets/blob/master/security/redirect_back.py
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
