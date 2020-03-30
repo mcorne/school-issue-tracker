@@ -5,7 +5,10 @@ grant Service Manager to create/update/delete Service Agents, to view all
 add IP address management
 
 add options (set cookie)
-issue sort order by pending, latest processing, latest closed issue desc or updated desc
-display all or role type (auto) or a given type
-
-add issue list pagination
+sort by date
+sort by new, processing, closed
+number of issues per page
+display all issues
+display technical issues
+display computer issues
+reset password

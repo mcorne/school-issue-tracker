@@ -42,16 +42,17 @@
             href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</a>
         {% endfor %}
     </div>
+
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>
 
     <div class="w3-panel">
         {% for category, message in get_flashed_messages(with_categories=true) %}
         {% if category == "error" %}
-        <div class="w3-panel w3-red">
+        <div class="w3-panel w3-pale-red">
             <p>{{ message }}</p>
         </div>
         {% else %}
-        <div class="w3-panel w3-green">
+        <div class="w3-panel w3-pale-green">
             <p>{{ message }}</p>
         </div>
         {% endif %}

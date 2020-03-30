@@ -9,7 +9,11 @@
 
 <ul class="w3-ul w3-card-4 w3-margin-bottom">
     {% for issue in issues %}
+    {% if id is defined and issue.id == id %}
+    <li class="w3-pale-green">
+        {% else %}
     <li>
+        {% endif %}
         <a class="link" href="{{ url_for('issue.update', id=issue.id) }}">
             <div class="w3-xlarge">
                 {% if issue.is_closed() %}
