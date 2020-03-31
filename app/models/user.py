@@ -134,6 +134,13 @@ class UserList(Table):
 
     allow_sort = True
 
+    def get_tr_attrs(self, user):
+        user_id = request.args.get("user_id")
+        tr_attrs = {}
+        if user_id and user.id == int(user_id):
+            tr_attrs["class"] = "w3-pale-green"
+        return tr_attrs
+
     def sort_url(self, col_key, reverse=False):
         direction = "desc" if reverse else "asc"
         return url_for("user.index", sort=col_key, direction=direction)

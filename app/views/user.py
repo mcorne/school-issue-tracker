@@ -48,7 +48,7 @@ def create():
             db.session.add(user)
             db.session.commit()
             flash(_("New user created with success"))
-            return redirect(url_for("user.index"))
+            return redirect(url_for("user.index", user_id=user.id))
 
     return render_template("user/edit.html", form=form)
 
@@ -160,6 +160,6 @@ def update(id):
             form.populate_obj(user)
             db.session.commit()
             flash(_("User updated with success"))
-            return redirect(url_for("user.index"))
+            return redirect(url_for("user.index", user_id=user.id))
 
     return render_template("user/edit.html", form=form, has_issues=has_issues, id=id)

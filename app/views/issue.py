@@ -101,7 +101,7 @@ def index():
     order_by.append(text("IFNULL(updated, created) DESC"))
 
     issues = Issue.query.filter_by(**filter_by).order_by(*order_by).all()
-    issue_id = request.args.get("issue_id", None)
+    issue_id = request.args.get("issue_id")
     template = render_template("issue/index.html", issues=issues, issue_id=issue_id)
 
     response = make_response(template)
