@@ -32,8 +32,7 @@ class Issue(CommonColumns, db.Model):
     title = db.Column(db.Text, nullable=False)
     type = db.Column(db.Enum(Type), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    # not null for generic accounts, null for regular users
-    username = db.Column(db.Text)
+    username = db.Column(db.Text)  # used only for generic accounts
     # links
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
@@ -73,8 +72,7 @@ class Message(CommonColumns, db.Model):
     content = db.Column(db.Text)
     issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    # not null for generic accounts, null for regular users
-    username = db.Column(db.Text)
+    username = db.Column(db.Text)  # used only for generic accounts
     # links
     issue = db.relationship("Issue", back_populates="messages")
     user = db.relationship("User", back_populates="messages")
@@ -158,7 +156,7 @@ class User(UserMixin, CommonColumns, db.Model):
 
         Generic account passwords must be unique accross all passwords including user passwords.
         If a generic account and a user shared the same password, a user mistyping his/her username
-        could possibly and wrongly login into a generic account.
+        could possibly and wrongly login with a generic account.
         """
         query = cls.query.filter(cls.disabled == False)
         if id:

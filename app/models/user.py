@@ -63,7 +63,7 @@ class Role(BaseEnum):
 
     def get_issue_type(self):
         issue_type = get_arg_or_cookie("issue_type")
-        if issue_type:
+        if issue_type in ("all", Type.computer.name, Type.other.name):
             return issue_type
 
         issue_types = {

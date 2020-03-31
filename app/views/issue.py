@@ -101,7 +101,8 @@ def index():
     response = make_response(
         render_template("issue/index.html", issues=issues, issue_id=issue_id)
     )
-    response.set_cookie("issue_type", issue_type)
+    max_age = 3600 * 24 * 30  # 30 days
+    response.set_cookie("issue_type", issue_type, max_age)
     return response
 
 
