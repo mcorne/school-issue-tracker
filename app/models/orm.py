@@ -6,6 +6,7 @@ from sqlalchemy.sql import expression
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
+from app.helpers import get_arg_or_cookie
 from app.models.issue import Site, Status, Type
 from app.models.user import Role
 
@@ -36,6 +37,13 @@ class Issue(CommonColumns, db.Model):
     # links
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
+
+    @staticmethod
+    def get_issue_sort():
+        issue_sort = get_arg_or_cookie("issue_sort")
+        if issue_sort not in ("date", "status"):
+            issue_sort = "date"
+        return issue_sort
 
     @staticmethod
     def get_username():

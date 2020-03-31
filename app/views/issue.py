@@ -90,18 +90,25 @@ def index():
 
     query = Issue.query
 
+    issue_sort = Issue.get_issue_sort()
+    if issue_sort == "date":
+        # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
+        query = query.order_by(text("IFNULL(updated, created) DESC"))
+    else:  # status
+        query = query.order_by("status", text("IFNULL(updated, created) DESC"))
+
     issue_type = current_user.role.get_issue_type()
     if issue_type != "all":
         query = query.filter_by(type=issue_type)
 
-    # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
-    issues = query.order_by(text("IFNULL(updated, created) DESC")).all()
+    issues = query.all()
     issue_id = request.args.get("issue_id", None)
+    max_age = 3600 * 24 * 30  # 30 days
 
     response = make_response(
         render_template("issue/index.html", issues=issues, issue_id=issue_id)
     )
-    max_age = 3600 * 24 * 30  # 30 days
+    response.set_cookie("issue_sort", issue_sort, max_age)
     response.set_cookie("issue_type", issue_type, max_age)
     return response
 

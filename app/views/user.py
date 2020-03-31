@@ -74,7 +74,7 @@ def delete(id):
 @login_required
 @roles_required(Role.admin)
 def index():
-    sort = request.args.get("sort", "username")
+    sort = request.args.get("sort", "username")  # TODO: validate sort !!!
     reverse = request.args.get("direction", "asc") == "desc"
     order_by = desc(sort) if reverse else sort
     users = User.query.order_by(order_by).all()
