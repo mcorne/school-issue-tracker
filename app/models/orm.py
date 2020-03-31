@@ -59,6 +59,13 @@ class Issue(CommonColumns, db.Model):
     def is_processing(self):
         return self.status == Status.processing
 
+    def opened_by_user(self):
+        return current_user.id == self.user.id and (
+            not current_user.generic
+            # ex. teacher that created the issue
+            or self.username == session.get("username")
+        )
+
     def reset_pending(self):
         self.closed = None
         self.status = Status.pending
@@ -97,11 +104,11 @@ class Message(CommonColumns, db.Model):
 
     @classmethod
     def reopened_by_current_user(cls, issue):
-        query = cls.query.filter_by(issue_id=issue.id, user_id=current_user.id)
+        filter_by = dict(issue_id=issue.id, user_id=current_user.id)
         if current_user.generic:
             # ex. teacher that reopened the issue
-            query = query.filter_by(username=session.get("username"))
-        message = query.first()
+            filter_by["username"] = session.get("username")
+        message = cls.query.filter_by(**filter_by).first()
         return bool(message)
 
 
@@ -119,16 +126,10 @@ class User(UserMixin, CommonColumns, db.Model):
         if (
             action == "update_issue"
             and not issue.is_closed()
-            and current_user.id == issue.user.id
-            and (
-                not current_user.generic
-                # ex. teacher that created the issue
-                or issue.username == session.get("username")
-                # ex. someone that reopened the issue
-                or Message.reopened_by_current_user(issue)
-            )
+            and (issue.opened_by_user() or Message.reopened_by_current_user(issue))
         ):
             return True
+
         return self.role.authorized(action, issue)
 
     @classmethod
@@ -166,12 +167,12 @@ class User(UserMixin, CommonColumns, db.Model):
         If a generic account and a user shared the same password, a user mistyping his/her username
         could possibly and wrongly login with a generic account.
         """
-        query = cls.query.filter(cls.disabled == False)
+        filter = [cls.disabled == False]
         if id:
-            query = query.filter(cls.id != id)
+            filter.append(cls.id != id)
         if not generic:
-            query = query.filter(cls.generic == True)
-        users = query.all()
+            filter.append(cls.generic == True)
+        users = cls.query.filter(*filter).all()
 
         for user in users:
             if check_password_hash(user.password, password):

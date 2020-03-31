@@ -89,10 +89,14 @@ def index():
         return redirect(url_for("user.login"))
 
     issue_type = current_user.role.get_issue_type()
-    filter_by = {"type": issue_type} if issue_type != "all" else {}
+    filter_by = {}
+    if issue_type != "all":
+        filter_by["type"] = issue_type
 
     issue_sort = Issue.get_issue_sort()
-    order_by = ["status"] if issue_sort == "status" else []
+    order_by = []
+    if issue_sort == "status":
+        order_by.append("status")
     # desc(func.ifnull("updated", "created")) does not actually sort result!
     order_by.append(text("IFNULL(updated, created) DESC"))
 
