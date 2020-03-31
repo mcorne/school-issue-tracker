@@ -88,26 +88,20 @@ def index():
     if not current_user.is_authenticated:
         return redirect(url_for("user.login"))
 
-    query = Issue.query
+    issue_type = current_user.role.get_issue_type()
+    filter_by = {"type": issue_type} if issue_type != "all" else {}
 
     issue_sort = Issue.get_issue_sort()
-    if issue_sort == "date":
-        # query = query.order_by(desc(func.ifnull("updated", "created"))) # does not actually sort result!
-        query = query.order_by(text("IFNULL(updated, created) DESC"))
-    else:  # status
-        query = query.order_by("status", text("IFNULL(updated, created) DESC"))
+    order_by = ["status"] if issue_sort == "status" else []
+    # desc(func.ifnull("updated", "created")) does not actually sort result!
+    order_by.append(text("IFNULL(updated, created) DESC"))
 
-    issue_type = current_user.role.get_issue_type()
-    if issue_type != "all":
-        query = query.filter_by(type=issue_type)
-
-    issues = query.all()
+    issues = Issue.query.filter_by(**filter_by).order_by(*order_by).all()
     issue_id = request.args.get("issue_id", None)
-    max_age = 3600 * 24 * 30  # 30 days
+    template = render_template("issue/index.html", issues=issues, issue_id=issue_id)
 
-    response = make_response(
-        render_template("issue/index.html", issues=issues, issue_id=issue_id)
-    )
+    response = make_response(template)
+    max_age = 3600 * 24 * 30  # 30 days
     response.set_cookie("issue_sort", issue_sort, max_age)
     response.set_cookie("issue_type", issue_type, max_age)
     return response
