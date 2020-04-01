@@ -9,3 +9,5 @@ add paginator
 add options (set cookie)
 number of issues per page
 reset password
+
+use jinja macros

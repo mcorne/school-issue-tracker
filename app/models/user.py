@@ -68,40 +68,14 @@ class Role(BaseEnum):
 
         issue_types = {
             Role.admin.name: "all",
-            Role.it_manager.name: Type.computer,
-            Role.it_technician.name: Type.computer,
-            Role.service_agent.name: Type.other,
-            Role.service_manager.name: Type.other,
+            Role.it_manager.name: Type.computer.name,
+            Role.it_technician.name: Type.computer.name,
+            Role.service_agent.name: Type.other.name,
+            Role.service_manager.name: Type.other.name,
             Role.teacher.name: "all",
         }
         self.validate_role(issue_types)
         return issue_types[self.name]
-
-    def get_urls(self):
-        urls = {
-            Role.admin.name: [
-                {"text": _l("Issues"), "endpoint": "issue.index"},
-                {"text": _l("Users"), "endpoint": "user.index"},
-            ],
-            Role.it_manager.name: [{"text": _l("Issues"), "endpoint": "issue.index"}],
-            Role.it_technician.name: [
-                {"text": _l("Issues"), "endpoint": "issue.index"}
-            ],
-            Role.service_agent.name: [
-                {"text": _l("Issues"), "endpoint": "issue.index"}
-            ],
-            Role.service_manager.name: [
-                {"text": _l("Issues"), "endpoint": "issue.index"}
-            ],
-            Role.teacher.name: [{"text": _l("Issues"), "endpoint": "issue.index"}],
-        }
-
-        self.validate_role(urls)
-        urls = urls[self.name]
-        for url in urls:
-            if "values" not in url:
-                url["values"] = {}
-        return urls
 
     def validate_role(self, urls):
         if self.name not in urls:

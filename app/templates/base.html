@@ -10,7 +10,7 @@
 <body class="w3-content">
 
     <div class="w3-bar w3-blue w3-xlarge">
-        {% if session["urls"] %}
+        {% if current_user.is_authenticated %}
         <a class="w3-bar-item w3-hover-gray w3-button" href="javascript:open_sidebar()"><i class="fas fa-bars"></i></a>
         {% else %}
         <a class="w3-bar-item"><i class="fas fa-bars"></i></a>
@@ -37,10 +37,10 @@
     </div>
 
     <div class="w3-sidebar w3-bar-block" id="sidebar">
-        {% for url in session["urls"] %}
-        <a class="w3-bar-item w3-button w3-hover-blue"
-            href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</a>
-        {% endfor %}
+        <a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for('issue.index') }}">{{ _('View issues') }}</a>
+        {% if current_user.role is defined and current_user.role.name == 'admin' %}
+        <a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for('user.index') }}">{{ _('View users') }}</a>
+        {% endif %}
 
         <div class="w3-dropdown-hover w3-hover-blue">
             <button class="w3-button">{{ _('Issue sorting') }}
@@ -63,7 +63,7 @@
                 <i class="fas fa-caret-down"></i>
             </button>
             <div class="w3-dropdown-content w3-bar-block">
-                <a href="{{ url_for('issue.index', issue_type='status') }}"
+                <a href="{{ url_for('issue.index', issue_type='all') }}"
                     class="w3-bar-item w3-button">{{ _('All issues') }}
                     {% if get_arg_or_cookie('issue_type') == 'all' %}<i class="fas fa-check"></i>{% endif %}
                 </a>
@@ -77,7 +77,6 @@
                 </a>
             </div>
         </div>
-    </div>
     </div>
 
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>

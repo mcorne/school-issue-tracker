@@ -88,7 +88,6 @@ def index():
 @bp.route("/login", methods=("GET", "POST"))
 def login():
     session["username"] = None
-    session["urls"] = {}
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get_user(form.username.data, form.password.data)
@@ -99,7 +98,6 @@ def login():
         if user:
             login_user(user)
             session["username"] = user.username
-            session["urls"] = user.role.get_urls()
 
             # TODO: restore/fix since always redirecting to same URL: user/1/update!
             next = None  # session.get("next")
@@ -120,7 +118,6 @@ def login():
 @bp.route("/logout")
 @login_required
 def logout():
-    session.pop("urls", None)
     session.pop("username", None)
     logout_user()
     return redirect(url_for("user.login"))
