@@ -49,23 +49,9 @@ def create_app(test_config=None):
     toolbar.init_app(app)
 
     from . import filters
+    from .helpers import get_arg_or_cookie
     from .views import issue, user
     from .models.orm import User
-
-    app.register_blueprint(filters.bp)
-    app.register_blueprint(issue.bp)
-    app.register_blueprint(user.bp)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
-
-    app.add_url_rule("/", endpoint="index")
-
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
 
     @click.command("init-db")
     @with_appcontext
@@ -74,6 +60,24 @@ def create_app(test_config=None):
         db.create_all()
         User.create_admin()
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+    @app.context_processor
+    def utility_processor():
+        return dict(get_arg_or_cookie=get_arg_or_cookie)
+
+    app.register_blueprint(filters.bp)
+    app.register_blueprint(issue.bp)
+    app.register_blueprint(user.bp)
+
+    app.add_url_rule("/", endpoint="index")
     app.cli.add_command(init_db_command)
+
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass  # TODO: process exception, stop execution !!!
 
     return app

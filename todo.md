@@ -4,9 +4,9 @@ grant Service Manager to create/update/delete Service Agents, to view all
 
 add IP address management
 
+add paginator
+
 add options (set cookie)
-sort by date
-sort by new, processing, closed
 number of issues per page
 display all issues
 display technical issues

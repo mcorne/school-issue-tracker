@@ -41,6 +41,22 @@
         <a class="w3-bar-item w3-button w3-hover-blue"
             href="{{ url_for(url['endpoint'], **url['values']) }}">{{ url['text'] }}</a>
         {% endfor %}
+
+        <div class="w3-dropdown-hover w3-hover-blue">
+            <button class="w3-button">{{ _('Issue sorting') }}
+                <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="w3-dropdown-content w3-bar-block">
+                <a href="{{ url_for('issue.index', issue_sort='status') }}"
+                    class="w3-bar-item w3-button">{{ _('Sort by status (pending, processing, closed)') }}
+                    {% if get_arg_or_cookie('issue_sort') == 'status' %}<i class="fas fa-check"></i>{% endif %}
+                </a>
+                <a href="{{ url_for('issue.index', issue_sort='date') }}"
+                    class="w3-bar-item w3-button">{{ _('Sort by update date') }}
+                    {% if get_arg_or_cookie('issue_sort') == 'date' %}<i class="fas fa-check"></i>{% endif %}
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>
