@@ -57,6 +57,27 @@
                 </a>
             </div>
         </div>
+
+        <div class="w3-dropdown-hover w3-hover-blue">
+            <button class="w3-button">{{ _('Issue filter') }}
+                <i class="fas fa-caret-down"></i>
+            </button>
+            <div class="w3-dropdown-content w3-bar-block">
+                <a href="{{ url_for('issue.index', issue_type='status') }}"
+                    class="w3-bar-item w3-button">{{ _('All issues') }}
+                    {% if get_arg_or_cookie('issue_type') == 'all' %}<i class="fas fa-check"></i>{% endif %}
+                </a>
+                <a href="{{ url_for('issue.index', issue_type='computer') }}"
+                    class="w3-bar-item w3-button">{{ _('Computer issues') }}
+                    {% if get_arg_or_cookie('issue_type') == 'computer' %}<i class="fas fa-check"></i>{% endif %}
+                </a>
+                <a href="{{ url_for('issue.index', issue_type='other') }}"
+                    class="w3-bar-item w3-button">{{ _('Technical issues') }}
+                    {% if get_arg_or_cookie('issue_type') == 'other' %}<i class="fas fa-check"></i>{% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
     </div>
 
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>

@@ -8,7 +8,4 @@ add paginator
 
 add options (set cookie)
 number of issues per page
-display all issues
-display technical issues
-display computer issues
 reset password
