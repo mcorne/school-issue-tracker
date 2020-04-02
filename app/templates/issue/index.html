@@ -33,15 +33,12 @@
             {{ _('Computer issue') if issue.type.is_computer() else _('Technical issue') }}
         </div>
 
-        <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
-    username=issue.username if issue.username else issue.user.username,
-    datetime=issue.created|local_datetime,
-    ) }}
+        <div class="w3-small w3-text-grey">
+            {{ _('By %(username)s on %(datetime)s', username=issue.username if issue.username else issue.user.username, datetime=issue.created|local_datetime) }}
         </div>
 
         {% if issue.is_closed() %}
-        <div class="w3-small w3-text-grey">{{ _('Closed on %(datetime)s', datetime=issue.closed|local_datetime) }}
-        </div>
+        <div class="w3-small w3-text-grey">{{ _('Closed on %(datetime)s', datetime=issue.closed|local_datetime) }}</div>
         {% endif %}
     </li>
     {% endfor %}
