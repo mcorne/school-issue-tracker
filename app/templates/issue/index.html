@@ -2,9 +2,7 @@
 
 {% block content %}
 {% if current_user.is_authenticated %}
-<div class="w3-margin-bottom">
-    <a class="link" href="{{ url_for('issue.create') }}">{{ _('Make a request or report an issue') }}</a>
-</div>
+{{ top_link('issue.create', _('Make a request or report an issue')) }}
 {% endif %}
 
 <ul class="w3-ul w3-card-4 w3-margin-bottom">

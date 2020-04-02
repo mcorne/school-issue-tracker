@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="w3-margin-bottom">
-    <a class="link" href="{{ url_for('user.create') }}">{{ _('Add a new user') }}</a>
-</div>
-
+{{ top_link('user.create', _('Add a new user')) }}
 <div class="w3-responsive">{{ table }}</div>
 {% endblock %}
