@@ -41,6 +41,12 @@
 </div>
 {%- endmacro %}
 
+{% macro select_field(field) -%}
+{{ field.label }}
+{% for error in field.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+{{ field(class_="w3-select w3-border w3-hover-border-blue w3-margin-bottom w3-pale-blue") }}
+{%- endmacro %}
+
 {% macro top_link(url_endpoint, link_text) -%}
 <div class="w3-margin-bottom"><a class="link" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a></div>
 {%- endmacro %}
