@@ -1,14 +1,26 @@
-{% macro input_field(field, link_text) -%}
+{% macro index_link(url_endpoint, link_text) -%}
+<a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a>
+{%- endmacro %}
+
+{% macro input_field(field) -%}
 {{ field.label }}
 {% for error in field.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
 {{ field(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
 {%- endmacro %}
 
-{% macro index_link(url_endpoint, link_text) -%}
-<a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a>
-{%- endmacro %}
-
 {% macro option_link(url_endpoint, option_name, option_value, link_text) -%}
 <a href="{{ url_for(url_endpoint, **{option_name: option_value}) }}" class="w3-bar-item w3-button">{{ link_text }}
     {% if get_arg_or_cookie(option_name) == option_value %}<i class="fas fa-check"></i>{% endif %}</a>
+{%- endmacro %}
+
+{% macro radio_field(field) -%}
+<div class="w3-margin-bottom">
+    {% for error in field.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+    {% for type in field %}
+    <div>
+        {{ type(class_="w3-radio") }}
+        {{ type.label }}
+    </div>
+    {% endfor %}
+</div>
 {%- endmacro %}
