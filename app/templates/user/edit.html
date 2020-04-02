@@ -12,11 +12,7 @@
     {% for error in form.role.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
     {{ form.role(class_="w3-select w3-border w3-hover-border-blue w3-margin-bottom w3-pale-blue") }}
 
-    <p>
-        {{ form.generic.label }}
-        {% for error in form.generic.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-        {{ form.generic(class_="w3-check") }}
-    </p>
+    {{ checkbox_field(form.generic) }}
     <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
         <p>
             {{ _('The password of a generic account uniquely identifies this account regardless of the username.') }}
@@ -27,11 +23,7 @@
     {% endif %}
 
     {% if id is defined and id != 1 %}
-    <p>
-        {{ form.disabled.label }}
-        {% for error in form.disabled.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-        {{ form.disabled(class_="w3-check") }}
-    </p>
+    {{ checkbox_field(form.disabled) }}
     {% endif %}
 
     <p class="w3-center">

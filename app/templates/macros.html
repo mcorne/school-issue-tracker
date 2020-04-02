@@ -1,3 +1,11 @@
+{% macro checkbox_field(field) -%}
+<p>
+    {{ field.label }}
+    {% for error in field.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
+    {{ field(class_="w3-check") }}
+</p>
+{%- endmacro %}
+
 {% macro index_link(url_endpoint, link_text) -%}
 <a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a>
 {%- endmacro %}
