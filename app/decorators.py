@@ -1,6 +1,5 @@
 from functools import wraps
 
-from flask import flash, redirect, url_for
 from flask_login import current_user
 
 from app.helpers import redirect_unauthorized_action
