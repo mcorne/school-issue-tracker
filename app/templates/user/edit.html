@@ -3,14 +3,8 @@
 {% block content %}
 <form method="post">
     {{ form.hidden_tag() }}
-
-    {{ form.username.label }}
-    {% for error in form.username.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.username(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
-
-    {{ form.password.label }}
-    {% for error in form.password.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.password(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
+    {{ input_field(form.username) }}
+    {{ input_field(form.password) }}
 
     {% if id is not defined or id != 1 %}
 

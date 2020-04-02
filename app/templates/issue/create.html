@@ -14,9 +14,7 @@
         {% endfor %}
     </div>
 
-    {{ form.location.label }}
-    {% for error in form.location.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.location(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
+    {{ input_field(form.location) }}
 
     <div class="w3-margin-bottom">
         {% for error in form.site.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
@@ -28,16 +26,9 @@
         {% endfor %}
     </div>
 
-    {{ form.title.label }}
-    {% for error in form.title.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.title(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
-
-    {{ form.computer_number.label }}
-    {% for error in form.computer_number.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
-    {{ form.computer_number(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
-
-    {{ form.description.label }}
-    {{ form.description(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
+    {{ input_field(form.title) }}
+    {{ input_field(form.computer_number) }}
+    {{ input_field(form.description) }}
 
     <p class="w3-center">
         {{ form.submit(class_="w3-btn w3-ripple w3-blue") }}
