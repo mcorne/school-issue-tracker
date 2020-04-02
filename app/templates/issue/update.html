@@ -67,15 +67,6 @@
 </form>
 {% endif %}
 
-{% if current_user.authorized('change_to_technical_issue', issue) %}
-<p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-        onclick="return confirm(this.dataset.confirmation)">{{ _('Change to technical issue') }}</a></p>
-{% endif %}
-
-{% if current_user.authorized('change_to_computer_issue', issue) %}
-<p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-        onclick="return confirm(this.dataset.confirmation)">{{ _('Change to computer issue') }}</a></p>
-{% endif %}
-
-<!-- _('Please confirm') is needed as a comment for gettext extraction -->
+{{ issue_type_change_link('change_to_technical_issue', _('Change to technical issue')) }}
+{{ issue_type_change_link('change_to_computer_issue', _('Change to computer issue')) }}
 {% endblock %}

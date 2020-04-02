@@ -8,6 +8,14 @@
 {{ field(class_="w3-input w3-border w3-hover-border-blue w3-margin-bottom") }}
 {%- endmacro %}
 
+{% macro issue_type_change_link(action, link_text) -%}
+{% if current_user.authorized(action, issue) %}
+<p><a class="link" href="{{ url_for('issue.change_type', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
+        onclick="return confirm(this.dataset.confirmation)">{{ link_text }}</a></p>
+{% endif %}
+<!-- _('Please confirm') is needed as a comment for gettext extraction -->
+{%- endmacro %}
+
 {% macro option_link(url_endpoint, option_name, option_value, link_text) -%}
 <a href="{{ url_for(url_endpoint, **{option_name: option_value}) }}" class="w3-bar-item w3-button">{{ link_text }}
     {% if get_arg_or_cookie(option_name) == option_value %}<i class="fas fa-check"></i>{% endif %}</a>
