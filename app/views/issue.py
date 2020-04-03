@@ -104,7 +104,7 @@ def index(page=1):
     issue_page = (
         Issue.query.filter_by(**filter_by)
         .order_by(*order_by)
-        .paginate(page, per_page=2)  # TODO: fix page number !!!
+        .paginate(page, per_page=20)
     )
     issue_id = request.args.get("issue_id")
     template = render_template(

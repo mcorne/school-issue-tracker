@@ -54,7 +54,6 @@
         {{ _('Previous') }}</a>
     {% endif %}
 
-
     {% if issue_page.has_next %}
     <a href="{{ url_for('issue.index', page=issue_page.next_num) }}"
         class="w3-btn w3-ripple w3-blue w3-right">{{ _('Next') }} <i class="fas fa-chevron-right"></i></a>
