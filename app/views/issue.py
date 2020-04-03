@@ -82,7 +82,8 @@ def create():
 
 
 @bp.route("/")
-def index():
+@bp.route("/page/<int:page>")
+def index(page=1):
     # Not using the login_required decorator so the login message is not displayed.
     # The login message is unwanted when a user click on a link to the app.
     if not current_user.is_authenticated:
@@ -100,9 +101,15 @@ def index():
     # desc(func.ifnull("updated", "created")) does not actually sort result!
     order_by.append(text("IFNULL(updated, created) DESC"))
 
-    issues = Issue.query.filter_by(**filter_by).order_by(*order_by).all()
+    issue_page = (
+        Issue.query.filter_by(**filter_by)
+        .order_by(*order_by)
+        .paginate(page, per_page=2)  # TODO: fix page number !!!
+    )
     issue_id = request.args.get("issue_id")
-    template = render_template("issue/index.html", issues=issues, issue_id=issue_id)
+    template = render_template(
+        "issue/index.html", issue_page=issue_page, issue_id=issue_id
+    )
 
     response = make_response(template)
     max_age = 3600 * 24 * 30  # 30 days

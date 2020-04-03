@@ -2,11 +2,11 @@
 
 {% block content %}
 {% if current_user.is_authenticated %}
-{{ top_link('issue.create', _('Make a request or report an issue')) }}
+{{ top_link('issue.create', _('Report an issue or make a request')) }}
 {% endif %}
 
 <ul class="w3-ul w3-card-4 w3-margin-bottom">
-    {% for issue in issues %}
+    {% for issue in issue_page.items %}
     {% if issue_id is defined and issue.id == issue_id|int %}
     <li class="w3-pale-green">
         {% else %}
@@ -43,4 +43,25 @@
     </li>
     {% endfor %}
 </ul>
+
+{% if issue_page.pages > 1 %}
+<div class="w3-bar w3-border w3-round">
+    {% if issue_page.has_prev %}
+    <a href="{{ url_for('issue.index', page=issue_page.prev_num) }}" class="w3-btn w3-ripple w3-blue"><i
+            class="fas fa-chevron-left"></i> {{ _('Previous') }}</a>
+    {% else %}
+    <a class="w3-button w3-text-gray w3-hover-text-gray w3-hover-white"><i class="fas fa-chevron-left"></i>
+        {{ _('Previous') }}</a>
+    {% endif %}
+
+
+    {% if issue_page.has_next %}
+    <a href="{{ url_for('issue.index', page=issue_page.next_num) }}"
+        class="w3-btn w3-ripple w3-blue w3-right">{{ _('Next') }} <i class="fas fa-chevron-right"></i></a>
+    {% else %}
+    <a class="w3-button w3-text-gray w3-hover-text-gray w3-hover-white w3-right">{{ _('Next') }} <i
+            class="fas fa-chevron-right"></i></a>
+    {% endif %}
+</div>
+{% endif %}
 {% endblock %}

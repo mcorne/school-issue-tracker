@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-01 17:55+0200\n"
-"PO-Revision-Date: 2020-04-01 17:55+0200\n"
+"POT-Creation-Date: 2020-04-03 16:44+0200\n"
+"PO-Revision-Date: 2020-04-03 16:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,96 +19,104 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/base.html:8 templates/base.html:20
+#: templates/base.html:9 templates/base.html:21
 msgid "Technical and Computer Issues"
 msgstr "Problèmes techniques et informatiques"
 
-#: templates/base.html:22
+#: templates/base.html:23
 msgid "Issues"
 msgstr "Problèmes"
 
-#: templates/base.html:40
+#: templates/base.html:41
 msgid "View issues"
 msgstr "Afficher les problèmes"
 
-#: templates/base.html:42
+#: templates/base.html:43
 msgid "View users"
 msgstr "Afficher les utilisateurs"
 
-#: templates/base.html:46
+#: templates/base.html:47
 msgid "Issue sorting"
 msgstr "Tri des problèmes"
 
-#: templates/base.html:51
+#: templates/base.html:49
 msgid "Sort by status (pending, processing, closed)"
 msgstr "Tri par statut (en attente, en cours, fermé)"
 
-#: templates/base.html:55
+#: templates/base.html:50
 msgid "Sort by update date"
 msgstr "Tri par date de mise à jour"
 
-#: templates/base.html:62
+#: templates/base.html:55
 msgid "Issue filter"
 msgstr "Filtre des problèmes"
 
-#: templates/base.html:67
+#: templates/base.html:57
 msgid "All issues"
 msgstr "Tous les problèmes"
 
-#: templates/base.html:71
+#: templates/base.html:58
 msgid "Computer issues"
 msgstr "Problèmes informatiques"
 
-#: templates/base.html:75
+#: templates/base.html:59
 msgid "Technical issues"
 msgstr "Problèmes techniques"
 
-#: templates/issue/index.html:6
-msgid "Make a request or report an issue"
-msgstr "Faire une demande ou signaler un problème"
+#: templates/issue/index.html:5
+msgid "Report an issue or make a request"
+msgstr "Signaler un problème ou faire une demande"
 
-#: templates/issue/index.html:31 templates/issue/update.html:9
+#: templates/issue/index.html:29 templates/issue/update.html:9
 #, python-format
 msgid "At %(site)s - %(location)s"
 msgstr "À %(site)s - %(location)s"
 
-#: templates/issue/index.html:35 templates/issue/update.html:21
+#: templates/issue/index.html:33 templates/issue/update.html:21
 msgid "Computer issue"
 msgstr "Problème informatique"
 
-#: templates/issue/index.html:35 templates/issue/update.html:21
+#: templates/issue/index.html:33 templates/issue/update.html:21
 msgid "Technical issue"
 msgstr "Problème technique"
 
-#: templates/issue/index.html:38 templates/issue/update.html:24
+#: templates/issue/index.html:37 templates/issue/update.html:24
 #: templates/issue/update.html:39
 #, python-format
 msgid "By %(username)s on %(datetime)s"
 msgstr "De %(username)s le %(datetime)s"
 
-#: templates/issue/index.html:45 templates/issue/update.html:31
+#: templates/issue/index.html:41 templates/issue/update.html:31
 #, python-format
 msgid "Closed on %(datetime)s"
 msgstr "Clôturé le %(datetime)s"
+
+#: templates/issue/index.html:49
+msgid "Previous"
+msgstr "Précédent"
+
+#: templates/issue/index.html:50
+msgid "Next"
+msgstr "Suivant"
 
 #: templates/issue/update.html:13
 #, python-format
 msgid "Equipment %(computer_number)s"
 msgstr "Équipement %(computer_number)s"
 
-#: templates/issue/update.html:73
+#: templates/issue/update.html:70
 msgid "Change to technical issue"
 msgstr "Requalifier en problème technique"
 
-#: templates/issue/update.html:78
+#: templates/issue/update.html:71
 msgid "Change to computer issue"
 msgstr "Requalifier en problème informatique"
 
-#: templates/issue/update.html:81 templates/user/edit.html:51
+#: templates/macros.html:24 templates/user/edit.html:31
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
-#: templates/user/edit.html:28
+#: templates/user/edit.html:14
 msgid ""
 "The password of a generic account uniquely identifies this account "
 "regardless of the username."
@@ -116,11 +124,11 @@ msgstr ""
 "Le mot de passe d'un compte générique identifie ce compte de manière unique "
 "quel que soit le nom d'utilisateur."
 
-#: templates/user/edit.html:29
+#: templates/user/edit.html:15
 msgid "The username entered here is only informational."
 msgstr "Le nom d'utilisateur saisi ici est uniquement informatif."
 
-#: templates/user/edit.html:30
+#: templates/user/edit.html:16
 msgid ""
 "It is the username entered when the user signs in that will used and stored "
 "along with messages etc."
@@ -128,11 +136,11 @@ msgstr ""
 "C'est le nom d'utilisateur entré lorsque l'utilisateur se connecte qui sera "
 "utilisé et stocké avec les messages etc."
 
-#: templates/user/edit.html:50
+#: templates/user/edit.html:30
 msgid "Delete User"
 msgstr "Supprimer l'utilisateur"
 
-#: templates/user/index.html:5
+#: templates/user/index.html:4
 msgid "Add a new user"
 msgstr "Ajouter un nouvel utilisateur"
 
@@ -286,23 +294,23 @@ msgstr "Problème requalifié en problème informatique avec succès"
 msgid "New issue created with success"
 msgstr "Nouveau problème enregistré avec succès"
 
-#: views/issue.py:129
+#: views/issue.py:134
 msgid "Closing of the issue"
 msgstr "Clôture du problème"
 
-#: views/issue.py:131
+#: views/issue.py:136
 msgid "Issue closed with success"
 msgstr "Problème clôturé  avec succès"
 
-#: views/issue.py:135
+#: views/issue.py:140
 msgid "Reopening of the issue"
 msgstr "Réouverture du problème"
 
-#: views/issue.py:137
+#: views/issue.py:142
 msgid "Issue reopened with success"
 msgstr "Problème rouvert avec succès"
 
-#: views/issue.py:142
+#: views/issue.py:147
 msgid "Issue updated with success"
 msgstr "Problème mis à jour avec succès"
 
@@ -347,6 +355,9 @@ msgstr "Nom d'utilisateur déjà utilisé"
 #: views/user.py:162
 msgid "User updated with success"
 msgstr "Utilisateur mis à jour avec succès"
+
+#~ msgid "Make a request or report an issue"
+#~ msgstr "Faire une demande ou signaler un problème"
 
 #~ msgid "Users"
 #~ msgstr "Utilisateurs"
