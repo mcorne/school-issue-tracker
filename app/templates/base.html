@@ -41,6 +41,7 @@
         {{ index_link('issue.index', _('View issues')) }}
         {% if current_user.role is defined and current_user.role.name == 'admin' %}
         {{ index_link('user.index', _('View users')) }}
+        {{ index_link('ip.index', _('View IP addresses')) }}
         {% endif %}
         <hr>
 

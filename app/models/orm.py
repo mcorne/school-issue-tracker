@@ -18,6 +18,20 @@ class CommonColumns(object):
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
 
+class Ip(CommonColumns, db.Model):
+    address = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text)
+    device = db.Column(db.Text, nullable=False)
+    location = db.Column(db.Text, nullable=False)
+    site = db.Column(db.Enum(Site), nullable=False)
+    type = db.Column(db.Text, nullable=False)
+
+    @classmethod
+    def is_address_unique(cls, address, id=None):
+        ip = cls.query.filter(cls.address == address, cls.id != id).first()
+        return not ip
+
+
 class Issue(CommonColumns, db.Model):
     closed = db.Column(db.DateTime)
     computer_number = db.Column(db.Text)  # for computer related issues
@@ -184,6 +198,5 @@ class User(UserMixin, CommonColumns, db.Model):
 
     @classmethod
     def is_username_unique(cls, username, id=None):
-        """Check that the username is unique"""
         user = cls.query.filter(cls.username == username, cls.id != id).first()
         return not user

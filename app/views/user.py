@@ -1,5 +1,3 @@
-import functools
-
 from flask import (
     Blueprint,
     abort,
@@ -11,7 +9,7 @@ from flask import (
     url_for,
 )
 from flask_babel import _
-from flask_login import current_user, login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user
 from sqlalchemy import desc
 from werkzeug.security import generate_password_hash
 

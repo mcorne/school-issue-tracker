@@ -50,7 +50,7 @@ def create_app(test_config=None):
 
     from . import filters
     from .helpers import get_arg_or_cookie
-    from .views import issue, user
+    from .views import ip, issue, user
     from .models.orm import User
 
     @click.command("init-db")
@@ -69,6 +69,7 @@ def create_app(test_config=None):
         return dict(get_arg_or_cookie=get_arg_or_cookie)
 
     app.register_blueprint(filters.bp)
+    app.register_blueprint(ip.bp)
     app.register_blueprint(issue.bp)
     app.register_blueprint(user.bp)
 

@@ -16,6 +16,23 @@ from app.models.issue import Site, Type
 from app.models.user import Role
 
 
+class IpForm(FlaskForm):
+    address = StringField(_l("Address"), filters=[strip], validators=[DataRequired()])
+    description = TextAreaField(_l("Description"), filters=[fix_nl])
+    device = StringField(_l("Device"), filters=[strip], validators=[DataRequired()])
+    location = StringField(
+        _l("Location"), filters=[strip], validators=[DataRequired()],
+    )
+    site = RadioField(
+        _l("Site"),
+        choices=Site.get_options(),
+        coerce=Site.coerce,
+        validators=[DataRequired()],
+    )
+    submit = SubmitField(_l("Save"))
+    type = StringField(_l("Type"), filters=[strip], validators=[DataRequired()])
+
+
 class IssueForm(FlaskForm):
     computer_number = StringField(
         _l("Equipment Number (if applicable)"), filters=[strip]
