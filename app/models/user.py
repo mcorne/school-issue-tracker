@@ -1,9 +1,7 @@
-from flask import request, url_for
 from flask_babel import lazy_gettext as _l
-from flask_table import BoolCol, Col, LinkCol, Table
 
 from app.helpers import get_arg_or_cookie
-from app.models.common import BaseEnum
+from app.models.common import BaseEnum, MyLinkCol, MyTable
 from app.models.issue import Type
 
 
@@ -82,39 +80,13 @@ class Role(BaseEnum):
             raise ValueError("Unexpected role: {}".format(self.name))
 
 
-class UserList(Table):
-    classes = ["w3-table-all", "w3-hoverable"]
-    username = LinkCol(
-        _l("Username"),
-        "user.update",
-        anchor_attrs={"class": "link"},
-        attr="username",
-        th_html_attrs={"class": "w3-blue w3-hover-gray"},
-        url_kwargs=dict(id="id"),
-    )
-    role = Col(_l("Role"), th_html_attrs={"class": "w3-blue w3-hover-gray"})
-    generic = BoolCol(
-        _l("Generic"),
-        no_display=_l("No"),
-        th_html_attrs={"class": "w3-blue w3-hover-gray"},
-        yes_display=_l("Yes"),
-    )
-    disabled = BoolCol(
-        _l("Disabled"),
-        no_display=_l("No"),
-        th_html_attrs={"class": "w3-blue w3-hover-gray"},
-        yes_display=_l("Yes"),
-    )
+class UserLinkCol(MyLinkCol):
+    endpoint = "user.update"
 
-    allow_sort = True
 
-    def get_tr_attrs(self, user):
-        user_id = request.args.get("user_id")
-        tr_attrs = {}
-        if user_id and user.id == int(user_id):
-            tr_attrs["class"] = "w3-pale-green"
-        return tr_attrs
-
-    def sort_url(self, col_key, reverse=False):
-        direction = "desc" if reverse else "asc"
-        return url_for("user.index", sort=col_key, direction=direction)
+class UserTable(MyTable):
+    endpoint = "user.index"
+    username = UserLinkCol(_l("Username"), "username")
+    role = UserLinkCol(_l("Role"), "role")
+    generic = UserLinkCol(_l("Generic"), "generic")
+    disabled = UserLinkCol(_l("Disabled"), "disabled")

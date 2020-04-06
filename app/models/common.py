@@ -40,6 +40,15 @@ class MyLinkCol(LinkCol):
             **kwargs
         )
 
+    def td_format(self, content):
+        if content == False:
+            content = _l("No")
+        elif content == True:
+            content = _l("Yes")
+        elif hasattr(content, "__html__") and callable(content.__html__):
+            content = content.__html__()
+        return super().td_format(content)
+
 
 class MyTable(Table):
     allow_sort = True

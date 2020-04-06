@@ -18,7 +18,7 @@ from app.decorators import roles_required
 from app.forms import LoginForm, UserCreateForm, UserUpdateForm
 from app.helpers import is_safe_url
 from app.models.orm import User
-from app.models.user import Role, UserList
+from app.models.user import Role, UserTable
 
 bp = Blueprint("user", __name__, url_prefix="/user")
 
@@ -46,7 +46,7 @@ def create():
             db.session.add(user)
             db.session.commit()
             flash(_("New user created with success"))
-            return redirect(url_for("user.index", user_id=user.id))
+            return redirect(url_for("user.index", id=user.id))
 
     return render_template("user/edit.html", form=form)
 
@@ -73,13 +73,13 @@ def delete(id):
 @roles_required(Role.admin)
 def index():
     sort = request.args.get("sort", "username")
-    if sort not in UserList._cols:
+    if sort not in UserTable._cols:
         sort = "username"
     reverse = request.args.get("direction", "asc") == "desc"
 
     order_by = desc(sort) if reverse else sort
     users = User.query.order_by(order_by).all()
-    table = UserList(users, sort_by=sort, sort_reverse=reverse)
+    table = UserTable(users, sort_by=sort, sort_reverse=reverse)
     return render_template("user/index.html", table=table)
 
 
@@ -97,7 +97,7 @@ def login():
             login_user(user)
             session["username"] = user.username
 
-            # TODO: restore/fix since always redirecting to same URL: user/1/update!
+            # TODO: remove/fix since always redirecting to same URL: user/1/update!!!
             next = None  # session.get("next")
             if not is_safe_url(next):
                 return abort(400)
@@ -158,6 +158,6 @@ def update(id):
             form.populate_obj(user)
             db.session.commit()
             flash(_("User updated with success"))
-            return redirect(url_for("user.index", user_id=user.id))
+            return redirect(url_for("user.index", id=user.id))
 
     return render_template("user/edit.html", form=form, has_issues=has_issues, id=id)
