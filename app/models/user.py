@@ -91,7 +91,7 @@ class UserList(Table):
         attr="username",
         th_html_attrs={"class": "w3-blue w3-hover-gray"},
         url_kwargs=dict(id="id"),
-    )  # TODO: escape with flask markup
+    )
     role = Col(_l("Role"), th_html_attrs={"class": "w3-blue w3-hover-gray"})
     generic = BoolCol(
         _l("Generic"),

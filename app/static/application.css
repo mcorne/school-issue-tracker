@@ -29,6 +29,7 @@
 }
 
 .w3-table-all a {
+    display: block;
     text-decoration: none;
 }
 
