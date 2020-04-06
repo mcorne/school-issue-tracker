@@ -28,10 +28,12 @@ class BaseEnum(Enum):
 
 
 class MyLinkCol(LinkCol):
-    def __init__(self, name, endpoint, attr, **kwargs):
+    endpoint = None
+
+    def __init__(self, name, attr, **kwargs):
         super().__init__(
             attr=attr,
-            endpoint=endpoint,
+            endpoint=self.endpoint,
             name=name,
             th_html_attrs={"class": "w3-blue w3-hover-gray"},
             url_kwargs=dict(id="id"),

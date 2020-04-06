@@ -1,12 +1,10 @@
-from flask import request, url_for
 from flask_babel import lazy_gettext as _l
 
 from app.models.common import MyLinkCol, MyTable
 
 
 class IpLinkCol(MyLinkCol):
-    def __init__(self, name, attr, **kwargs):
-        super().__init__(attr=attr, endpoint="ip.update", name=name, **kwargs)
+    endpoint = "ip.update"
 
 
 class IpTable(MyTable):
