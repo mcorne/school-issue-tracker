@@ -6,7 +6,7 @@ from sqlalchemy import desc
 from app import db
 from app.decorators import roles_required
 from app.forms import IpForm
-from app.models.ip import IpList
+from app.models.ip import IpTable
 from app.models.orm import Ip
 from app.models.user import Role
 
@@ -33,7 +33,7 @@ def create():
             db.session.add(ip)
             db.session.commit()
             flash(_("New IP created with success"))
-            return redirect(url_for("ip.index", ip_id=ip.id))
+            return redirect(url_for("ip.index", id=ip.id))
 
     return render_template("ip/edit.html", form=form)
 
@@ -55,12 +55,12 @@ def delete(id):
 @roles_required(Role.admin)
 def index():
     sort = request.args.get("sort", "address")  # TODO: fix default sort !!!
-    if sort not in IpList._cols:
+    if sort not in IpTable._cols:
         sort = "address"
     reverse = request.args.get("direction", "asc") == "desc"
     order_by = desc(sort) if reverse else sort
     ips = Ip.query.order_by(order_by).all()
-    table = IpList(ips, sort_by=sort, sort_reverse=reverse)
+    table = IpTable(ips, sort_by=sort, sort_reverse=reverse)
     return render_template("ip/index.html", table=table)
 
 
@@ -77,6 +77,6 @@ def update(id):
             form.populate_obj(ip)
             db.session.commit()
             flash(_("IP address updated with success"))
-            return redirect(url_for("ip.index", ip_id=ip.id))
+            return redirect(url_for("ip.index", id=ip.id))
 
     return render_template("ip/edit.html", form=form, id=id)
