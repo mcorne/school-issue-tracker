@@ -30,24 +30,24 @@ bp = Blueprint("issue", __name__)
 @login_required
 @roles_required(
     Role.admin,
-    Role.it_manager,
-    Role.it_technician,
-    Role.service_agent,
-    Role.service_manager,
+    Role.it_support_2,
+    Role.it_support_1,
+    Role.facility_support_1,
+    Role.facility_support_2,
 )
 def change_type(id):
     issue = Issue.query.get_or_404(id)
-    if issue.type.is_computer():
+    if issue.type.is_it():
         if not current_user.authorized("change_to_facility_issue", issue):
             return redirect_unauthorized_action()
         content = _("Changed to facility management request")
         issue.type = Type.facility
         notification = _("Request changed to facility management request with success")
     else:
-        if not current_user.authorized("change_to_computer_issue", issue):
+        if not current_user.authorized("change_to_it_issue", issue):
             return redirect_unauthorized_action()
         content = _("Changed to IT support request")
-        issue.type = Type.computer
+        issue.type = Type.it
         notification = _("Request changed to IT support request with success")
 
     issue.reset_pending()

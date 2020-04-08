@@ -18,7 +18,7 @@
         {% endif %}
 
         <div class="w3-small w3-text-grey">
-            {{ _('IT support request') if issue.type.is_computer() else _('Facility management request') }}
+            {{ _('IT support request') if issue.type.is_it() else _('Facility management request') }}
         </div>
 
         <div class="w3-small w3-text-grey">{{ _('By %(username)s on %(datetime)s',
@@ -68,5 +68,5 @@
 {% endif %}
 
 {{ issue_type_change_link('change_to_facility_issue', _('Change to facility management request')) }}
-{{ issue_type_change_link('change_to_computer_issue', _('Change to IT support request')) }}
+{{ issue_type_change_link('change_to_it_issue', _('Change to IT support request')) }}
 {% endblock %}

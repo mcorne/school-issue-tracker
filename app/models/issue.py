@@ -15,10 +15,10 @@ class Status(BaseEnum):
 
 
 class Type(BaseEnum):
-    computer = _l("IT support request (computer, printer, network etc.")
     facility = _l(
         "Facility management request (heating, electricity, broken equipment, cleanliness etc.)"
     )
+    it = _l("IT support request (computer, printer, cartridge, network etc.)")
 
-    def is_computer(self):
-        return self == Type.computer
+    def is_it(self):
+        return self == Type.it

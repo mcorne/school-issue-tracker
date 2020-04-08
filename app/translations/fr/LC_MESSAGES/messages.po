@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 12:01+0200\n"
-"PO-Revision-Date: 2020-04-08 12:01+0200\n"
+"POT-Creation-Date: 2020-04-08 12:11+0200\n"
+"PO-Revision-Date: 2020-04-08 12:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -199,7 +199,7 @@ msgstr "Numéro d'équipement (le cas échéant)"
 
 #: forms.py:42
 msgid "Location (classroom, building, outside etc.)"
-msgstr "Emplacement (salle de classe, bâtiment, extérieur, etc.)"
+msgstr "Emplacement (salle de classe, bâtiment, extérieur etc.)"
 
 #: forms.py:53
 msgid "Subject"
@@ -262,8 +262,10 @@ msgid "Yes"
 msgstr "Oui"
 
 #: models/issue.py:18
-msgid "IT support request (computer, printer, network etc."
-msgstr "Demande de support informatique (ordinateur, imprimante, réseau etc.)"
+msgid "IT support request (computer, printer, cartridge, network etc.)"
+msgstr ""
+"Demande de support informatique (ordinateur, imprimante, cartouche, réseau "
+"etc.)"
 
 #: models/issue.py:20
 msgid ""
@@ -271,7 +273,7 @@ msgid ""
 "cleanliness etc.)"
 msgstr ""
 "Demande pour les services généraux (chauffage, électricité, équipement "
-"cassé, propreté, etc.)"
+"cassé, propreté etc.)"
 
 #: models/user.py:9
 msgid "Administrator"
@@ -406,73 +408,3 @@ msgstr "Nom d'utilisateur déjà utilisé"
 #: views/user.py:160
 msgid "User updated with success"
 msgstr "Utilisateur mis à jour avec succès"
-
-#~ msgid "Technical and Computer Issues"
-#~ msgstr "Problèmes techniques et informatiques"
-
-#~ msgid "Issues"
-#~ msgstr "Problèmes"
-
-#~ msgid "View issues"
-#~ msgstr "Afficher les problèmes"
-
-#~ msgid "Issue sorting"
-#~ msgstr "Tri des problèmes"
-
-#~ msgid "Issue filter"
-#~ msgstr "Filtre des problèmes"
-
-#~ msgid "Computer issues"
-#~ msgstr "Problèmes informatiques"
-
-#~ msgid "Technical issues"
-#~ msgstr "Problèmes techniques"
-
-#~ msgid "Computer issue"
-#~ msgstr "Problème informatique"
-
-#~ msgid "Technical issue"
-#~ msgstr "Problème technique"
-
-#~ msgid "Change to technical issue"
-#~ msgstr "Requalifier en problème technique"
-
-#~ msgid "Change to computer issue"
-#~ msgstr "Requalifier en problème informatique"
-
-#~ msgid "No IP addresses"
-#~ msgstr "Aucune adresse IP"
-
-#~ msgid "Computer related issue"
-#~ msgstr "Problème informatique"
-
-#~ msgid "Changed to technical issue"
-#~ msgstr "Requalifié en problème technique"
-
-#~ msgid "Issue changed to technical issue with success"
-#~ msgstr "Problème requalifié en problème technique avec succès"
-
-#~ msgid "Changed to computer issue"
-#~ msgstr "Requalifié en problème informatique"
-
-#~ msgid "New issue created with success"
-#~ msgstr "Nouveau problème enregistré avec succès"
-
-#~ msgid "Make a request or report an issue"
-#~ msgstr "Faire une demande ou signaler un problème"
-
-#~ msgid "Users"
-#~ msgstr "Utilisateurs"
-
-#~ msgid "Requests & Issues"
-#~ msgstr "Demandes & Problèmes"
-
-#~ msgid "New"
-#~ msgstr "Nouveau"
-
-#, python-format
-#~ msgid "by %(username)s on %(datetime)s"
-#~ msgstr "de %(username)s le %(datetime)s"
-
-#~ msgid "Edit"
-#~ msgstr "Mettre à jour"
