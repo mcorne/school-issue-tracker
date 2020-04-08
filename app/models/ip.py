@@ -13,5 +13,5 @@ class IpTable(MyTable):
     location = IpLinkCol(_l("Location"), "location")
     type = IpLinkCol(_l("Type"), "type")
     device = IpLinkCol(_l("Device"), "device")
-    address = IpLinkCol(_l("Address"), "address")
+    address = IpLinkCol(_l("IP address"), "address")
     description = IpLinkCol(_l("Description"), "description")

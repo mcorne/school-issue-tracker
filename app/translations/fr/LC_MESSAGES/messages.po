@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 14:36+0200\n"
-"PO-Revision-Date: 2020-04-08 14:38+0200\n"
+"POT-Creation-Date: 2020-04-08 16:37+0200\n"
+"PO-Revision-Date: 2020-04-08 16:37+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -71,14 +71,9 @@ msgstr "Demandes d'assistance informatique"
 msgid "Facility management requests"
 msgstr "Demandes pour les services généraux"
 
-#: templates/ip/edit.html:18
+#: templates/ip/edit.html:16
 msgid "Delete IP address"
 msgstr "Supprimer l'adresse IP"
-
-#: templates/ip/edit.html:19 templates/macros.html:24
-#: templates/user/edit.html:39
-msgid "Please confirm"
-msgstr "Veuillez confirmer"
 
 #: templates/ip/index.html:4
 msgid "Add a new IP address"
@@ -133,6 +128,10 @@ msgstr "Requalifier en demande pour les services généraux"
 msgid "Change to IT support request"
 msgstr "Requalifier en demande d'assistance informatique"
 
+#: templates/macros.html:1
+msgid "Please confirm"
+msgstr "Veuillez confirmer"
+
 #: templates/user/edit.html:13
 msgid ""
 "The password of a generic account uniquely identifies this account "
@@ -165,7 +164,7 @@ msgstr ""
 "Un technicien de support de niveau 2 (N2) peut également clore et "
 "télécharger des demandes."
 
-#: templates/user/edit.html:38
+#: templates/user/edit.html:36
 msgid "Delete User"
 msgstr "Supprimer l'utilisateur"
 
@@ -177,91 +176,95 @@ msgstr "Ajouter un nouvel utilisateur"
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
-#: forms.py:20 models/ip.py:16
-msgid "Address"
-msgstr "Adresse"
+#: forms.py:21 models/ip.py:16
+msgid "IP address"
+msgstr "Adresse IP"
 
-#: forms.py:21 forms.py:40 models/ip.py:17
+#: forms.py:23 forms.py:48 models/ip.py:17
 msgid "Description"
 msgstr "Description"
 
-#: forms.py:22 models/ip.py:15
-msgid "Device"
-msgstr "Matériel"
+#: forms.py:25
+msgid "Device (model etc.)"
+msgstr "Matériel (modèle etc.)"
 
-#: forms.py:24 models/ip.py:13
-msgid "Location"
-msgstr "Emplacement"
+#: forms.py:28
+msgid "Location (classroom etc.)"
+msgstr "Emplacement (salle de classe etc.)"
 
-#: forms.py:27 forms.py:47 models/ip.py:12
+#: forms.py:31 forms.py:55 models/ip.py:12
 msgid "Site"
 msgstr "Site"
 
-#: forms.py:32 forms.py:52 forms.py:70 forms.py:84
+#: forms.py:36 forms.py:60 forms.py:78 forms.py:92
 msgid "Save"
 msgstr "Enregistrer"
 
-#: forms.py:33 forms.py:55 models/ip.py:14
-msgid "Type"
-msgstr "Type"
-
 #: forms.py:38
+msgid "Type (computer, printer etc.)"
+msgstr "Type (ordinateur, imprimante etc.)"
+
+#: forms.py:46
 msgid "Equipment Number (if applicable)"
 msgstr "Numéro d'équipement (le cas échéant)"
 
-#: forms.py:42
+#: forms.py:50
 msgid "Location (classroom, building, outside etc.)"
 msgstr "Emplacement (salle de classe, bâtiment, extérieur etc.)"
 
-#: forms.py:53
+#: forms.py:61
 msgid "Subject"
 msgstr "Sujet"
 
-#: forms.py:63 forms.py:77 forms.py:93
+#: forms.py:63 models/ip.py:14
+msgid "Type"
+msgstr "Type"
+
+#: forms.py:71 forms.py:85 forms.py:101
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:64
+#: forms.py:72
 msgid "Log In"
 msgstr "Se connecter"
 
-#: forms.py:65 forms.py:85 models/user.py:90
+#: forms.py:73 forms.py:93 models/user.py:90
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: forms.py:69
+#: forms.py:77
 msgid "Message"
 msgstr "Message"
 
-#: forms.py:71
+#: forms.py:79
 msgid "Close"
 msgstr "Clôturer"
 
-#: forms.py:72
+#: forms.py:80
 msgid "Reopen"
 msgstr "Rouvrir"
 
-#: forms.py:76
+#: forms.py:84
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:79 models/user.py:91
+#: forms.py:87 models/user.py:91
 msgid "Role"
 msgstr "Rôle"
 
-#: forms.py:80
+#: forms.py:88
 msgid "-- Choose a role --"
 msgstr "-- Choisir un rôle --"
 
-#: forms.py:89
+#: forms.py:97
 msgid "Account Disabled"
 msgstr "Compte désactivé"
 
-#: forms.py:90
+#: forms.py:98
 msgid "Password (leave blank if unchanged)"
 msgstr "Mot de passe (laisser vide si inchangé)"
 
-#: helpers.py:22
+#: helpers.py:15
 msgid "You are not authorized to perform this action."
 msgstr "Vous n'êtes pas autorisé à effectuer cette action."
 
@@ -272,6 +275,14 @@ msgstr "Non"
 #: models/common.py:47
 msgid "Yes"
 msgstr "Oui"
+
+#: models/ip.py:13
+msgid "Location"
+msgstr "Emplacement"
+
+#: models/ip.py:15
+msgid "Device"
+msgstr "Matériel"
 
 #: models/issue.py:19
 msgid "IT support request (computer, printer, cartridge, network etc.)"
@@ -331,11 +342,11 @@ msgstr "Nouvelle adresse IP créée avec succès"
 msgid "IP address deleted with success"
 msgstr "Adresse IP supprimée avec succès"
 
-#: views/ip.py:75
+#: views/ip.py:85
 msgid "IP address already used"
 msgstr "Adresse IP déjà utilisée"
 
-#: views/ip.py:79
+#: views/ip.py:89
 msgid "IP address updated with success"
 msgstr "Adresse IP mise à jour avec succès"
 
@@ -379,47 +390,50 @@ msgstr "Demande rouverte avec succès"
 msgid "Request updated with success"
 msgstr "Demande mise à jour avec succès"
 
-#: views/user.py:33
+#: views/user.py:32
 msgid "Username already registered"
 msgstr "Nom d'utilisateur déjà enregistré"
 
-#: views/user.py:37 views/user.py:152
+#: views/user.py:36 views/user.py:143
 msgid "Password already used for a generic account"
 msgstr "Mot de passe déjà utilisé pour un compte générique"
 
-#: views/user.py:48
+#: views/user.py:47
 msgid "New user created with success"
 msgstr "Nouvel utilisateur créé avec succès"
 
-#: views/user.py:60
+#: views/user.py:59
 msgid "Administrator cannot be deleted"
 msgstr "Interdiction de supprimer l'administrateur"
 
-#: views/user.py:62
+#: views/user.py:61
 msgid "Users with requests cannot be deleted"
 msgstr "Interdiction de supprimer un utilisateur avec des demandes"
 
-#: views/user.py:66
+#: views/user.py:65
 msgid "User deleted with success"
 msgstr "Utilisateur supprimé avec succès"
 
-#: views/user.py:111
+#: views/user.py:102
 msgid "Invalid username or password"
 msgstr "Nom d'utilisateur ou mot de passe invalide"
 
-#: views/user.py:141
+#: views/user.py:132
 msgid "Original administrator role may not be changed or disabled"
 msgstr ""
 "Interdiction de changer le rôle de l'administrateur d'origine ou de le "
 "désactiver"
 
-#: views/user.py:144
+#: views/user.py:135
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
 
-#: views/user.py:160
+#: views/user.py:151
 msgid "User updated with success"
 msgstr "Utilisateur mis à jour avec succès"
+
+#~ msgid "Address"
+#~ msgstr "Adresse"
 
 #~ msgid "Report an issue or make a request"
 #~ msgstr "Signaler un problème ou faire une demande"

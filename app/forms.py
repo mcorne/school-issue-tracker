@@ -17,11 +17,15 @@ from app.models.user import Role
 
 
 class IpForm(FlaskForm):
-    address = StringField(_l("Address"), filters=[strip], validators=[DataRequired()])
+    address = StringField(
+        _l("IP address"), filters=[strip], validators=[DataRequired()]
+    )
     description = TextAreaField(_l("Description"), filters=[fix_nl])
-    device = StringField(_l("Device"), filters=[strip], validators=[DataRequired()])
+    device = StringField(
+        _l("Device (model etc.)"), filters=[strip], validators=[DataRequired()]
+    )
     location = StringField(
-        _l("Location"), filters=[strip], validators=[DataRequired()],
+        _l("Location (classroom etc.)"), filters=[strip], validators=[DataRequired()],
     )
     site = RadioField(
         _l("Site"),
@@ -30,7 +34,11 @@ class IpForm(FlaskForm):
         validators=[DataRequired()],
     )
     submit = SubmitField(_l("Save"))
-    type = StringField(_l("Type"), filters=[strip], validators=[DataRequired()])
+    type = StringField(
+        _l("Type (computer, printer etc.)"),
+        filters=[strip],
+        validators=[DataRequired()],
+    )
 
 
 class IssueForm(FlaskForm):
