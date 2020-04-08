@@ -1,6 +1,5 @@
 from flask import (
     Blueprint,
-    abort,
     flash,
     redirect,
     render_template,

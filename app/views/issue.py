@@ -13,14 +13,13 @@ from flask import (
 from flask_babel import _
 from flask_login import current_user, login_required
 from sqlalchemy import desc, func, text
-from werkzeug.exceptions import abort
 
 from app import db
 from app.decorators import roles_required
 from app.forms import IssueForm, MessageForm
 from app.helpers import redirect_unauthorized_action
 from app.models.issue import Status, Type
-from app.models.orm import Issue, Message, User
+from app.models.orm import Issue, Message
 from app.models.user import Role
 
 bp = Blueprint("issue", __name__)

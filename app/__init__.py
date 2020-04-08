@@ -1,7 +1,7 @@
 import os
 
 import click
-from flask import Flask, session
+from flask import Flask
 from flask.cli import with_appcontext
 from flask_babel import Babel, lazy_gettext
 from flask_debugtoolbar import DebugToolbarExtension

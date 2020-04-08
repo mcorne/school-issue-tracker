@@ -1,5 +1,3 @@
-from urllib.parse import urljoin, urlparse
-
 from flask import flash, redirect, request, url_for
 from flask_babel import _
 
