@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='application.css') }}">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ _('Technical and Computer Issues') }}</title>
+<title>{{ _('Support requests - LMC') }}</title>
 
 <body class="w3-content">
 
@@ -18,9 +18,9 @@
         {% endif %}
 
         <a class="w3-bar-item w3-hover-gray w3-button w3-hide-small w3-hide-medium"
-            href="{{ url_for('issue.index') }}">{{ _('Technical and Computer Issues') }}</a>
+            href="{{ url_for('issue.index') }}">{{ _('Support requests - Lycée Marie Curie') }}</a>
         <a class="w3-bar-item w3-hover-gray w3-button w3-hide-large"
-            href="{{ url_for('issue.index') }}">{{ _('Issues') }}</a>
+            href="{{ url_for('issue.index') }}">{{ _('Support - LMC') }}</a>
 
         <a class="w3-bar-item w3-right w3-hover-gray w3-button" href="{{ url_for('user.logout') }}"><i
                 class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="w3-sidebar w3-bar-block" id="sidebar">
-        {{ index_link('issue.index', _('View issues')) }}
+        {{ index_link('issue.index', _('View requests')) }}
         {% if current_user.role is defined and current_user.role.name == 'admin' %}
         {{ index_link('user.index', _('View users')) }}
         {{ index_link('ip.index', _('View IP addresses')) }}
@@ -46,7 +46,7 @@
         <hr>
 
         <div class="w3-dropdown-hover w3-hover-blue">
-            <button class="w3-button">{{ _('Issue sorting') }}<i class="fas fa-caret-down"></i></button>
+            <button class="w3-button">{{ _('Sort requests') }} <i class="fas fa-caret-down"></i></button>
             <div class="w3-dropdown-content w3-bar-block">
                 {{ option_link('issue.index', 'issue_sort', 'status', _('Sort by status (pending, processing, closed)')) }}
                 {{ option_link('issue.index', 'issue_sort', 'date', _('Sort by update date')) }}
@@ -54,11 +54,11 @@
         </div>
 
         <div class="w3-dropdown-hover w3-hover-blue">
-            <button class="w3-button">{{ _('Issue filter') }}<i class="fas fa-caret-down"></i></button>
+            <button class="w3-button">{{ _('Filter requests') }} <i class="fas fa-caret-down"></i></button>
             <div class="w3-dropdown-content w3-bar-block">
-                {{ option_link('issue.index', 'issue_type', 'all', _('All issues')) }}
-                {{ option_link('issue.index', 'issue_type', 'computer', _('Computer issues')) }}
-                {{ option_link('issue.index', 'issue_type', 'other', _('Technical issues')) }}
+                {{ option_link('issue.index', 'issue_type', 'all', _('All requests')) }}
+                {{ option_link('issue.index', 'issue_type', 'computer', _('IT support requests')) }}
+                {{ option_link('issue.index', 'issue_type', 'facility', _('Facility management requests')) }}
                 </a>
             </div>
         </div>

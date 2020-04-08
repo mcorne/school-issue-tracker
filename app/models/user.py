@@ -16,10 +16,10 @@ class Role(BaseEnum):
     def authorized(self, action, issue):
         authorizations = {
             "change_to_computer_issue": lambda role, issue: not issue.is_closed()
-            and issue.type == Type.other
+            and issue.type == Type.facility
             and role in (Role.admin, Role.service_manager, Role.service_agent),
             ##
-            "change_to_technical_issue": lambda role, issue: not issue.is_closed()
+            "change_to_facility_issue": lambda role, issue: not issue.is_closed()
             and issue.type == Type.computer
             and role in (Role.admin, Role.it_manager, Role.it_technician),
             ##
@@ -27,7 +27,7 @@ class Role(BaseEnum):
             and (
                 issue.type == Type.computer
                 and role in (Role.admin, Role.it_manager)
-                or issue.type == Type.other
+                or issue.type == Type.facility
                 and role in (Role.admin, Role.service_manager)
             ),
             ##
@@ -37,7 +37,7 @@ class Role(BaseEnum):
             and (
                 issue.type == Type.computer
                 and role in (Role.admin, Role.it_manager, Role.it_technician)
-                or issue.type == Type.other
+                or issue.type == Type.facility
                 and role in (Role.admin, Role.service_manager, Role.service_agent)
             ),
         }
@@ -61,15 +61,15 @@ class Role(BaseEnum):
 
     def get_issue_type(self):
         issue_type = get_arg_or_cookie("issue_type")
-        if issue_type in ("all", Type.computer.name, Type.other.name):
+        if issue_type in ("all", Type.computer.name, Type.facility.name):
             return issue_type
 
         issue_types = {
             Role.admin.name: "all",
             Role.it_manager.name: Type.computer.name,
             Role.it_technician.name: Type.computer.name,
-            Role.service_agent.name: Type.other.name,
-            Role.service_manager.name: Type.other.name,
+            Role.service_agent.name: Type.facility.name,
+            Role.service_manager.name: Type.facility.name,
             Role.teacher.name: "all",
         }
         self.validate_role(issue_types)

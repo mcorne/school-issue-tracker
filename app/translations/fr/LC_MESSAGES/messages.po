@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-05 19:05+0200\n"
-"PO-Revision-Date: 2020-04-05 19:05+0200\n"
+"POT-Creation-Date: 2020-04-08 12:01+0200\n"
+"PO-Revision-Date: 2020-04-08 12:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,17 +19,21 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/base.html:9 templates/base.html:21
-msgid "Technical and Computer Issues"
-msgstr "Problèmes techniques et informatiques"
+#: templates/base.html:9
+msgid "Support requests - LMC"
+msgstr "Demandes d'assistance - LMC"
+
+#: templates/base.html:21
+msgid "Support requests - Lycée Marie Curie"
+msgstr "Demandes d'assistance - Lycée Marie Curie"
 
 #: templates/base.html:23
-msgid "Issues"
-msgstr "Problèmes"
+msgid "Support - LMC"
+msgstr "Assistance - LMC"
 
 #: templates/base.html:41
-msgid "View issues"
-msgstr "Afficher les problèmes"
+msgid "View requests"
+msgstr "Afficher les demandes"
 
 #: templates/base.html:43
 msgid "View users"
@@ -40,8 +44,8 @@ msgid "View IP addresses"
 msgstr "Afficher les adresses IP"
 
 #: templates/base.html:49
-msgid "Issue sorting"
-msgstr "Tri des problèmes"
+msgid "Sort requests"
+msgstr "Trier les demandes"
 
 #: templates/base.html:51
 msgid "Sort by status (pending, processing, closed)"
@@ -52,26 +56,26 @@ msgid "Sort by update date"
 msgstr "Tri par date de mise à jour"
 
 #: templates/base.html:57
-msgid "Issue filter"
-msgstr "Filtre des problèmes"
+msgid "Filter requests"
+msgstr "Filtrer les demandes"
 
 #: templates/base.html:59
-msgid "All issues"
-msgstr "Tous les problèmes"
+msgid "All requests"
+msgstr "Toutes les demandes"
 
 #: templates/base.html:60
-msgid "Computer issues"
-msgstr "Problèmes informatiques"
+msgid "IT support requests"
+msgstr "Demandes de support informatique"
 
 #: templates/base.html:61
-msgid "Technical issues"
-msgstr "Problèmes techniques"
+msgid "Facility management requests"
+msgstr "Demandes pour les services généraux"
 
-#: templates/ip/edit.html:17
+#: templates/ip/edit.html:18
 msgid "Delete IP address"
 msgstr "Supprimer l'adresse IP"
 
-#: templates/ip/edit.html:18 templates/macros.html:24
+#: templates/ip/edit.html:19 templates/macros.html:24
 #: templates/user/edit.html:31
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
@@ -90,12 +94,12 @@ msgid "At %(site)s - %(location)s"
 msgstr "À %(site)s - %(location)s"
 
 #: templates/issue/index.html:33 templates/issue/update.html:21
-msgid "Computer issue"
-msgstr "Problème informatique"
+msgid "IT support request"
+msgstr "Demande de support informatique"
 
 #: templates/issue/index.html:33 templates/issue/update.html:21
-msgid "Technical issue"
-msgstr "Problème technique"
+msgid "Facility management request"
+msgstr "Demande pour les services généraux"
 
 #: templates/issue/index.html:37 templates/issue/update.html:24
 #: templates/issue/update.html:39
@@ -122,12 +126,12 @@ msgid "Equipment %(computer_number)s"
 msgstr "Équipement %(computer_number)s"
 
 #: templates/issue/update.html:70
-msgid "Change to technical issue"
-msgstr "Requalifier en problème technique"
+msgid "Change to facility management request"
+msgstr "Requalifier en demande pour les services généraux"
 
 #: templates/issue/update.html:71
-msgid "Change to computer issue"
-msgstr "Requalifier en problème informatique"
+msgid "Change to IT support request"
+msgstr "Requalifier en demande de support informatique"
 
 #: templates/user/edit.html:14
 msgid ""
@@ -161,87 +165,87 @@ msgstr "Ajouter un nouvel utilisateur"
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
-#: forms.py:20 models/ip.py:9
+#: forms.py:20 models/ip.py:16
 msgid "Address"
 msgstr "Adresse"
 
-#: forms.py:21 forms.py:39 models/ip.py:20
+#: forms.py:21 forms.py:40 models/ip.py:17
 msgid "Description"
 msgstr "Description"
 
-#: forms.py:22 models/ip.py:16
+#: forms.py:22 models/ip.py:15
 msgid "Device"
 msgstr "Matériel"
 
-#: forms.py:24 models/ip.py:18
+#: forms.py:24 models/ip.py:13
 msgid "Location"
 msgstr "Emplacement"
 
-#: forms.py:27 forms.py:46 models/ip.py:17
+#: forms.py:27 forms.py:47 models/ip.py:12
 msgid "Site"
 msgstr "Site"
 
-#: forms.py:32 forms.py:51 forms.py:69 forms.py:83
+#: forms.py:32 forms.py:52 forms.py:70 forms.py:84
 msgid "Save"
 msgstr "Enregistrer"
 
-#: forms.py:37
-msgid "Equipment Number (if applicable)"
-msgstr "Numéro d'équipement (le cas échéant)"
-
-#: forms.py:41
-msgid "Location (classroom, building, outside etc.)"
-msgstr "Emplacement (salle de classe, bâtiment, extérieur, etc.)"
-
-#: forms.py:52
-msgid "Subject"
-msgstr "Sujet"
-
-#: forms.py:54
+#: forms.py:33 forms.py:55 models/ip.py:14
 msgid "Type"
 msgstr "Type"
 
-#: forms.py:62 forms.py:76 forms.py:92
+#: forms.py:38
+msgid "Equipment Number (if applicable)"
+msgstr "Numéro d'équipement (le cas échéant)"
+
+#: forms.py:42
+msgid "Location (classroom, building, outside etc.)"
+msgstr "Emplacement (salle de classe, bâtiment, extérieur, etc.)"
+
+#: forms.py:53
+msgid "Subject"
+msgstr "Sujet"
+
+#: forms.py:63 forms.py:77 forms.py:93
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:63
+#: forms.py:64
 msgid "Log In"
 msgstr "Se connecter"
 
-#: forms.py:64 forms.py:84 models/user.py:88
+#: forms.py:65 forms.py:85 models/user.py:89
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: forms.py:68
+#: forms.py:69
 msgid "Message"
 msgstr "Message"
 
-#: forms.py:70
+#: forms.py:71
 msgid "Close"
 msgstr "Clôturer"
 
-#: forms.py:71
+#: forms.py:72
 msgid "Reopen"
 msgstr "Rouvrir"
 
-#: forms.py:75
+#: forms.py:76
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:78 models/user.py:95
+#: forms.py:79 models/user.py:90
 msgid "Role"
 msgstr "Rôle"
 
-#: forms.py:79
+#: forms.py:80
 msgid "-- Choose a role --"
 msgstr "-- Choisir un rôle --"
 
-#: forms.py:88
+#: forms.py:89
 msgid "Account Disabled"
 msgstr "Compte désactivé"
 
-#: forms.py:89
+#: forms.py:90
 msgid "Password (leave blank if unchanged)"
 msgstr "Mot de passe (laisser vide si inchangé)"
 
@@ -249,57 +253,55 @@ msgstr "Mot de passe (laisser vide si inchangé)"
 msgid "You are not authorized to perform this action."
 msgstr "Vous n'êtes pas autorisé à effectuer cette action."
 
-#: models/ip.py:24
-msgid "No IP addresses"
-msgstr "Aucune adresse IP"
-
-#: models/issue.py:18
-msgid "Computer related issue"
-msgstr "Problème informatique"
-
-#: models/issue.py:20
-msgid ""
-"Technical issue (heating, electricity, broken equipment, cleanliness etc.)"
-msgstr ""
-"Problème technique (chauffage, électricité, équipement cassé, propreté, etc.)"
-
-#: models/user.py:11
-msgid "Administrator"
-msgstr "Administrateur"
-
-#: models/user.py:12
-msgid "IT Manager"
-msgstr "Manager informatique"
-
-#: models/user.py:13
-msgid "IT Technician"
-msgstr "Technicien informatique"
-
-#: models/user.py:14
-msgid "Service Agent"
-msgstr "Agent de service"
-
-#: models/user.py:15
-msgid "Service Manager"
-msgstr "Manager des services"
-
-#: models/user.py:16
-msgid "Teacher"
-msgstr "Enseignant"
-
-#: models/user.py:97
-msgid "Generic"
-msgstr "Générique"
-
-#: models/user.py:98 models/user.py:104
+#: models/common.py:45
 msgid "No"
 msgstr "Non"
 
-#: models/user.py:100 models/user.py:106
+#: models/common.py:47
 msgid "Yes"
 msgstr "Oui"
 
-#: models/user.py:103
+#: models/issue.py:18
+msgid "IT support request (computer, printer, network etc."
+msgstr "Demande de support informatique (ordinateur, imprimante, réseau etc.)"
+
+#: models/issue.py:20
+msgid ""
+"Facility management request (heating, electricity, broken equipment, "
+"cleanliness etc.)"
+msgstr ""
+"Demande pour les services généraux (chauffage, électricité, équipement "
+"cassé, propreté, etc.)"
+
+#: models/user.py:9
+msgid "Administrator"
+msgstr "Administrateur"
+
+#: models/user.py:10
+msgid "IT Manager"
+msgstr "Manager informatique"
+
+#: models/user.py:11
+msgid "IT Technician"
+msgstr "Technicien informatique"
+
+#: models/user.py:12
+msgid "Service Agent"
+msgstr "Agent de service"
+
+#: models/user.py:13
+msgid "Service Manager"
+msgstr "Manager des services"
+
+#: models/user.py:14
+msgid "Teacher"
+msgstr "Enseignant"
+
+#: models/user.py:91
+msgid "Generic"
+msgstr "Générique"
+
+#: models/user.py:92
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -307,61 +309,61 @@ msgstr "Désactivé"
 msgid "IP address already registered"
 msgstr "Adresse IP déjà enregistrée"
 
-#: views/ip.py:34
+#: views/ip.py:35
 msgid "New IP created with success"
 msgstr "Nouvelle adresse IP créée avec succès"
 
-#: views/ip.py:47
+#: views/ip.py:48
 msgid "IP address deleted with success"
 msgstr "Adresse IP supprimée avec succès"
 
-#: views/ip.py:74
+#: views/ip.py:75
 msgid "IP address already used"
 msgstr "Adresse IP déjà utilisée"
 
-#: views/ip.py:78
+#: views/ip.py:79
 msgid "IP address updated with success"
 msgstr "Adresse IP mise à jour avec succès"
 
 #: views/issue.py:43
-msgid "Changed to technical issue"
-msgstr "Requalifié en problème technique"
+msgid "Changed to facility management request"
+msgstr "Requalifié en demande pour les services généraux"
 
 #: views/issue.py:45
-msgid "Issue changed to technical issue with success"
-msgstr "Problème requalifié en problème technique avec succès"
+msgid "Request changed to facility management request with success"
+msgstr "Demande requalifiée en demande pour les services généraux avec succès"
 
 #: views/issue.py:49
-msgid "Changed to computer issue"
-msgstr "Requalifié en problème informatique"
+msgid "Changed to IT support request"
+msgstr "Requalifié en demande de support informatique"
 
 #: views/issue.py:51
-msgid "Issue changed to computer issue with success"
-msgstr "Problème requalifié en problème informatique avec succès"
+msgid "Request changed to IT support request with success"
+msgstr "Demande requalifiée en demande de support informatique avec succès"
 
 #: views/issue.py:78
-msgid "New issue created with success"
-msgstr "Nouveau problème enregistré avec succès"
+msgid "New request created with success"
+msgstr "Nouvelle demande créée avec succès"
 
 #: views/issue.py:136
-msgid "Closing of the issue"
-msgstr "Clôture du problème"
+msgid "Closing of the request"
+msgstr "Clôture de la demande"
 
 #: views/issue.py:138
-msgid "Issue closed with success"
-msgstr "Problème clôturé  avec succès"
+msgid "Request closed with success"
+msgstr "Demande clôturée avec succès"
 
 #: views/issue.py:142
-msgid "Reopening of the issue"
-msgstr "Réouverture du problème"
+msgid "Reopening of the request"
+msgstr "Réouverture de la demande"
 
 #: views/issue.py:144
-msgid "Issue reopened with success"
-msgstr "Problème rouvert avec succès"
+msgid "Request reopened with success"
+msgstr "Demande rouverte avec succès"
 
 #: views/issue.py:149
-msgid "Issue updated with success"
-msgstr "Problème mis à jour avec succès"
+msgid "Request updated with success"
+msgstr "Demande mise à jour avec succès"
 
 #: views/user.py:33
 msgid "Username already registered"
@@ -380,8 +382,8 @@ msgid "Administrator cannot be deleted"
 msgstr "Interdiction de supprimer l'administrateur"
 
 #: views/user.py:62
-msgid "User with issues cannot be deleted"
-msgstr "Interdiction de supprimer un utilisateur avec des problèmes"
+msgid "Users with requests cannot be deleted"
+msgstr "Interdiction de supprimer un utilisateur avec des demandes"
 
 #: views/user.py:66
 msgid "User deleted with success"
@@ -404,6 +406,57 @@ msgstr "Nom d'utilisateur déjà utilisé"
 #: views/user.py:160
 msgid "User updated with success"
 msgstr "Utilisateur mis à jour avec succès"
+
+#~ msgid "Technical and Computer Issues"
+#~ msgstr "Problèmes techniques et informatiques"
+
+#~ msgid "Issues"
+#~ msgstr "Problèmes"
+
+#~ msgid "View issues"
+#~ msgstr "Afficher les problèmes"
+
+#~ msgid "Issue sorting"
+#~ msgstr "Tri des problèmes"
+
+#~ msgid "Issue filter"
+#~ msgstr "Filtre des problèmes"
+
+#~ msgid "Computer issues"
+#~ msgstr "Problèmes informatiques"
+
+#~ msgid "Technical issues"
+#~ msgstr "Problèmes techniques"
+
+#~ msgid "Computer issue"
+#~ msgstr "Problème informatique"
+
+#~ msgid "Technical issue"
+#~ msgstr "Problème technique"
+
+#~ msgid "Change to technical issue"
+#~ msgstr "Requalifier en problème technique"
+
+#~ msgid "Change to computer issue"
+#~ msgstr "Requalifier en problème informatique"
+
+#~ msgid "No IP addresses"
+#~ msgstr "Aucune adresse IP"
+
+#~ msgid "Computer related issue"
+#~ msgstr "Problème informatique"
+
+#~ msgid "Changed to technical issue"
+#~ msgstr "Requalifié en problème technique"
+
+#~ msgid "Issue changed to technical issue with success"
+#~ msgstr "Problème requalifié en problème technique avec succès"
+
+#~ msgid "Changed to computer issue"
+#~ msgstr "Requalifié en problème informatique"
+
+#~ msgid "New issue created with success"
+#~ msgstr "Nouveau problème enregistré avec succès"
 
 #~ msgid "Make a request or report an issue"
 #~ msgstr "Faire une demande ou signaler un problème"

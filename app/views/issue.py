@@ -38,17 +38,17 @@ bp = Blueprint("issue", __name__)
 def change_type(id):
     issue = Issue.query.get_or_404(id)
     if issue.type.is_computer():
-        if not current_user.authorized("change_to_technical_issue", issue):
+        if not current_user.authorized("change_to_facility_issue", issue):
             return redirect_unauthorized_action()
-        content = _("Changed to technical issue")
-        issue.type = Type.other
-        notification = _("Issue changed to technical issue with success")
+        content = _("Changed to facility management request")
+        issue.type = Type.facility
+        notification = _("Request changed to facility management request with success")
     else:
         if not current_user.authorized("change_to_computer_issue", issue):
             return redirect_unauthorized_action()
-        content = _("Changed to computer issue")
+        content = _("Changed to IT support request")
         issue.type = Type.computer
-        notification = _("Issue changed to computer issue with success")
+        notification = _("Request changed to IT support request with success")
 
     issue.reset_pending()
     Message.add_message(content, issue_id=id)
@@ -75,7 +75,7 @@ def create():
         )
         db.session.add(issue)
         db.session.commit()
-        flash(_("New issue created with success"))
+        flash(_("New request created with success"))
         return redirect(url_for("issue.index", issue_id=issue.id))
 
     return render_template("issue/create.html", form=form)
@@ -133,20 +133,20 @@ def update(id):
         if form.close.data:
             if not current_user.authorized("close_issue", issue):
                 return redirect_unauthorized_action()
-            Message.add_message(_("Closing of the issue"), issue_id=id)
+            Message.add_message(_("Closing of the request"), issue_id=id)
             issue.set_closed()
-            flash(_("Issue closed with success"))
+            flash(_("Request closed with success"))
         elif form.reopen.data:
             if not current_user.authorized("reopen_issue", issue):
                 return redirect_unauthorized_action()
-            Message.add_message(_("Reopening of the issue"), issue_id=id)
+            Message.add_message(_("Reopening of the request"), issue_id=id)
             issue.reset_pending()
-            flash(_("Issue reopened with success"))
+            flash(_("Request reopened with success"))
         elif content:
             if not current_user.authorized("update_issue", issue):
                 return redirect_unauthorized_action()
             issue.set_processing()
-            flash(_("Issue updated with success"))
+            flash(_("Request updated with success"))
 
         db.session.commit()
         return redirect(url_for("issue.index", issue_id=issue.id))

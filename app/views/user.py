@@ -59,7 +59,7 @@ def delete(id):
     if user.is_original_admin():
         flash(_("Administrator cannot be deleted"), "error")
     elif user.has_issues():
-        flash(_("User with issues cannot be deleted"), "error")
+        flash(_("Users with requests cannot be deleted"), "error")
     else:
         db.session.delete(user)
         db.session.commit()

@@ -15,9 +15,9 @@ class Status(BaseEnum):
 
 
 class Type(BaseEnum):
-    computer = _l("Computer related issue")
-    other = _l(
-        "Technical issue (heating, electricity, broken equipment, cleanliness etc.)"
+    computer = _l("IT support request (computer, printer, network etc.")
+    facility = _l(
+        "Facility management request (heating, electricity, broken equipment, cleanliness etc.)"
     )
 
     def is_computer(self):
