@@ -16,7 +16,6 @@ from werkzeug.security import generate_password_hash
 from app import db
 from app.decorators import roles_required
 from app.forms import LoginForm, UserCreateForm, UserUpdateForm
-from app.helpers import is_safe_url
 from app.models.orm import User
 from app.models.user import Role, UserTable
 
@@ -96,14 +95,6 @@ def login():
         if user:
             login_user(user)
             session["username"] = user.username
-
-            # TODO: remove/fix since always redirecting to same URL: user/1/update!!!
-            next = None  # session.get("next")
-            if not is_safe_url(next):
-                return abort(400)
-            if next:
-                return redirect(next)
-
             url = user.role.get_default_url()
             location = url_for(url)
             return redirect(location)
