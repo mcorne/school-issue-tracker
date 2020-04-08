@@ -20,6 +20,9 @@ pip install flask-babel
 pip install flask-login
 pip install flask-wtf
 pip install flask-table
+pip install Flask-Excel
+pip install pyexcel-xlsx # did not manage to export as xlsx
+pip install pyexcel-xls # did not manage to export as xls
 
 -- run app
 export FLASK_APP=app

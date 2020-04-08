@@ -1,3 +1,4 @@
+import flask_excel as excel
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_babel import _
 from flask_login import login_required
@@ -48,6 +49,17 @@ def delete(id):
     flash(_("IP address deleted with success"))
 
     return redirect(url_for("ip.index"))
+
+
+@bp.route("/download")
+@login_required
+@roles_required(Role.admin)
+def download():
+    ips = Ip.query.all()
+    column_names = ["site", "location", "type", "device", "address", "description"]
+    return excel.make_response_from_query_sets(
+        ips, column_names, "csv", file_name=_("IP addresses")
+    )
 
 
 @bp.route("/")

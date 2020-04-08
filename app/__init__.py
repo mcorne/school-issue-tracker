@@ -1,6 +1,7 @@
 import os
 
 import click
+import flask_excel as excel
 from flask import Flask
 from flask.cli import with_appcontext
 from flask_babel import Babel, lazy_gettext
@@ -45,6 +46,7 @@ def create_app(test_config=None):
 
     babel.init_app(app)
     db.init_app(app)
+    excel.init_excel(app)
     login_manager.init_app(app)
     toolbar.init_app(app)
 
