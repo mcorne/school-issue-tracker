@@ -54,12 +54,22 @@ def delete(id):
 @login_required
 @roles_required(Role.admin)
 def index():
-    sort = request.args.get("sort", "address")  # TODO: fix default sort !!!
+    sort = request.args.get("sort", "site")
     if sort not in IpTable._cols:
-        sort = "address"
+        sort = "site"
+
     reverse = request.args.get("direction", "asc") == "desc"
-    order_by = desc(sort) if reverse else sort
-    ips = Ip.query.order_by(order_by).all()
+    order_by = [desc(sort) if reverse else sort]
+    if sort in ("site"):
+        order_by.append("location")
+    if sort in ("site", "location"):
+        order_by.append("type")
+    if sort in ("site", "location", "type"):
+        order_by.append("device")
+    if sort in ("site", "location", "type", "device"):
+        order_by.append("address")
+
+    ips = Ip.query.order_by(*order_by).all()
     table = IpTable(ips, sort_by=sort, sort_reverse=reverse)
     return render_template("ip/index.html", table=table)
 
