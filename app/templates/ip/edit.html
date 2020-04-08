@@ -13,10 +13,5 @@
     <p class="w3-center">{{ form.submit(class_="w3-btn w3-ripple w3-blue") }}</p>
 </form>
 
-{% if id is defined %}
-<p><a class="link" href="{{ url_for('ip.delete', id=id) }}" data-confirmation="{{ _('Please confirm') }}"
-        onclick="return confirm(this.dataset.confirmation)">{{ _('Delete IP address') }}</a>
-    <!-- _('Please confirm') is needed as a comment for gettext extraction -->
-</p>
-{% endif %}
+{% if id is defined %}{{ delete_link('ip.delete', _('Delete IP address')) }}{% endif %}
 {% endblock %}
