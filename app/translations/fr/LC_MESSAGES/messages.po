@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 12:56+0200\n"
-"PO-Revision-Date: 2020-04-08 12:58+0200\n"
+"POT-Creation-Date: 2020-04-08 14:36+0200\n"
+"PO-Revision-Date: 2020-04-08 14:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -65,7 +65,7 @@ msgstr "Toutes les demandes"
 
 #: templates/base.html:60
 msgid "IT support requests"
-msgstr "Demandes de support informatique"
+msgstr "Demandes d'assistance informatique"
 
 #: templates/base.html:61
 msgid "Facility management requests"
@@ -76,7 +76,7 @@ msgid "Delete IP address"
 msgstr "Supprimer l'adresse IP"
 
 #: templates/ip/edit.html:19 templates/macros.html:24
-#: templates/user/edit.html:38
+#: templates/user/edit.html:39
 msgid "Please confirm"
 msgstr "Veuillez confirmer"
 
@@ -85,8 +85,8 @@ msgid "Add a new IP address"
 msgstr "Ajouter une nouvelle adresse IP"
 
 #: templates/issue/index.html:5
-msgid "Report an issue or make a request"
-msgstr "Signaler un problème ou faire une demande"
+msgid "Create a new support request"
+msgstr "Faire une nouvelle demande d'assistance"
 
 #: templates/issue/index.html:29 templates/issue/update.html:9
 #, python-format
@@ -95,7 +95,7 @@ msgstr "À %(site)s - %(location)s"
 
 #: templates/issue/index.html:33 templates/issue/update.html:21
 msgid "IT support request"
-msgstr "Demande de support informatique"
+msgstr "Demande d'assistance informatique"
 
 #: templates/issue/index.html:33 templates/issue/update.html:21
 msgid "Facility management request"
@@ -131,22 +131,9 @@ msgstr "Requalifier en demande pour les services généraux"
 
 #: templates/issue/update.html:71
 msgid "Change to IT support request"
-msgstr "Requalifier en demande de support informatique"
+msgstr "Requalifier en demande d'assistance informatique"
 
 #: templates/user/edit.html:13
-msgid ""
-"A level 1 (L1) support technician can process requests et change their type."
-msgstr ""
-"Un technicien de support de niveau 1 (N1) peut traiter les demandes et les "
-"requalifier."
-
-#: templates/user/edit.html:14
-msgid "A level 2 (L2) support technician can also close and download requests."
-msgstr ""
-"Un technicien de support de niveau 2 (N2) peut également clore et "
-"télécharger des demandes."
-
-#: templates/user/edit.html:21
 msgid ""
 "The password of a generic account uniquely identifies this account "
 "regardless of the username."
@@ -154,19 +141,31 @@ msgstr ""
 "Le mot de passe d'un compte générique identifie ce compte de manière unique "
 "quel que soit le nom d'utilisateur."
 
-#: templates/user/edit.html:22
-msgid "The username entered here is only informational."
-msgstr "Le nom d'utilisateur saisi ici est uniquement informatif."
+#: templates/user/edit.html:14
+msgid "The username is then only informational."
+msgstr "Le nom d'utilisateur est alors uniquement informatif."
 
-#: templates/user/edit.html:23
+#: templates/user/edit.html:15
 msgid ""
-"It is the username entered when the user signs in that will used and stored "
-"along with messages etc."
+"It is the username entered when the user signs in that will actually be used."
 msgstr ""
 "C'est le nom d'utilisateur entré lorsque l'utilisateur se connecte qui sera "
-"utilisé et stocké avec les messages etc."
+"effectivement utilisé."
 
-#: templates/user/edit.html:37
+#: templates/user/edit.html:22
+msgid ""
+"A level 1 (L1) support technician can process requests et change their type."
+msgstr ""
+"Un technicien de support de niveau 1 (N1) peut traiter des demandes et les "
+"requalifier."
+
+#: templates/user/edit.html:24
+msgid "A level 2 (L2) support technician can also close and download requests."
+msgstr ""
+"Un technicien de support de niveau 2 (N2) peut également clore et "
+"télécharger des demandes."
+
+#: templates/user/edit.html:38
 msgid "Delete User"
 msgstr "Supprimer l'utilisateur"
 
@@ -275,18 +274,18 @@ msgid "Yes"
 msgstr "Oui"
 
 #: models/issue.py:19
+msgid "IT support request (computer, printer, cartridge, network etc.)"
+msgstr ""
+"Demande d'assistance informatique (ordinateur, imprimante, cartouche, réseau "
+"etc.)"
+
+#: models/issue.py:21
 msgid ""
 "Facility management request (heating, electricity, broken equipment, "
 "cleanliness etc.)"
 msgstr ""
 "Demande pour les services généraux (chauffage, électricité, équipement "
 "cassé, propreté etc.)"
-
-#: models/issue.py:21
-msgid "IT support request (computer, printer, cartridge, network etc.)"
-msgstr ""
-"Demande de support informatique (ordinateur, imprimante, cartouche, réseau "
-"etc.)"
 
 #: models/user.py:9
 msgid "Administrator"
@@ -350,11 +349,11 @@ msgstr "Demande requalifiée en demande pour les services généraux avec succè
 
 #: views/issue.py:49
 msgid "Changed to IT support request"
-msgstr "Requalifié en demande de support informatique"
+msgstr "Requalifié en demande d'assistance informatique"
 
 #: views/issue.py:51
 msgid "Request changed to IT support request with success"
-msgstr "Demande requalifiée en demande de support informatique avec succès"
+msgstr "Demande requalifiée en demande d'assistance informatique avec succès"
 
 #: views/issue.py:78
 msgid "New request created with success"
@@ -421,6 +420,9 @@ msgstr "Nom d'utilisateur déjà utilisé"
 #: views/user.py:160
 msgid "User updated with success"
 msgstr "Utilisateur mis à jour avec succès"
+
+#~ msgid "Report an issue or make a request"
+#~ msgstr "Signaler un problème ou faire une demande"
 
 #~ msgid "IT Manager"
 #~ msgstr "Manager informatique"

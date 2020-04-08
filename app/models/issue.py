@@ -15,10 +15,11 @@ class Status(BaseEnum):
 
 
 class Type(BaseEnum):
+    # do not change the order for displaying purposes
+    it = _l("IT support request (computer, printer, cartridge, network etc.)")
     facility = _l(
         "Facility management request (heating, electricity, broken equipment, cleanliness etc.)"
     )
-    it = _l("IT support request (computer, printer, cartridge, network etc.)")
 
     def is_it(self):
         return self == Type.it

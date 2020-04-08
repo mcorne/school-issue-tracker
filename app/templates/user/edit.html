@@ -7,20 +7,21 @@
     {{ input_field(form.password) }}
 
     {% if id is not defined or id != 1 %}
-    {{ select_field(form.role) }}
-    <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
-        <p>
-            {{ _('A level 1 (L1) support technician can process requests et change their type.') }}
-            {{ _('A level 2 (L2) support technician can also close and download requests.') }}
-        </p>
-    </div>
-
     {{ checkbox_field(form.generic) }}
     <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
         <p>
             {{ _('The password of a generic account uniquely identifies this account regardless of the username.') }}
-            {{ _('The username entered here is only informational.') }}
-            {{ _('It is the username entered when the user signs in that will used and stored along with messages etc.') }}
+            {{ _('The username is then only informational.') }}
+            {{ _('It is the username entered when the user signs in that will actually be used.') }}
+        </p>
+    </div>
+
+    {{ select_field(form.role) }}
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
+        <p>
+            {{ _('A level 1 (L1) support technician can process requests et change their type.') }}
+            <br>
+            {{ _('A level 2 (L2) support technician can also close and download requests.') }}
         </p>
     </div>
     {% endif %}
