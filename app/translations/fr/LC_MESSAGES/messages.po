@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 12:11+0200\n"
-"PO-Revision-Date: 2020-04-08 12:35+0200\n"
+"POT-Creation-Date: 2020-04-08 12:44+0200\n"
+"PO-Revision-Date: 2020-04-08 12:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -213,7 +213,7 @@ msgstr "Mot de passe"
 msgid "Log In"
 msgstr "Se connecter"
 
-#: forms.py:65 forms.py:85 models/user.py:89
+#: forms.py:65 forms.py:85 models/user.py:90
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -233,7 +233,7 @@ msgstr "Rouvrir"
 msgid "Generic Account"
 msgstr "Compte générique"
 
-#: forms.py:79 models/user.py:90
+#: forms.py:79 models/user.py:91
 msgid "Role"
 msgstr "Rôle"
 
@@ -261,13 +261,7 @@ msgstr "Non"
 msgid "Yes"
 msgstr "Oui"
 
-#: models/issue.py:18
-msgid "IT support request (computer, printer, cartridge, network etc.)"
-msgstr ""
-"Demande de support informatique (ordinateur, imprimante, cartouche, réseau "
-"etc.)"
-
-#: models/issue.py:20
+#: models/issue.py:19
 msgid ""
 "Facility management request (heating, electricity, broken equipment, "
 "cleanliness etc.)"
@@ -275,35 +269,41 @@ msgstr ""
 "Demande pour les services généraux (chauffage, électricité, équipement "
 "cassé, propreté etc.)"
 
+#: models/issue.py:21
+msgid "IT support request (computer, printer, cartridge, network etc.)"
+msgstr ""
+"Demande de support informatique (ordinateur, imprimante, cartouche, réseau "
+"etc.)"
+
 #: models/user.py:9
 msgid "Administrator"
 msgstr "Administrateur"
 
 #: models/user.py:10
-msgid "IT Manager"
-msgstr "Manager informatique"
+msgid "Facility management support L1"
+msgstr "Support services généraux N1"
 
 #: models/user.py:11
-msgid "IT Technician"
-msgstr "Technicien informatique"
+msgid "Facility management support L2"
+msgstr "Support services généraux N2"
 
 #: models/user.py:12
-msgid "Service Agent"
-msgstr "Agent de service"
+msgid "IT support L1"
+msgstr "Support informatique N1"
 
 #: models/user.py:13
-msgid "Service Manager"
-msgstr "Manager des services"
+msgid "IT support L2"
+msgstr "Support informatique N2"
 
 #: models/user.py:14
 msgid "Teacher"
 msgstr "Enseignant"
 
-#: models/user.py:91
+#: models/user.py:92
 msgid "Generic"
 msgstr "Générique"
 
-#: models/user.py:92
+#: models/user.py:93
 msgid "Disabled"
 msgstr "Désactivé"
 
@@ -408,3 +408,15 @@ msgstr "Nom d'utilisateur déjà utilisé"
 #: views/user.py:160
 msgid "User updated with success"
 msgstr "Utilisateur mis à jour avec succès"
+
+#~ msgid "IT Manager"
+#~ msgstr "Manager informatique"
+
+#~ msgid "IT Technician"
+#~ msgstr "Technicien informatique"
+
+#~ msgid "Service Agent"
+#~ msgstr "Agent de service"
+
+#~ msgid "Service Manager"
+#~ msgstr "Manager des services"
