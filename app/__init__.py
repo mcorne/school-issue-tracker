@@ -78,7 +78,7 @@ def create_app(test_config=None):
 
     try:
         os.makedirs(app.instance_path)
-    except OSError:
-        pass  # TODO: process exception, stop execution !!!
+    except FileExistsError:
+        pass
 
     return app
