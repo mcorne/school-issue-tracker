@@ -16,7 +16,7 @@ toolbar = DebugToolbarExtension()
 
 
 def create_app(test_config=None):
-    # create and configure the app
+    # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         BABEL_DEFAULT_LOCALE="fr",
@@ -33,10 +33,10 @@ def create_app(test_config=None):
     )
 
     if test_config is None:
-        # load the instance config, if it exists, when not testing
+        # Load the instance config, if it exists, when not testing
         app.config.from_pyfile("config.py", silent=True)
     else:
-        # load the test config if passed in
+        # Load the test config if passed in
         app.config.from_mapping(test_config)
 
     app.debug = True

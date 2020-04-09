@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-09 16:24+0200\n"
-"PO-Revision-Date: 2020-04-09 16:24+0200\n"
+"POT-Creation-Date: 2020-04-09 18:53+0200\n"
+"PO-Revision-Date: 2020-04-09 18:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -87,35 +87,39 @@ msgstr "Télécharger les adresses IP"
 msgid "Create a new support request"
 msgstr "Faire une nouvelle demande d'assistance"
 
-#: templates/issue/index.html:29 templates/issue/update.html:9
+#: templates/issue/index.html:6
+msgid "Download requests"
+msgstr "Télécharger les demandes"
+
+#: templates/issue/index.html:30 templates/issue/update.html:9
 #, python-format
 msgid "At %(site)s - %(location)s"
 msgstr "À %(site)s - %(location)s"
 
-#: templates/issue/index.html:33 templates/issue/update.html:21
+#: templates/issue/index.html:34 templates/issue/update.html:21
 msgid "IT support request"
 msgstr "Demande d'assistance informatique"
 
-#: templates/issue/index.html:33 templates/issue/update.html:21
+#: templates/issue/index.html:34 templates/issue/update.html:21
 msgid "Facility management request"
 msgstr "Demande pour les services généraux"
 
-#: templates/issue/index.html:37 templates/issue/update.html:24
+#: templates/issue/index.html:38 templates/issue/update.html:24
 #: templates/issue/update.html:39
 #, python-format
 msgid "By %(username)s on %(datetime)s"
 msgstr "De %(username)s le %(datetime)s"
 
-#: templates/issue/index.html:41 templates/issue/update.html:31
+#: templates/issue/index.html:42 templates/issue/update.html:31
 #, python-format
 msgid "Closed on %(datetime)s"
 msgstr "Clôturé le %(datetime)s"
 
-#: templates/issue/index.html:51 templates/issue/index.html:54
+#: templates/issue/index.html:52 templates/issue/index.html:55
 msgid "Previous"
 msgstr "Précédent"
 
-#: templates/issue/index.html:59 templates/issue/index.html:61
+#: templates/issue/index.html:60 templates/issue/index.html:62
 msgid "Next"
 msgstr "Suivant"
 
@@ -180,11 +184,11 @@ msgstr "Ajouter un nouvel utilisateur"
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
-#: forms.py:21 models/ip.py:16 views/ip.py:65
+#: forms.py:21 models/ip.py:16 views/ip.py:64
 msgid "IP address"
 msgstr "Adresse IP"
 
-#: forms.py:23 forms.py:48 models/ip.py:17 views/ip.py:66
+#: forms.py:23 forms.py:48 models/ip.py:17 views/ip.py:65 views/issue.py:95
 msgid "Description"
 msgstr "Description"
 
@@ -196,7 +200,7 @@ msgstr "Matériel (modèle etc.)"
 msgid "Location (classroom etc.)"
 msgstr "Emplacement (salle de classe etc.)"
 
-#: forms.py:31 forms.py:55 models/ip.py:12 views/ip.py:61
+#: forms.py:31 forms.py:55 models/ip.py:12 views/ip.py:60 views/issue.py:91
 msgid "Site"
 msgstr "Site"
 
@@ -216,11 +220,11 @@ msgstr "Numéro d'équipement (le cas échéant)"
 msgid "Location (classroom, building, outside etc.)"
 msgstr "Emplacement (salle de classe, bâtiment, extérieur etc.)"
 
-#: forms.py:61
+#: forms.py:61 views/issue.py:93
 msgid "Subject"
 msgstr "Sujet"
 
-#: forms.py:63 models/ip.py:14 views/ip.py:63
+#: forms.py:63 models/ip.py:14 views/ip.py:62 views/issue.py:90
 msgid "Type"
 msgstr "Type"
 
@@ -232,7 +236,7 @@ msgstr "Mot de passe"
 msgid "Log In"
 msgstr "Se connecter"
 
-#: forms.py:73 forms.py:93 models/user.py:90
+#: forms.py:73 forms.py:93 models/user.py:90 views/issue.py:96
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -268,39 +272,59 @@ msgstr "Compte désactivé"
 msgid "Password (leave blank if unchanged)"
 msgstr "Mot de passe (laisser vide si inchangé)"
 
-#: helpers.py:24 models/common.py:45
+#: helpers.py:26 models/common.py:48
 msgid "No"
 msgstr "Non"
 
-#: helpers.py:26 models/common.py:47
+#: helpers.py:28 models/common.py:50
 msgid "Yes"
 msgstr "Oui"
 
-#: helpers.py:41
+#: helpers.py:48
 msgid "You are not authorized to perform this action."
 msgstr "Vous n'êtes pas autorisé à effectuer cette action."
 
-#: models/ip.py:13 views/ip.py:62
+#: models/ip.py:13 views/ip.py:61 views/issue.py:92
 msgid "Location"
 msgstr "Emplacement"
 
-#: models/ip.py:15 views/ip.py:64
+#: models/ip.py:15 views/ip.py:63
 msgid "Device"
 msgstr "Matériel"
 
+#: models/issue.py:18
+msgid "Pending"
+msgstr "En attente"
+
 #: models/issue.py:19
+msgid "Processing"
+msgstr "En cours"
+
+#: models/issue.py:20
+msgid "Closed"
+msgstr "Clôturé"
+
+#: models/issue.py:26
 msgid "IT support request (computer, printer, cartridge, network etc.)"
 msgstr ""
 "Demande d'assistance informatique (ordinateur, imprimante, cartouche, réseau "
 "etc.)"
 
-#: models/issue.py:21
+#: models/issue.py:28
 msgid ""
 "Facility management request (heating, electricity, broken equipment, "
 "cleanliness etc.)"
 msgstr ""
 "Demande pour les services généraux (chauffage, électricité, équipement "
 "cassé, propreté etc.)"
+
+#: models/issue.py:33
+msgid "IT"
+msgstr "Informatique"
+
+#: models/issue.py:34
+msgid "Facility management"
+msgstr "Services généraux"
 
 #: models/user.py:9
 msgid "Administrator"
@@ -358,43 +382,67 @@ msgstr "Adresse IP déjà utilisée"
 msgid "IP address updated with success"
 msgstr "Adresse IP mise à jour avec succès"
 
-#: views/issue.py:42
+#: views/issue.py:43
 msgid "Changed to facility management request"
 msgstr "Requalifié en demande pour les services généraux"
 
-#: views/issue.py:44
+#: views/issue.py:45
 msgid "Request changed to facility management request with success"
 msgstr "Demande requalifiée en demande pour les services généraux avec succès"
 
-#: views/issue.py:48
+#: views/issue.py:49
 msgid "Changed to IT support request"
 msgstr "Requalifié en demande d'assistance informatique"
 
-#: views/issue.py:50
+#: views/issue.py:51
 msgid "Request changed to IT support request with success"
 msgstr "Demande requalifiée en demande d'assistance informatique avec succès"
 
-#: views/issue.py:77
+#: views/issue.py:78
 msgid "New request created with success"
 msgstr "Nouvelle demande créée avec succès"
 
-#: views/issue.py:135
+#: views/issue.py:89
+msgid "Status"
+msgstr "Statut"
+
+#: views/issue.py:94
+msgid "Equipment"
+msgstr "Equipement"
+
+#: views/issue.py:97
+msgid "Creation date"
+msgstr "Date de création"
+
+#: views/issue.py:98
+msgid "Last Update"
+msgstr "Dernière mise à jour"
+
+#: views/issue.py:99
+msgid "Close date"
+msgstr "Date de clôture"
+
+#: views/issue.py:107
+msgid "Requests"
+msgstr "Demandes"
+
+#: views/issue.py:162
 msgid "Closing of the request"
 msgstr "Clôture de la demande"
 
-#: views/issue.py:137
+#: views/issue.py:164
 msgid "Request closed with success"
 msgstr "Demande clôturée avec succès"
 
-#: views/issue.py:141
+#: views/issue.py:168
 msgid "Reopening of the request"
 msgstr "Réouverture de la demande"
 
-#: views/issue.py:143
+#: views/issue.py:170
 msgid "Request reopened with success"
 msgstr "Demande rouverte avec succès"
 
-#: views/issue.py:148
+#: views/issue.py:175
 msgid "Request updated with success"
 msgstr "Demande mise à jour avec succès"
 

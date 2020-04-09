@@ -48,7 +48,7 @@ class Issue(CommonColumns, db.Model):
     type = db.Column(db.Enum(Type), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     username = db.Column(db.Text)  # used only for generic accounts
-    # links
+    # Links
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
 
@@ -76,7 +76,7 @@ class Issue(CommonColumns, db.Model):
     def opened_by_user(self):
         return current_user.id == self.user.id and (
             not current_user.generic
-            # ex. teacher that created the issue
+            # Ex. teacher that created the issue
             or self.username == session.get("username")
         )
 
@@ -102,7 +102,7 @@ class Message(CommonColumns, db.Model):
     issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     username = db.Column(db.Text)  # used only for generic accounts
-    # links
+    # Links
     issue = db.relationship("Issue", back_populates="messages")
     user = db.relationship("User", back_populates="messages")
 
@@ -120,7 +120,7 @@ class Message(CommonColumns, db.Model):
     def reopened_by_current_user(cls, issue):
         filter_by = dict(issue_id=issue.id, user_id=current_user.id)
         if current_user.generic:
-            # ex. teacher that reopened the issue
+            # Ex. teacher that reopened the issue
             filter_by["username"] = session.get("username")
         message = cls.query.filter_by(**filter_by).first()
         return bool(message)
@@ -132,7 +132,7 @@ class User(UserMixin, CommonColumns, db.Model):
     password = db.Column(db.Text, nullable=False)
     role = db.Column(db.Enum(Role), nullable=False)
     username = db.Column(db.Text, nullable=False, unique=True)
-    # links
+    # Links
     issues = db.relationship("Issue", back_populates="user", lazy="dynamic")
     messages = db.relationship("Message", back_populates="user", lazy="dynamic")
 
