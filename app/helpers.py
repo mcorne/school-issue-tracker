@@ -1,7 +1,8 @@
+from datetime import datetime
 from enum import Enum
 
 from flask import flash, redirect, request, url_for
-from flask_babel import _
+from flask_babel import _, format_datetime
 
 
 def fix_row(row, columns):
@@ -20,13 +21,21 @@ def fix_rows(rows, headers):
 
 
 def fix_value(value):
-    if value == False:
+    if value == None:
+        value = ""
+    elif value == False:
         value = _("No")
     elif value == True:
         value = _("Yes")
     elif isinstance(value, Enum):
-        value = value.value
-
+        short_values = value.get_short_values()
+        if value.name in short_values:
+            value = short_values[value.name]
+        else:
+            value = value.value
+        value = str(value)  # must cast translations to string
+    elif isinstance(value, datetime):
+        value = format_datetime(value, format="short")
     return value
 
 

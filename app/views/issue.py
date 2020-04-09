@@ -11,13 +11,14 @@ from flask import (
     url_for,
 )
 from flask_babel import _
+from flask_excel import make_response_from_array
 from flask_login import current_user, login_required
 from sqlalchemy import desc, func, text
 
 from app import db
 from app.decorators import roles_required
 from app.forms import IssueForm, MessageForm
-from app.helpers import redirect_unauthorized_action
+from app.helpers import fix_rows, redirect_unauthorized_action
 from app.models.issue import Status, Type
 from app.models.orm import Issue, Message
 from app.models.user import Role
@@ -78,6 +79,32 @@ def create():
         return redirect(url_for("issue.index", issue_id=issue.id))
 
     return render_template("issue/create.html", form=form)
+
+
+@bp.route("/download")
+@login_required
+@roles_required(Role.admin)
+def download():
+    headers = {
+        "status": _("Status"),
+        "type": _("Type"),
+        "site": _("Site"),
+        "location": _("Location"),
+        "title": _("Subject"),
+        "computer_number": _("Equipment"),
+        "description": _("Description"),
+        "username": _("Username"),
+        "created": _("Creation date"),
+        "updated": _("Last Update"),
+        "closed": _("Close date"),
+    }
+
+    issue_type = current_user.role.get_issue_type()
+    filter_by = {"type": issue_type} if issue_type != "all" else {}
+    order_by = ["status", text("IFNULL(updated, created) DESC")]
+    issues = Issue.query.filter_by(**filter_by).order_by(*order_by).all()
+    fixed = fix_rows(issues, headers)
+    return make_response_from_array(fixed, "xlsx", file_name=_("Requests"))
 
 
 @bp.route("/")

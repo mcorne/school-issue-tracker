@@ -26,6 +26,9 @@ class BaseEnum(Enum):
         options += [(option.name, option.value) for option in cls.__members__.values()]
         return options
 
+    def get_short_values(self):
+        return {}
+
 
 class MyLinkCol(LinkCol):
     endpoint = None
