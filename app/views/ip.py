@@ -1,12 +1,13 @@
-import flask_excel as excel
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_babel import _
+from flask_excel import make_response_from_array
 from flask_login import login_required
 from sqlalchemy import desc
 
 from app import db
 from app.decorators import roles_required
 from app.forms import IpForm
+from app.helpers import fix_rows
 from app.models.ip import IpTable
 from app.models.orm import Ip
 from app.models.user import Role
@@ -56,10 +57,16 @@ def delete(id):
 @roles_required(Role.admin)
 def download():
     ips = Ip.query.all()
-    column_names = ["site", "location", "type", "device", "address", "description"]
-    return excel.make_response_from_query_sets(
-        ips, column_names, "csv", file_name=_("IP addresses")
-    )
+    headers = {
+        "site": _("Site"),
+        "location": _("Location"),
+        "type": _("Type"),
+        "device": _("Device"),
+        "address": _("IP address"),
+        "description": _("Description"),
+    }
+    fixed = fix_rows(ips, headers)
+    return make_response_from_array(fixed, "xlsx", file_name=_("IP addresses"))
 
 
 @bp.route("/")
