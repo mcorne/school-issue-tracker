@@ -56,7 +56,6 @@ def delete(id):
 @login_required
 @roles_required(Role.admin)
 def download():
-    ips = Ip.query.all()
     headers = {
         "site": _("Site"),
         "location": _("Location"),
@@ -65,6 +64,7 @@ def download():
         "address": _("IP address"),
         "description": _("Description"),
     }
+    ips = Ip.query.order_by(*headers.keys()).all()
     fixed = fix_rows(ips, headers)
     return make_response_from_array(fixed, "xlsx", file_name=_("IP addresses"))
 
