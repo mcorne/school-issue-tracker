@@ -14,10 +14,6 @@
 </p>
 {%- endmacro %}
 
-{% macro index_link(url_endpoint, link_text) -%}
-<a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a>
-{%- endmacro %}
-
 {% macro input_field(field) -%}
 {{ field.label }}
 {% for error in field.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
@@ -52,6 +48,10 @@
 {{ field.label }}
 {% for error in field.errors %}<div class="w3-text-red">{{ error }}</div>{% endfor %}
 {{ field(class_="w3-select w3-border w3-hover-border-blue w3-margin-bottom w3-pale-blue") }}
+{%- endmacro %}
+
+{% macro sidebar_link(url_endpoint, link_text) -%}
+<a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a>
 {%- endmacro %}
 
 {% macro top_link(url_endpoint, link_text) -%}

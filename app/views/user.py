@@ -1,20 +1,13 @@
-from flask import (
-    Blueprint,
-    flash,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 from flask_babel import _
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import desc
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
 from app.decorators import roles_required
-from app.forms import LoginForm, UserCreateForm, UserUpdateForm
+from app.forms import LoginForm, PasswordForm, UserCreateForm, UserUpdateForm
+from app.helpers import redirect_unauthorized_action
 from app.models.orm import User
 from app.models.user import Role, UserTable
 
@@ -109,6 +102,34 @@ def logout():
     session.pop("username", None)
     logout_user()
     return redirect(url_for("user.login"))
+
+
+@bp.route("/password", methods=("GET", "POST"))
+@login_required
+def password():
+    if not current_user.authorized("change_password"):
+        return redirect_unauthorized_action()
+
+    id = current_user.id
+    user = User.query.get_or_404(id)
+
+    form = PasswordForm()
+    if form.validate_on_submit():
+        if not check_password_hash(user.password, form.current_password.data):
+            flash(_("Incorrect current password"), "error")
+        elif form.new_password.data != form.confirmed_password.data:
+            flash(_("Invalid password confirmation"), "error")
+        elif not User.is_generic_user_password_unique(
+            form.new_password.data, user.generic, id
+        ):
+            flash(_("Password already used for a generic account"), "error")
+        else:
+            user.password = generate_password_hash(form.new_password.data)
+            db.session.commit()
+            flash(_("Password changed with success"))
+            return redirect(url_for("user.logout"))
+
+    return render_template("user/password.html", form=form)
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))

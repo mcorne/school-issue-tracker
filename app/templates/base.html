@@ -38,10 +38,19 @@
     </div>
 
     <div class="w3-sidebar w3-bar-block" id="sidebar">
-        {{ m.index_link('issue.index', _('View requests')) }}
-        {% if current_user.role is defined and current_user.role.name == 'admin' %}
-        {{ m.index_link('user.index', _('View users')) }}
-        {{ m.index_link('ip.index', _('View IP addresses')) }}
+        {{ m.sidebar_link('issue.index', _('View requests')) }}
+
+        {% if current_user.role is defined %}
+
+        {% if current_user.role.name == 'admin' %}
+        {{ m.sidebar_link('user.index', _('View users')) }}
+        {{ m.sidebar_link('ip.index', _('View IP addresses')) }}
+        {% endif %}
+
+        {% if current_user.authorized('change_password') %}
+        {{ m.sidebar_link('user.password', _('Change password')) }}
+        {% endif %}
+
         {% endif %}
         <hr>
 

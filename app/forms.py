@@ -9,7 +9,7 @@ from wtforms import (
     SubmitField,
     TextAreaField,
 )
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, EqualTo, IPAddress
 
 from app.filters import fix_nl, strip
 from app.models.issue import Site, Type
@@ -18,14 +18,14 @@ from app.models.user import Role
 
 class IpForm(FlaskForm):
     address = StringField(
-        _l("IP address"), filters=[strip], validators=[DataRequired()]
+        _l("IP address"), filters=[strip], validators=[DataRequired(), IPAddress()]
     )
     description = TextAreaField(_l("Description"), filters=[fix_nl])
     device = StringField(
         _l("Device (model etc.)"), filters=[strip], validators=[DataRequired()]
     )
     location = StringField(
-        _l("Location (classroom etc.)"), filters=[strip], validators=[DataRequired()],
+        _l("Location (classroom etc.)"), filters=[strip], validators=[DataRequired()]
     )
     site = RadioField(
         _l("Site"),
@@ -80,9 +80,24 @@ class MessageForm(FlaskForm):
     reopen = SubmitField(_l("Reopen"))
 
 
+class PasswordForm(FlaskForm):
+    confirmed_password = PasswordField(
+        _l("Confirm password"),
+        validators=[
+            DataRequired(),
+            EqualTo("new_password", message=_l("Invalid password confirmation")),
+        ],
+    )
+    current_password = PasswordField(
+        _l("Current password"), validators=[DataRequired()]
+    )
+    new_password = PasswordField(_l("New password"), validators=[DataRequired()])
+    submit = SubmitField(_l("Save"))
+
+
 class UserCreateForm(FlaskForm):
     generic = BooleanField(_l("Generic Account"))
-    password = PasswordField(_l("Password"), validators=[DataRequired()],)
+    password = PasswordField(_l("Password"), validators=[DataRequired()])
     role = SelectField(
         _l("Role"),
         choices=Role.get_options(_l("-- Choose a role --")),

@@ -137,6 +137,9 @@ class User(UserMixin, CommonColumns, db.Model):
     messages = db.relationship("Message", back_populates="user", lazy="dynamic")
 
     def authorized(self, action, issue=None):
+        if action == "change_password":
+            return not current_user.generic
+
         if (
             action == "update_issue"
             and not issue.is_closed()
