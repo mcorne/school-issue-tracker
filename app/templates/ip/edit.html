@@ -3,15 +3,15 @@
 {% block content %}
 <form method="post">
     {{ form.hidden_tag() }}
-    {{ radio_field(form.site) }}
-    {{ input_field(form.location) }}
-    {{ input_field(form.type) }}
-    {{ input_field(form.device) }}
-    {{ input_field(form.address) }}
-    {{ input_field(form.description) }}
+    {{ m.radio_field(form.site) }}
+    {{ m.input_field(form.location) }}
+    {{ m.input_field(form.type) }}
+    {{ m.input_field(form.device) }}
+    {{ m.input_field(form.address) }}
+    {{ m.input_field(form.description) }}
 
     <p class="w3-center">{{ form.submit(class_="w3-btn w3-ripple w3-blue") }}</p>
 </form>
 
-{% if id is defined %}{{ delete_link('ip.delete', _('Delete IP address')) }}{% endif %}
+{% if id is defined %}{{ m.delete_link('ip.delete', _('Delete IP address')) }}{% endif %}
 {% endblock %}

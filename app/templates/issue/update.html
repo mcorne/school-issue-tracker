@@ -48,7 +48,7 @@
     {{ form.hidden_tag() }}
 
     <p>
-        {{ input_field(form.content) }}
+        {{ m.input_field(form.content) }}
     </p>
 
     <p class="w3-center">
@@ -67,6 +67,6 @@
 </form>
 {% endif %}
 
-{{ issue_type_change_link('change_to_facility_issue', _('Change to facility management request')) }}
-{{ issue_type_change_link('change_to_it_issue', _('Change to IT support request')) }}
+{{ m.issue_type_change_link('change_to_facility_issue', _('Change to facility management request')) }}
+{{ m.issue_type_change_link('change_to_it_issue', _('Change to IT support request')) }}
 {% endblock %}

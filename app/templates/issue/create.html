@@ -3,12 +3,12 @@
 {% block content %}
 <form method="post">
     {{ form.hidden_tag() }}
-    {{ radio_field(form.type) }}
-    {{ input_field(form.location) }}
-    {{ radio_field(form.site) }}
-    {{ input_field(form.title) }}
-    {{ input_field(form.computer_number) }}
-    {{ input_field(form.description) }}
+    {{ m.radio_field(form.type) }}
+    {{ m.input_field(form.location) }}
+    {{ m.radio_field(form.site) }}
+    {{ m.input_field(form.title) }}
+    {{ m.input_field(form.computer_number) }}
+    {{ m.input_field(form.description) }}
     <p class="w3-center">{{ form.submit(class_="w3-btn w3-ripple w3-blue") }}</p>
 </form>
 {% endblock %}

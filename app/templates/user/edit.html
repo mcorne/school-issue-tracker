@@ -3,11 +3,11 @@
 {% block content %}
 <form method="post">
     {{ form.hidden_tag() }}
-    {{ input_field(form.username) }}
-    {{ input_field(form.password) }}
+    {{ m.input_field(form.username) }}
+    {{ m.input_field(form.password) }}
 
     {% if id is not defined or id != 1 %}
-    {{ checkbox_field(form.generic) }}
+    {{ m.checkbox_field(form.generic) }}
     <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
         <p>
             {{ _('The password of a generic account uniquely identifies this account regardless of the username.') }}
@@ -16,7 +16,7 @@
         </p>
     </div>
 
-    {{ select_field(form.role) }}
+    {{ m.select_field(form.role) }}
     <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
         <p>
             {{ _('A level 1 (L1) support technician can process requests et change their type.') }}
@@ -27,11 +27,11 @@
     {% endif %}
 
     {% if id is defined and id != 1 %}
-    {{ checkbox_field(form.disabled) }}
+    {{ m.checkbox_field(form.disabled) }}
     {% endif %}
 
     <p class="w3-center">{{ form.submit(class_="w3-btn w3-ripple w3-blue") }}</p>
 </form>
 
-{% if id is defined and id != 1 and not has_issues %}{{ delete_link('user.delete', _('Delete User')) }}{% endif %}
+{% if id is defined and id != 1 and not has_issues %}{{ m.delete_link('user.delete', _('Delete User')) }}{% endif %}
 {% endblock %}

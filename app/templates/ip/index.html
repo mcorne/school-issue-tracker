@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{ top_links(['ip.create', _('Add a new IP address')], ['ip.download', _('Download IP addresses')]) }}
+{{ m.top_links(['ip.create', _('Add a new IP address')], ['ip.download', _('Download IP addresses')]) }}
 <div class="w3-responsive">{{ table }}</div>
 {% endblock %}
