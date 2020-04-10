@@ -101,8 +101,11 @@ def download():
 
     issue_type = current_user.role.get_issue_type()
     filter_by = {"type": issue_type} if issue_type != "all" else {}
-    order_by = ["status", text("IFNULL(updated, created) DESC")]
-    issues = Issue.query.filter_by(**filter_by).order_by(*order_by).all()
+    issues = (
+        Issue.query.filter_by(**filter_by)
+        .order_by("status", text("IFNULL(updated, created)"))  # like index
+        .all()
+    )
     fixed = fix_rows(issues, headers)
     return make_response_from_array(fixed, "xlsx", file_name=_("Requests"))
 
@@ -116,16 +119,14 @@ def index(page=1):
         return redirect(url_for("user.login"))
 
     issue_type = current_user.role.get_issue_type()
-    filter_by = {}
-    if issue_type != "all":
-        filter_by["type"] = issue_type
+    filter_by = {"type": issue_type} if issue_type != "all" else {}
 
     issue_sort = Issue.get_issue_sort()
-    order_by = []
-    if issue_sort == "status":
-        order_by.append("status")
     # desc(func.ifnull("updated", "created")) does not actually sort result!
-    order_by.append(text("IFNULL(updated, created) DESC"))
+    if issue_sort == "status":
+        order_by = ["status", text("IFNULL(updated, created)")]  # like download
+    else:
+        order_by = [text("IFNULL(updated, created) DESC")]
 
     issue_page = (
         Issue.query.filter_by(**filter_by)
