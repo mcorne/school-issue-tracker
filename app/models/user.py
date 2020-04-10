@@ -13,7 +13,7 @@ class Role(BaseEnum):
     it_support_2 = _l("IT support L2")
     teacher = _l("Teacher")
 
-    def authorized(self, action, issue):
+    def authorized(self, action, issue=None):
         authorizations = {
             "change_to_facility_issue": lambda role, issue: not issue.is_closed()
             and issue.type == Type.it
@@ -30,6 +30,9 @@ class Role(BaseEnum):
                 or issue.type == Type.facility
                 and role in (Role.admin, Role.facility_support_2)
             ),
+            ##
+            "download_issue": lambda role, issue: role
+            in (Role.admin, Role.it_support_2, Role.facility_support_2),
             ##
             "reopen_issue": lambda role, issue: issue.is_closed(),
             ##

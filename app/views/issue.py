@@ -83,8 +83,9 @@ def create():
 
 @bp.route("/download")
 @login_required
-@roles_required(Role.admin)
 def download():
+    if not current_user.authorized("download_issue"):
+        return redirect_unauthorized_action()
     headers = {
         "status": _("Status"),
         "type": _("Type"),

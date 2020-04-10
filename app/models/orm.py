@@ -136,7 +136,7 @@ class User(UserMixin, CommonColumns, db.Model):
     issues = db.relationship("Issue", back_populates="user", lazy="dynamic")
     messages = db.relationship("Message", back_populates="user", lazy="dynamic")
 
-    def authorized(self, action, issue):
+    def authorized(self, action, issue=None):
         if (
             action == "update_issue"
             and not issue.is_closed()

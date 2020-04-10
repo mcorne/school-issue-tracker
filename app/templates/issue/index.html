@@ -2,8 +2,11 @@
 
 {% block content %}
 {% if current_user.is_authenticated %}
+{% if current_user.authorized('download_issue') %}
+{{ top_links(['issue.create', _('Create a new support request')], ['issue.download', _('Download requests')]) }}
+{% else %}
 {{ top_link('issue.create', _('Create a new support request')) }}
-{{ top_link('issue.download', _('Download requests')) }}
+{% endif %}
 {% endif %}
 
 <ul class="w3-ul w3-card-4 w3-margin-bottom">

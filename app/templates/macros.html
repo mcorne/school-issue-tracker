@@ -57,3 +57,11 @@
 {% macro top_link(url_endpoint, link_text) -%}
 <div class="w3-margin-bottom"><a class="link" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a></div>
 {%- endmacro %}
+
+{% macro top_links() -%}
+<div class="w3-margin-bottom">
+    {% for url_endpoint, link_text in varargs %}
+    <div><a class="link" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a></div>
+    {% endfor %}
+</div>
+{%- endmacro %}
