@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-10 17:20+0200\n"
-"PO-Revision-Date: 2020-04-10 17:26+0200\n"
+"PO-Revision-Date: 2020-04-10 17:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -45,7 +45,7 @@ msgstr "Afficher les adresses IP"
 
 #: templates/base.html:51
 msgid "Change password"
-msgstr "Changer le mot de passe"
+msgstr "Changer de mot de passe"
 
 #: templates/base.html:58
 msgid "Sort requests"

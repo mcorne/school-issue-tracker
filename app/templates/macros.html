@@ -54,6 +54,10 @@
 <a class="w3-bar-item w3-button w3-hover-blue" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a>
 {%- endmacro %}
 
+{% macro submit_button() -%}
+<p class="w3-center">{{ form.submit(class_="w3-btn w3-ripple w3-blue") }}</p>
+{%- endmacro %}
+
 {% macro top_link(url_endpoint, link_text) -%}
 <div class="w3-margin-bottom"><a class="link" href="{{ url_for(url_endpoint) }}">{{ link_text }}</a></div>
 {%- endmacro %}
