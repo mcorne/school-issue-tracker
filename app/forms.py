@@ -16,6 +16,12 @@ from app.models.issue import Site, Type
 from app.models.user import Role
 
 
+class MySelectField(SelectField):
+    def __call__(self, **kwargs):
+        self.choices = sorted(self.choices, key=lambda option: option[1])
+        return super().__call__(**kwargs)
+
+
 class IpForm(FlaskForm):
     address = StringField(
         _l("IP address"), filters=[strip], validators=[DataRequired(), IPAddress()]
@@ -98,7 +104,7 @@ class PasswordForm(FlaskForm):
 class UserCreateForm(FlaskForm):
     generic = BooleanField(_l("Generic Account"))
     password = PasswordField(_l("Password"), validators=[DataRequired()])
-    role = SelectField(
+    role = MySelectField(
         _l("Role"),
         choices=Role.get_options(_l("-- Choose a role --")),
         coerce=Role.coerce,
