@@ -23,11 +23,11 @@ class Ip(CommonColumns, db.Model):
         db.Index("ip_default_sort", "site", "location", "type", "device"),
     )
 
-    address = db.Column(db.Text, nullable=False)
+    address = db.Column(db.Text, nullable=False, unique=True)
     description = db.Column(db.Text)
     device = db.Column(db.Text, nullable=False)
     location = db.Column(db.Text, nullable=False)
-    site = db.Column(db.Enum(Site), nullable=False)
+    site = db.Column(db.Enum(Site, length=100, native_enum=False), nullable=False)
     type = db.Column(db.Text, nullable=False)
 
     @classmethod
@@ -45,17 +45,18 @@ class Issue(CommonColumns, db.Model):
     computer_number = db.Column(db.Text)  # for computer related issues
     description = db.Column(db.Text)
     location = db.Column(db.Text, nullable=False)
-    site = db.Column(db.Enum(Site), nullable=False)
+    site = db.Column(db.Enum(Site, length=100, native_enum=False), nullable=False)
     status = db.Column(
-        # Store the status value (ex. "1") instead of the name (ex. "pending") to be able to sort issues by status
+        # Store the status value (ex. "1") instead of the name (ex. "pending")
+        # to be able to sort issues by status in the following order: pending, processing, closed
         # Cast the value to string to bypass the TypeError exception: "object of type 'int' has no len()"!
         db.Enum(Status, values_callable=lambda x: [str(e.value) for e in x]),
         nullable=False,
     )
     title = db.Column(db.Text, nullable=False)
-    type = db.Column(db.Enum(Type), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    username = db.Column(db.Text)  # used only for generic accounts
+    type = db.Column(db.Enum(Type, length=100, native_enum=False), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    username = db.Column(db.Text)  # Used only for generic accounts
     # Links
     user = db.relationship("User", back_populates="issues")
     messages = db.relationship("Message", back_populates="issue", lazy="dynamic")
@@ -105,11 +106,14 @@ class Issue(CommonColumns, db.Model):
         self.updated = datetime.utcnow()
 
 
+db.Index("issue_user_id", Issue.user_id)
+
+
 class Message(CommonColumns, db.Model):
     content = db.Column(db.Text)
-    issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    username = db.Column(db.Text)  # used only for generic accounts
+    issue_id = db.Column(db.Integer, db.ForeignKey("issue.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    username = db.Column(db.Text)  # Used only for generic accounts
     # Links
     issue = db.relationship("Issue", back_populates="messages")
     user = db.relationship("User", back_populates="messages")
@@ -134,11 +138,15 @@ class Message(CommonColumns, db.Model):
         return bool(message)
 
 
+db.Index("message_issue_id", Message.issue_id)
+db.Index("message_user_id", Message.user_id)
+
+
 class User(UserMixin, CommonColumns, db.Model):
     generic = db.Column(db.Boolean, server_default=expression.false(), nullable=False)
     disabled = db.Column(db.Boolean, server_default=expression.false(), nullable=False)
     password = db.Column(db.Text, nullable=False)
-    role = db.Column(db.Enum(Role), nullable=False)
+    role = db.Column(db.Enum(Role, length=100, native_enum=False), nullable=False)
     username = db.Column(db.Text, nullable=False, unique=True)
     # Links
     issues = db.relationship("Issue", back_populates="user", lazy="dynamic")
