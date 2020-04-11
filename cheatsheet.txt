@@ -28,17 +28,6 @@ export FLASK_APP=app
 export FLASK_ENV=development
 flask run
 
--- create db
-export FLASK_APP=app
-export FLASK_ENV=development
-flask init-db
-
--- dump db
-sqlite3 instance/school-issues.sqlite3
-.output db-dump.sql
-.dump
-.quit
-
 -- git
 git config --global user.email "mcorne@yahoo.com"
 git config --global user.name "Michel Corne"

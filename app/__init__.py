@@ -55,9 +55,9 @@ def create_app(test_config=None):
     from .views import ip, issue, user
     from .models.orm import User
 
-    @click.command("init-db")
+    @click.command("createdb")
     @with_appcontext
-    def init_db_command():
+    def create_db():
         db.drop_all()
         db.create_all()
         User.create_admin()
@@ -76,7 +76,7 @@ def create_app(test_config=None):
     app.register_blueprint(user.bp)
 
     app.add_url_rule("/", endpoint="index")
-    app.cli.add_command(init_db_command)
+    app.cli.add_command(create_db)
 
     try:
         os.makedirs(app.instance_path)
