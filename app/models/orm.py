@@ -19,6 +19,10 @@ class CommonColumns(object):
 
 
 class Ip(CommonColumns, db.Model):
+    __table_args__ = (
+        db.Index("ip_default_sort", "site", "location", "type", "device"),
+    )
+
     address = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text)
     device = db.Column(db.Text, nullable=False)
@@ -33,6 +37,10 @@ class Ip(CommonColumns, db.Model):
 
 
 class Issue(CommonColumns, db.Model):
+    __table_args__ = (
+        db.Index("issue_default_sort", "type", "status", "updated", "created"),
+    )
+
     closed = db.Column(db.DateTime)
     computer_number = db.Column(db.Text)  # for computer related issues
     description = db.Column(db.Text)
