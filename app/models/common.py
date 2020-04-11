@@ -29,6 +29,23 @@ class BaseEnum(Enum):
     def get_short_values(self):
         return {}
 
+    @classmethod
+    def get_sql_values(cls):
+        sql = ""
+        params = {}
+        i = 1
+        for option in cls.__members__.values():
+            if sql:
+                sql += " UNION "
+            name = "name" + str(i)
+            value = "value" + str(i)
+            sql += "SELECT :" + name + " AS name, :" + value + " AS value"
+            params[name] = option.name
+            params[value] = str(option.value)
+            i += 1
+
+        return [sql, params]
+
 
 class MyLinkCol(LinkCol):
     endpoint = None

@@ -68,26 +68,20 @@ def index():
         sort = "username"
     reverse = request.args.get("direction", "asc") == "desc"
 
-    if sort == "role":  # TODO: fix !!!
-        from sqlalchemy import text
-
-        temp = (
-            "(select id, name from ("
-            "select 'admin' as id, 'admin' as name"
-            " union select 'teacher' as id, 'teacher' as name"
-            " union select 'facility_support_1' as id, 'facility_support_1' as name"
-            " union select 'facility_support_2' as id, 'facility_support_2' as name"
-            " union select 'it_support_1' as id, 'it_support_1' as name"
-            " union select 'it_support_2' as id, 'it_support_2' as name)) as t"
+    if sort == "role":
+        role_sql, role_params = Role.get_sql_values()
+        sql = (
+            "SELECT user.*, roles.value AS role FROM user LEFT JOIN ("
+            + role_sql
+            + ") AS roles ON roles.name = user.role ORDER BY roles.value"
         )
-        users = User.query.from_statement(
-            text(
-                "select * from (select id, name from (select 1 as id, 'a' as name union select 2 as id, 'b' as name) as t)"
-            )
-        ).all()
+        if reverse:
+            sql += " DESC"
+        users = db.engine.execute(sql, **role_params).fetchall()
+    else:
+        order_by = desc(sort) if reverse else sort
+        users = User.query.order_by(order_by).all()
 
-    order_by = desc(sort) if reverse else sort
-    users = User.query.order_by(order_by).all()
     table = UserTable(users, sort_by=sort, sort_reverse=reverse)
     return render_template("user/index.html", table=table)
 

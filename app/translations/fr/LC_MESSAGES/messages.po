@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-10 17:20+0200\n"
-"PO-Revision-Date: 2020-04-10 17:55+0200\n"
+"PO-Revision-Date: 2020-04-11 16:52+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -173,7 +173,7 @@ msgstr ""
 #: templates/user/edit.html:24
 msgid "A level 2 (L2) support technician can also close and download requests."
 msgstr ""
-"Un technicien de support de niveau 2 (N2) peut également clore et "
+"Un technicien de support de niveau 2 (N2) peut également clôturer et "
 "télécharger des demandes."
 
 #: templates/user/edit.html:36
