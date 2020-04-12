@@ -22,17 +22,12 @@
         <a class="w3-bar-item w3-hover-gray w3-button w3-hide-large"
             href="{{ url_for('issue.index') }}">{{ _('Support - LMC') }}</a>
 
-        <a class="w3-bar-item w3-right w3-hover-gray w3-button" href="{{ url_for('user.logout') }}"><i
+        <a class="w3-bar-item w3-right w3-hover-gray w3-button w3-hide-small" href="{{ url_for('user.logout') }}"><i
                 class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
 
-        <span class="w3-bar-item w3-right w3-hide-small">
+        <span class="w3-bar-item w3-right w3-hide-small w3-hide-medium">
             {% if session.get("username") %}
             {{ session.get("username") }}
-            {% endif %}
-        </span>
-        <span class="w3-bar-item w3-right w3-hide-medium w3-hide-large">
-            {% if session.get("username") %}
-            {{ session.get("username").split(' ', 1)[0] }}
             {% endif %}
         </span>
     </div>
