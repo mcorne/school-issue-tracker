@@ -49,17 +49,19 @@
         {% endif %}
         <hr>
 
-        <div class="w3-dropdown-hover w3-hover-blue">
-            <button class="w3-button">{{ _('Sort requests') }} <i class="fas fa-caret-down"></i></button>
-            <div class="w3-dropdown-content w3-bar-block">
+        <div class="w3-dropdown-click">
+            <button class="w3-button" onclick="dropdown_click('issue_sort')">{{ _('Sort requests') }} <i
+                    class="fas fa-caret-down"></i></button>
+            <div class="w3-dropdown-content w3-bar-block" id="issue_sort">
                 {{ m.option_link('issue.index', 'issue_sort', 'status', _('Sort by status (pending, processing, closed)')) }}
                 {{ m.option_link('issue.index', 'issue_sort', 'date', _('Sort by update date')) }}
             </div>
         </div>
 
-        <div class="w3-dropdown-hover w3-hover-blue">
-            <button class="w3-button">{{ _('Filter requests') }} <i class="fas fa-caret-down"></i></button>
-            <div class="w3-dropdown-content w3-bar-block">
+        <div class="w3-dropdown-click">
+            <button class="w3-button" onclick="dropdown_click('issue_type')">{{ _('Filter requests') }} <i
+                    class="fas fa-caret-down"></i></button>
+            <div class="w3-dropdown-content w3-bar-block" id="issue_type">
                 {{ m.option_link('issue.index', 'issue_type', 'all', _('All requests')) }}
                 {{ m.option_link('issue.index', 'issue_type', 'it', _('IT support requests')) }}
                 {{ m.option_link('issue.index', 'issue_type', 'facility', _('Facility management requests')) }}
