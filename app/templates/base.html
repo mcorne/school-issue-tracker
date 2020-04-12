@@ -26,8 +26,8 @@
                 class="fas fa-sign-out-alt" aria-hidden="true"></i></a>
 
         <span class="w3-bar-item w3-right w3-hide-small w3-hide-medium">
-            {% if session.get("username") %}
-            {{ session.get("username") }}
+            {% if session.get('username') %}
+            {{ session.get('username') }}
             {% endif %}
         </span>
     </div>
@@ -45,6 +45,7 @@
         {% if current_user.authorized('change_password') %}
         {{ m.sidebar_link('user.password', _('Change password')) }}
         {% endif %}
+        {{ m.sidebar_link('user.logout', _('Sign out (%(username)s)', username=session.get('username'))) }}
 
         {% endif %}
         <hr>

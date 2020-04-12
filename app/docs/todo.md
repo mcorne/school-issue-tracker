@@ -1,1 +1,0 @@
-add logout in sidebar
