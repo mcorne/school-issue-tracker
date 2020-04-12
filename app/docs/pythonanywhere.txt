@@ -48,3 +48,7 @@ rmvirtualenv env
 pip freeze > requirements.txt
 # Install packages from list
 pip install -r requirements.txt
+
+# Refresh code from repository
+git fetch origin
+git reset --hard origin/master
