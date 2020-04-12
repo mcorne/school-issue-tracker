@@ -1,0 +1,50 @@
+# Installation on eu.pythonanywhere.com
+
+# Read https://help.pythonanywhere.com/pages/Flask/
+
+# Open bash console to clone project
+git clone https://github.com/mcorne/school-issue-tracker.git
+
+# Make virtual env
+mkvirtualenv --python=/usr/bin/python3.8 env
+
+# Install packages
+pip install flask
+pip install flask-babel
+pip install flask-debugtoolbar
+pip install flask-login
+pip install flask-table
+pip install flask-wtf
+pip install flask_sqlalchemy
+pip install Flask-Excel
+pip install pyexcel-xlsx
+
+# Create database
+flask createdb
+
+# Configure /var/www/mcorne_eu_pythonanywhere_com_wsgi.py
+import sys
+project_home = '/home/mcorne/school-issue-tracker'
+if project_home not in sys.path:
+    sys.path = [project_home] + sys.path
+from app import create_app
+application = create_app()
+
+# Force HTTPS in Web table
+# Click on reload
+# Test https://mcorne.eu.pythonanywhere.com/
+
+# Misc stuff
+
+# https://help.pythonanywhere.com/pages/RebuildingVirtualenvs
+# Activate virtual env
+workon env
+# Decativate virtual env
+deactivate
+# remove virtual env
+rmvirtualenv env
+
+# List of packages
+pip freeze > requirements.txt
+# Install packages from list
+pip install -r requirements.txt
