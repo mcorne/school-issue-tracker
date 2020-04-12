@@ -1,8 +1,17 @@
+import re
+import unicodedata
 from datetime import datetime
 from enum import Enum
 
 from flask import flash, redirect, request, url_for
 from flask_babel import _, format_datetime
+
+
+def convert_to_sortable_ascii(string):
+    string = unicodedata.normalize("NFKD", string)
+    ascii = string.encode("ascii", "ignore").decode()
+    ascii = re.sub("[^0-9A-Z]", "", ascii.upper())
+    return ascii
 
 
 def fix_row(row, columns):

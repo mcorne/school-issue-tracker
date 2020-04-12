@@ -12,13 +12,25 @@ from wtforms import (
 from wtforms.validators import DataRequired, EqualTo, IPAddress
 
 from app.filters import fix_nl, strip
+from app.helpers import convert_to_sortable_ascii
 from app.models.issue import Site, Type
 from app.models.user import Role
 
 
 class MySelectField(SelectField):
+    def __init__(self, keep_first_choice_first=True, **kwargs):
+        self.keep_first_choice_first = keep_first_choice_first
+        super().__init__(**kwargs)
+
     def __call__(self, **kwargs):
-        self.choices = sorted(self.choices, key=lambda option: option[1])
+        if self.keep_first_choice_first:
+            first_choice = self.choices.pop(0)
+        self.choices = sorted(
+            self.choices, key=lambda option: convert_to_sortable_ascii(str(option[1]))
+        )
+        if self.keep_first_choice_first:
+            self.choices.insert(0, first_choice)
+
         return super().__call__(**kwargs)
 
 
