@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-12 18:40+0200\n"
-"PO-Revision-Date: 2020-04-12 18:41+0200\n"
+"POT-Creation-Date: 2020-07-06 19:37+0200\n"
+"PO-Revision-Date: 2020-07-06 19:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-KeywordsList: lazy_gettext;_l\n"
@@ -19,17 +19,13 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: __pycache__\n"
 "X-Poedit-SearchPathExcluded-1: translations\n"
 
-#: templates/base.html:9
-msgid "Support requests - LMC"
-msgstr "Demandes d'assistance - LMC"
-
-#: templates/base.html:21
-msgid "Support requests - Lycée Marie Curie"
-msgstr "Demandes d'assistance - Lycée Marie Curie"
+#: templates/base.html:9 templates/base.html:21
+msgid "Support requests"
+msgstr "Demandes de maintenance"
 
 #: templates/base.html:23
-msgid "Support - LMC"
-msgstr "Assistance - LMC"
+msgid "Support"
+msgstr "Maintenance"
 
 #: templates/base.html:36
 msgid "View requests"
@@ -58,7 +54,7 @@ msgstr "Trier les demandes"
 
 #: templates/base.html:57
 msgid "Sort by status (pending, processing, closed)"
-msgstr "Tri par statut (en attente, en cours, clôturé)"
+msgstr "Tri par statut (nouveau, en cours, clôturé)"
 
 #: templates/base.html:58
 msgid "Sort by update date"
@@ -74,11 +70,11 @@ msgstr "Toutes les demandes"
 
 #: templates/base.html:67
 msgid "IT support requests"
-msgstr "Demandes d'assistance informatique"
+msgstr "Demandes de maintenance informatique"
 
 #: templates/base.html:68
 msgid "Facility management requests"
-msgstr "Demandes pour les services généraux"
+msgstr "Demandes de maintenance générale"
 
 #: templates/ip/edit.html:15
 msgid "Delete IP address"
@@ -94,7 +90,7 @@ msgstr "Télécharger les adresses IP"
 
 #: templates/issue/index.html:6 templates/issue/index.html:8
 msgid "Create a new support request"
-msgstr "Faire une nouvelle demande d'assistance"
+msgstr "Faire une nouvelle demande de maintenance"
 
 #: templates/issue/index.html:6
 msgid "Download requests"
@@ -107,11 +103,11 @@ msgstr "À %(site)s - %(location)s"
 
 #: templates/issue/index.html:37 templates/issue/update.html:21
 msgid "IT support request"
-msgstr "Demande d'assistance informatique"
+msgstr "Demande de maintenance informatique"
 
 #: templates/issue/index.html:37 templates/issue/update.html:21
 msgid "Facility management request"
-msgstr "Demande pour les services généraux"
+msgstr "Demande de maintenance générale"
 
 #: templates/issue/index.html:41 templates/issue/update.html:24
 #: templates/issue/update.html:39
@@ -135,15 +131,15 @@ msgstr "Suivant"
 #: templates/issue/update.html:13
 #, python-format
 msgid "Equipment %(computer_number)s"
-msgstr "Équipement %(computer_number)s"
+msgstr "Matériel %(computer_number)s"
 
 #: templates/issue/update.html:70
 msgid "Change to facility management request"
-msgstr "Requalifier en demande pour les services généraux"
+msgstr "Requalifier en demande de maintenance générale"
 
 #: templates/issue/update.html:71
 msgid "Change to IT support request"
-msgstr "Requalifier en demande d'assistance informatique"
+msgstr "Requalifier en demande de maintenance informatique"
 
 #: templates/macros.html:1
 msgid "Please confirm"
@@ -172,13 +168,13 @@ msgstr ""
 msgid ""
 "A level 1 (L1) support technician can process requests et change their type."
 msgstr ""
-"Un technicien de support de niveau 1 (N1) peut traiter des demandes et les "
-"requalifier."
+"Un technicien de maintenance de niveau 1 (N1) peut traiter des demandes et "
+"les requalifier."
 
 #: templates/user/edit.html:24
 msgid "A level 2 (L2) support technician can also close and download requests."
 msgstr ""
-"Un technicien de support de niveau 2 (N2) peut également clôturer et "
+"Un technicien de maintenance de niveau 2 (N2) peut également clôturer et "
 "télécharger des demandes."
 
 #: templates/user/edit.html:36
@@ -223,7 +219,7 @@ msgstr "Type (ordinateur, imprimante etc.)"
 
 #: forms.py:64
 msgid "Equipment Number (if applicable)"
-msgstr "Numéro d'équipement (le cas échéant)"
+msgstr "Numéro de matériel (le cas échéant)"
 
 #: forms.py:68
 msgid "Location (classroom, building, outside etc.)"
@@ -319,7 +315,7 @@ msgstr "Matériel"
 
 #: models/issue.py:18
 msgid "Pending"
-msgstr "En attente"
+msgstr "Nouveau"
 
 #: models/issue.py:19
 msgid "Processing"
@@ -332,16 +328,16 @@ msgstr "Clôturé"
 #: models/issue.py:26
 msgid "IT support request (computer, printer, cartridge, network etc.)"
 msgstr ""
-"Demande d'assistance informatique (ordinateur, imprimante, cartouche, réseau "
-"etc.)"
+"Demande de maintenance informatique (ordinateur, imprimante, cartouche, "
+"réseau etc.)"
 
 #: models/issue.py:28
 msgid ""
 "Facility management request (heating, electricity, broken equipment, "
 "cleanliness etc.)"
 msgstr ""
-"Demande pour les services généraux (chauffage, électricité, équipement "
-"cassé, propreté etc.)"
+"Demande de maintenance générale (chauffage, électricité, matériel cassé, "
+"propreté etc.)"
 
 #: models/issue.py:33
 msgid "IT"
@@ -349,7 +345,7 @@ msgstr "Informatique"
 
 #: models/issue.py:34
 msgid "Facility management"
-msgstr "Services généraux"
+msgstr "Maintenance générale"
 
 #: models/user.py:9
 msgid "Administrator"
@@ -357,19 +353,19 @@ msgstr "Administrateur"
 
 #: models/user.py:10
 msgid "Facility management support L1"
-msgstr "Support services généraux N1"
+msgstr "Maintenance générale N1"
 
 #: models/user.py:11
 msgid "Facility management support L2"
-msgstr "Support services généraux N2"
+msgstr "Maintenance générale N2"
 
 #: models/user.py:12
 msgid "IT support L1"
-msgstr "Support informatique N1"
+msgstr "Maintenance informatique N1"
 
 #: models/user.py:13
 msgid "IT support L2"
-msgstr "Support informatique N2"
+msgstr "Maintenance informatique N2"
 
 #: models/user.py:14
 msgid "Teacher"
@@ -409,19 +405,19 @@ msgstr "Adresse IP mise à jour avec succès"
 
 #: views/issue.py:43
 msgid "Changed to facility management request"
-msgstr "Requalifié en demande pour les services généraux"
+msgstr "Requalifié en demande de maintenance générale"
 
 #: views/issue.py:45
 msgid "Request changed to facility management request with success"
-msgstr "Demande requalifiée en demande pour les services généraux avec succès"
+msgstr "Demande requalifiée en demande de maintenance générale avec succès"
 
 #: views/issue.py:49
 msgid "Changed to IT support request"
-msgstr "Requalifié en demande d'assistance informatique"
+msgstr "Requalifié en demande de maintenance informatique"
 
 #: views/issue.py:51
 msgid "Request changed to IT support request with success"
-msgstr "Demande requalifiée en demande d'assistance informatique avec succès"
+msgstr "Demande requalifiée en demande de maintenance informatique avec succès"
 
 #: views/issue.py:78
 msgid "New request created with success"

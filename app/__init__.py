@@ -22,6 +22,7 @@ def create_app(test_config=None):
         BABEL_DEFAULT_LOCALE="fr",
         BABEL_DEFAULT_TIMEZONE="Europe/Vienna",
         DATABASE=os.path.join(app.instance_path, "school-issues.sqlite3"),
+        DEBUG=False,
         DEBUG_TB_INTERCEPT_REDIRECTS=False,
         SECRET_KEY="dev",
         SQLALCHEMY_DATABASE_URI="sqlite:///"
@@ -29,7 +30,6 @@ def create_app(test_config=None):
         SQLALCHEMY_ECHO=True,  # display query params as well in toolbar Logging section (and queries to stderr)
         SQLALCHEMY_RECORD_QUERIES=True,  # display queries in toolbar SQLAlchemy section
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        USE_SESSION_FOR_NEXT=True,
     )
 
     if test_config is None:
@@ -39,7 +39,6 @@ def create_app(test_config=None):
         # Load the test config if passed in
         app.config.from_mapping(test_config)
 
-    app.debug = True
     login_manager.login_message = lazy_gettext("Please log in to access this page.")
     login_manager.login_message_category = "error"
     login_manager.login_view = "user.login"

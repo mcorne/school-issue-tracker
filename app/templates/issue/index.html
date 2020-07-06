@@ -19,11 +19,11 @@
         <a class="link" href="{{ url_for('issue.update', id=issue.id) }}">
             <div class="w3-xlarge">
                 {% if issue.is_closed() %}
-                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-check-circle w3-text-green"></i>
                 {% elif issue.is_processing() %}
-                <i class="fas fa-user-circle"></i>
+                <i class="fas fa-user-circle w3-text-orange"></i>
                 {% else %}
-                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-exclamation-circle w3-text-red"></i>
                 {% endif %}
                 {{ issue.title }}
             </div>

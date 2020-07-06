@@ -1,5 +1,0 @@
-increase topbar text size in large screen
-increase top links line spacing
-add readonly role
-add database dump export for admin
-remove next stuff from init, fix secret key, fix dev vs prod env database etc.
