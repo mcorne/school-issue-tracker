@@ -1,5 +1,9 @@
-# Installation on eu.pythonanywhere.com
+# Code update on eu.pythonanywhere.com
+git pull
 
+##########
+
+# New installation on eu.pythonanywhere.com
 # Read https://help.pythonanywhere.com/pages/Flask/
 
 # Open bash console to clone project
@@ -34,6 +38,8 @@ application = create_app()
 # Click on reload
 # Test https://mcorne.eu.pythonanywhere.com/
 
+##########
+
 # Misc stuff
 
 # https://help.pythonanywhere.com/pages/RebuildingVirtualenvs
@@ -48,9 +54,6 @@ rmvirtualenv env
 pip freeze > requirements.txt
 # Install packages from list
 pip install -r requirements.txt
-
-# Refresh code from repository
-git pull
 
 # Dump database
 sqlite3 instance/school-issues.sqlite3 .dump > dump.sql

@@ -1,0 +1,73 @@
+# Code update on MS Server 2016
+# Copy app directory from dev machine to server with AnyDesk
+# DO NOT copy instance directory that containts both database and config LoadFile
+
+##########
+
+# New installation on MS Server 2016
+
+# https://www.apachelounge.com/download/
+# download Visual C++ Redistributable for Visual Studio 2015-2019
+VC_redist.x64.exe
+# Download Apache 2.4.43 Win64
+unzip
+# Read readme.txt
+# Move to c:/Apache24
+# Install as a service
+cd c:/Apache24/bin
+httpd.exe -k install
+# Add ApacheMonitor.exe to startup folder
+# Run apache and enter localhost in browser to check it works
+
+# https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/
+# Download builtools
+vs_buildtools__2039991274.1594633824.exe
+# Install build tools
+
+# https://www.python.org/downloads/windows/
+# Download python 3.6 64bits but not 3.8 due to bug in SQLAlchmey
+# See https://stackoverflow.com/questions/62896860/flask-sqlalchemy-error-with-setattr-to-defaultmeta
+python-3.6.8-amd64.exe
+
+# Install packages
+pip install wheel
+pip install flask
+pip install flask-babel
+pip install flask-debugtoolbar
+pip install flask-login
+pip install flask-table
+pip install flask-wtf
+pip install flask_sqlalchemy
+pip install Flask-Excel
+pip install pyexcel-xlsx
+
+# Create database
+cd C:/school-issue-tracker
+flask createdb
+
+# Create config.py
+BROWSER_TAB_TITLE = "Maintenance - LMC"
+DEBUG = True
+SECRET_KEY = "some secret key"
+TOP_BAR_TITLE_LONG = "Demandes de maintenance - Lycée Marie Curie"
+TOP_BAR_TITLE_SHORT = "Maintenance - LMC"
+
+# https://github.com/GrahamDumpleton/mod_wsgi/blob/master/win32/README.rst
+# https://pypi.org/project/mod-wsgi/
+pip install mod_wsgi
+mod_wsgi-express module-config
+# Add output to C:\Apache24\conf\httpd.conf
+LoadFile "c:/users/administrateur/appdata/local/programs/python/python36/python36.dll"
+LoadModule wsgi_module "c:/users/administrateur/appdata/local/programs/python/python36/lib/site-packages/mod_wsgi/server/mod_wsgi.cp36-win_amd64.pyd"
+WSGIPythonHome "c:/users/administrateur/appdata/local/programs/python/python36"
+# Uncomment
+Include conf/extra/httpd-vhosts.conf
+
+# Comment all entries in C:\Apache24\conf\extra\httpd-vhosts.conf
+# Add wsgi config
+WSGIScriptAlias /wsgi "C:/school-issue-tracker/app.py"
+<Directory "C:/school-issue-tracker/">
+AllowOverride None
+Options None
+Require all granted
+</Directory>
