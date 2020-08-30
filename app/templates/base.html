@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='application.css') }}">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ config.TOP_BABROWSER_TAB_TITLER_TITLE_LONG if config.BROWSER_TAB_TITLE else _('Support requests') }}</title>
+<title>{{ config.BROWSER_TAB_TITLE if config.BROWSER_TAB_TITLE else _('Support requests') }}</title>
 
 <body class="w3-content">
 

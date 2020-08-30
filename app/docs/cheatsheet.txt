@@ -49,3 +49,8 @@ Command to extract translations: ‪xgettext -L Python --add-comments=TRANSLATOR
 An item in keywords list: ‪-k%k
 An item in input files list: ‪%f
 Source code charset: ‪--from-code=%c
+
+-- PO compiling (Poedit does not compile on WSL2!)
+-- add C:\Program Files (x86)\Poedit\GettextTools\bin in Windows Path
+-- in PowerShell run:
+msgfmt.exe messages.po -o messages.mo

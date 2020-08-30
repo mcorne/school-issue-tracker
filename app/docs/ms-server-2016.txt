@@ -1,6 +1,7 @@
 # Code update on MS Server 2016
 # Copy app directory from dev machine to server with AnyDesk
 # DO NOT copy instance directory that containts both database and config LoadFile
+# Note that AnyDesk cannot open \\wsl$. Make a temp copy of the app in Download.
 
 ##########
 
@@ -45,12 +46,14 @@ pip install pyexcel-xlsx
 cd C:/school-issue-tracker
 flask createdb
 
-# Create config.py
+# Create instance/config.py
 BROWSER_TAB_TITLE = "Maintenance - LMC"
-DEBUG = True
+DEBUG = False
 SECRET_KEY = "some secret key"
 TOP_BAR_TITLE_LONG = "Demandes de maintenance - Lycée Marie Curie"
 TOP_BAR_TITLE_SHORT = "Maintenance - LMC"
+USERNAME_HELPER = ""
+USERNAME_LABEL = "Nom prénom ou identifiant *"
 
 # https://github.com/GrahamDumpleton/mod_wsgi/blob/master/win32/README.rst
 # https://pypi.org/project/mod-wsgi/

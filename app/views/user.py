@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import current_app, Blueprint, flash, redirect, render_template, request, session, url_for
 from flask_babel import _
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import desc
@@ -90,6 +90,8 @@ def index():
 def login():
     session["username"] = None
     form = LoginForm()
+    if "USERNAME_LABEL" in current_app.config:
+        form.username.label.text = current_app.config["USERNAME_LABEL"]
     if form.validate_on_submit():
         user = User.get_user(form.username.data, form.password.data)
         if not user:

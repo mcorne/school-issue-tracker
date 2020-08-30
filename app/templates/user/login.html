@@ -6,5 +6,10 @@
     {{ m.input_field(form.username) }}
     {{ m.input_field(form.password) }}
     {{ m.submit_button() }}
+    {% if config.USERNAME_HELPER %}
+    <div class="w3-panel w3-pale-yellow w3-leftbar w3-border-yellow">
+        <p>{{ config.USERNAME_HELPER }}</p>
+    </div>
+    {% endif %}
 </form>
 {% endblock %}
