@@ -1,7 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import (
     Blueprint,
+    current_app,
     flash,
     make_response,
     redirect,
@@ -13,7 +14,7 @@ from flask import (
 from flask_babel import _
 from flask_excel import make_response_from_array
 from flask_login import current_user, login_required
-from sqlalchemy import desc, func, text
+from sqlalchemy import desc, func, or_, text
 
 from app import db
 from app.decorators import roles_required
@@ -129,11 +130,13 @@ def index(page=1):
     else:
         order_by = [text("IFNULL(updated, created) DESC")]
 
-    issue_page = (
-        Issue.query.filter_by(**filter_by)
-        .order_by(*order_by)
-        .paginate(page, per_page=20)
-    )
+    query = Issue.query.filter_by(**filter_by).order_by(*order_by)
+
+    if current_user.role == Role.teacher and "CLOSED_ISSUES_MAX_DAYS" in current_app.config:
+        time = datetime.utcnow() - timedelta(days=current_app.config["CLOSED_ISSUES_MAX_DAYS"])
+        query = query.filter(or_(Issue.closed == None, Issue.closed > time))
+
+    issue_page = query.paginate(page, per_page=20)
     issue_id = request.args.get("issue_id")
     template = render_template(
         "issue/index.html", issue_page=issue_page, issue_id=issue_id

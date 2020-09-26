@@ -48,12 +48,14 @@ flask createdb
 
 # Create instance/config.py
 BROWSER_TAB_TITLE = "Maintenance - LMC"
-DEBUG = False
+CLOSED_ISSUES_MAX_DAYS = 30
+DEBUG = True
+GENERIC_USERNAME_ERROR = "Veuillez entrez votre nom et prénom"
 SECRET_KEY = "some secret key"
 TOP_BAR_TITLE_LONG = "Demandes de maintenance - Lycée Marie Curie"
 TOP_BAR_TITLE_SHORT = "Maintenance - LMC"
-USERNAME_HELPER = ""
-USERNAME_LABEL = "Nom prénom ou identifiant *"
+USERNAME_HELPER = "Entrez votre nom et prénom si vous êtes un enseignant ou votre identifiant si vous êtes un techicien de maintenance."
+USERNAME_LABEL = "Nom prénom ou identifiant"
 
 # https://github.com/GrahamDumpleton/mod_wsgi/blob/master/win32/README.rst
 # https://pypi.org/project/mod-wsgi/
