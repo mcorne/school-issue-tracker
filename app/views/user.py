@@ -94,10 +94,19 @@ def login():
         form.username.label.text = current_app.config["USERNAME_LABEL"]
     if form.validate_on_submit():
         user = User.get_user(form.username.data, form.password.data)
+        if user and user.generic:
+            if "GENERIC_USERNAME_ERROR" in current_app.config:
+                message = current_app.config["GENERIC_USERNAME_ERROR"]
+            else:
+                message = _("Generic account username prohibited, please use your own username")
+            flash(message, "error")
+            return render_template("user/login.html", form=form)
+
         if not user:
             user = User.get_generic_account(form.password.data)
             if user:
                 user.username = form.username.data
+
         if user:
             login_user(user)
             session["username"] = user.username

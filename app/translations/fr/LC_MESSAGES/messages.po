@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 19:37+0200\n"
-"PO-Revision-Date: 2020-07-06 19:48+0200\n"
+"POT-Creation-Date: 2020-09-26 18:15+0200\n"
+"PO-Revision-Date: 2020-09-26 18:15+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-KeywordsList: lazy_gettext;_l\n"
@@ -154,8 +154,10 @@ msgstr ""
 "quel que soit le nom d'utilisateur."
 
 #: templates/user/edit.html:14
-msgid "The username is then only informational."
-msgstr "Le nom d'utilisateur est alors uniquement informatif."
+msgid "The username is here only informational and cannot be used to sign in."
+msgstr ""
+"Le nom d'utilisateur est ici uniquement informatif et ne peut pas être "
+"utilisé pour se connecter."
 
 #: templates/user/edit.html:15
 msgid ""
@@ -185,7 +187,7 @@ msgstr "Supprimer l'utilisateur"
 msgid "Add a new user"
 msgstr "Ajouter un nouvel utilisateur"
 
-#: __init__.py:43
+#: __init__.py:42
 msgid "Please log in to access this page."
 msgstr "Veuillez vous connecter pour accéder à cette page."
 
@@ -261,7 +263,7 @@ msgstr "Rouvrir"
 msgid "Confirm password"
 msgstr "Confirmer le mot de passe"
 
-#: forms.py:106 views/user.py:133
+#: forms.py:106 views/user.py:144
 msgid "Invalid password confirmation"
 msgstr "Confirmation de mot de passe invalide"
 
@@ -471,7 +473,7 @@ msgstr "Demande mise à jour avec succès"
 msgid "Username already registered"
 msgstr "Nom d'utilisateur déjà enregistré"
 
-#: views/user.py:28 views/user.py:137 views/user.py:175
+#: views/user.py:28 views/user.py:148 views/user.py:186
 msgid "Password already used for a generic account"
 msgstr "Mot de passe déjà utilisé pour un compte générique"
 
@@ -491,28 +493,34 @@ msgstr "Interdiction de supprimer un utilisateur avec des demandes"
 msgid "User deleted with success"
 msgstr "Utilisateur supprimé avec succès"
 
-#: views/user.py:106
+#: views/user.py:101
+msgid "Generic account username prohibited, please use your own username"
+msgstr ""
+"Nom d'utilisateur de compte générique interdit, veuillez utiliser votre "
+"propre nom d'utilisateur"
+
+#: views/user.py:117
 msgid "Invalid username or password"
 msgstr "Nom d'utilisateur ou mot de passe invalide"
 
-#: views/user.py:131
+#: views/user.py:142
 msgid "Incorrect current password"
 msgstr "Mot de passe actuel incorrect"
 
-#: views/user.py:141
+#: views/user.py:152
 msgid "Password changed with success"
 msgstr "Mot de passe changé avec succès"
 
-#: views/user.py:164
+#: views/user.py:175
 msgid "Original administrator role may not be changed or disabled"
 msgstr ""
 "Interdiction de changer le rôle de l'administrateur d'origine ou de le "
 "désactiver"
 
-#: views/user.py:167
+#: views/user.py:178
 msgid "Username already used"
 msgstr "Nom d'utilisateur déjà utilisé"
 
-#: views/user.py:183
+#: views/user.py:194
 msgid "User updated with success"
 msgstr "Utilisateur mis à jour avec succès"
