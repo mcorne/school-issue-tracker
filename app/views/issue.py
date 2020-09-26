@@ -104,7 +104,7 @@ def download():
     filter_by = {"type": issue_type} if issue_type != "all" else {}
     issues = (
         Issue.query.filter_by(**filter_by)
-        .order_by("status", text("IFNULL(updated, created)"))  # like index
+        .order_by("status", text("IFNULL(updated, created)"))
         .all()
     )
     fixed = fix_rows(issues, headers)
@@ -125,7 +125,7 @@ def index(page=1):
     issue_sort = Issue.get_issue_sort()
     # desc(func.ifnull("updated", "created")) does not actually sort result!
     if issue_sort == "status":
-        order_by = ["status", text("IFNULL(updated, created)")]  # like download
+        order_by = ["status", text("IFNULL(updated, created) DESC")]
     else:
         order_by = [text("IFNULL(updated, created) DESC")]
 
