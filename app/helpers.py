@@ -50,9 +50,14 @@ def fix_value(value):
 
 def get_arg_or_cookie(name):
     if name in request.args:
-        return request.args.get(name)
-    if name in request.cookies:
-        return request.cookies.get(name)
+        value =  request.args.get(name)
+    elif name in request.cookies:
+        value =  request.cookies.get(name)
+    elif name == "issue_sort":
+        value = "date"
+    else:
+        value = "all"
+    return value
 
 
 def redirect_unauthorized_action():

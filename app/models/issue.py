@@ -3,9 +3,9 @@ from flask_babel import lazy_gettext as _l
 from app.models.common import BaseEnum
 
 
-class Site(BaseEnum):
+class Site(BaseEnum): # TODO: make generic and define key/value in config, use site 1, 2 etc.
     marie_curie = "Marie Curie"
-    molière = "Molière"
+    molière = "Molière" # TODO: remove accent in key in code and database including constraints
 
 
 class Status(BaseEnum):

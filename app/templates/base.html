@@ -69,6 +69,17 @@
                 </a>
             </div>
         </div>
+
+        <div class="w3-dropdown-click">
+            <button class="w3-button" onclick="dropdown_click('selected_site')">{{ _('Select site') }} <i
+                    class="fas fa-caret-down"></i></button>
+            <div class="w3-dropdown-content w3-bar-block" id="selected_site">
+                {{ m.option_link('issue.index', 'selected_site', 'all', _('All sites')) }}
+                {{ m.option_link('issue.index', 'selected_site', 'marie_curie', 'Marie Curie') }}
+                {{ m.option_link('issue.index', 'selected_site', 'molière', 'Molière') }}
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="w3-overlay w3-animate-opacity" onclick="close_sidebar()" style="cursor:pointer" id="overlay"></div>

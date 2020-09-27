@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-26 18:15+0200\n"
-"PO-Revision-Date: 2020-09-26 18:15+0200\n"
+"POT-Creation-Date: 2020-09-27 10:28+0200\n"
+"PO-Revision-Date: 2020-09-27 10:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -75,6 +75,14 @@ msgstr "Demandes de maintenance informatique"
 #: templates/base.html:68
 msgid "Facility management requests"
 msgstr "Demandes de maintenance générale"
+
+#: templates/base.html:74
+msgid "Select site"
+msgstr "Sélectionner un site"
+
+#: templates/base.html:77
+msgid "All sites"
+msgstr "Tous les sites"
 
 #: templates/ip/edit.html:15
 msgid "Delete IP address"
@@ -195,7 +203,7 @@ msgstr "Veuillez vous connecter pour accéder à cette page."
 msgid "IP address"
 msgstr "Adresse IP"
 
-#: forms.py:41 forms.py:66 models/ip.py:17 views/ip.py:65 views/issue.py:96
+#: forms.py:41 forms.py:66 models/ip.py:17 views/ip.py:65 views/issue.py:97
 msgid "Description"
 msgstr "Description"
 
@@ -207,7 +215,7 @@ msgstr "Matériel (modèle etc.)"
 msgid "Location (classroom etc.)"
 msgstr "Emplacement (salle de classe etc.)"
 
-#: forms.py:49 forms.py:73 models/ip.py:12 views/ip.py:60 views/issue.py:92
+#: forms.py:49 forms.py:73 models/ip.py:12 views/ip.py:60 views/issue.py:93
 msgid "Site"
 msgstr "Site"
 
@@ -227,11 +235,11 @@ msgstr "Numéro de matériel (le cas échéant)"
 msgid "Location (classroom, building, outside etc.)"
 msgstr "Emplacement (salle de classe, bâtiment, extérieur etc.)"
 
-#: forms.py:79 views/issue.py:94
+#: forms.py:79 views/issue.py:95
 msgid "Subject"
 msgstr "Sujet"
 
-#: forms.py:81 models/ip.py:14 views/ip.py:62 views/issue.py:91
+#: forms.py:81 models/ip.py:14 views/ip.py:62 views/issue.py:92
 msgid "Type"
 msgstr "Type"
 
@@ -243,7 +251,7 @@ msgstr "Mot de passe"
 msgid "Log In"
 msgstr "Se connecter"
 
-#: forms.py:91 forms.py:126 models/user.py:93 views/issue.py:97
+#: forms.py:91 forms.py:126 models/user.py:93 views/issue.py:98
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
@@ -307,7 +315,7 @@ msgstr "Oui"
 msgid "You are not authorized to perform this action."
 msgstr "Vous n'êtes pas autorisé à effectuer cette action."
 
-#: models/ip.py:13 views/ip.py:61 views/issue.py:93
+#: models/ip.py:13 views/ip.py:61 views/issue.py:94
 msgid "Location"
 msgstr "Emplacement"
 
@@ -405,67 +413,67 @@ msgstr "Adresse IP déjà utilisée"
 msgid "IP address updated with success"
 msgstr "Adresse IP mise à jour avec succès"
 
-#: views/issue.py:43
+#: views/issue.py:44
 msgid "Changed to facility management request"
 msgstr "Requalifié en demande de maintenance générale"
 
-#: views/issue.py:45
+#: views/issue.py:46
 msgid "Request changed to facility management request with success"
 msgstr "Demande requalifiée en demande de maintenance générale avec succès"
 
-#: views/issue.py:49
+#: views/issue.py:50
 msgid "Changed to IT support request"
 msgstr "Requalifié en demande de maintenance informatique"
 
-#: views/issue.py:51
+#: views/issue.py:52
 msgid "Request changed to IT support request with success"
 msgstr "Demande requalifiée en demande de maintenance informatique avec succès"
 
-#: views/issue.py:78
+#: views/issue.py:79
 msgid "New request created with success"
 msgstr "Nouvelle demande créée avec succès"
 
-#: views/issue.py:90
+#: views/issue.py:91
 msgid "Status"
 msgstr "Statut"
 
-#: views/issue.py:95
+#: views/issue.py:96
 msgid "Equipment"
 msgstr "Equipement"
 
-#: views/issue.py:98
+#: views/issue.py:99
 msgid "Creation date"
 msgstr "Date de création"
 
-#: views/issue.py:99
+#: views/issue.py:100
 msgid "Last Update"
 msgstr "Dernière mise à jour"
 
-#: views/issue.py:100
+#: views/issue.py:101
 msgid "Close date"
 msgstr "Date de clôture"
 
-#: views/issue.py:111
+#: views/issue.py:112
 msgid "Requests"
 msgstr "Demandes"
 
-#: views/issue.py:164
+#: views/issue.py:167
 msgid "Closing of the request"
 msgstr "Clôture de la demande"
 
-#: views/issue.py:166
+#: views/issue.py:169
 msgid "Request closed with success"
 msgstr "Demande clôturée avec succès"
 
-#: views/issue.py:170
+#: views/issue.py:173
 msgid "Reopening of the request"
 msgstr "Réouverture de la demande"
 
-#: views/issue.py:172
+#: views/issue.py:175
 msgid "Request reopened with success"
 msgstr "Demande rouverte avec succès"
 
-#: views/issue.py:177
+#: views/issue.py:180
 msgid "Request updated with success"
 msgstr "Demande mise à jour avec succès"
 

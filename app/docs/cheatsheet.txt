@@ -53,4 +53,6 @@ Source code charset: ‪--from-code=%c
 -- PO compiling (Poedit does not compile on WSL2!)
 -- add C:\Program Files (x86)\Poedit\GettextTools\bin in Windows Path
 -- in PowerShell run:
+wsl
+cd /home/michel/school-issue-tracker/app/translations/fr/LC_MESSAGES/
 msgfmt.exe messages.po -o messages.mo

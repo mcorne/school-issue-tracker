@@ -101,8 +101,14 @@ def download():
         "closed": _("Close date"),
     }
 
+    filter_by = {}
     issue_type = current_user.role.get_issue_type()
-    filter_by = {"type": issue_type} if issue_type != "all" else {}
+    if issue_type != "all":
+        filter_by["type"] = issue_type
+    selected_site = Issue.get_selected_site()
+    if selected_site != "all":
+        filter_by["site"] = selected_site
+
     issues = (
         Issue.query.filter_by(**filter_by)
         .order_by("status", text("IFNULL(updated, created)"))
@@ -120,15 +126,20 @@ def index(page=1):
     if not current_user.is_authenticated:
         return redirect(url_for("user.login"))
 
-    issue_type = current_user.role.get_issue_type()
-    filter_by = {"type": issue_type} if issue_type != "all" else {}
-
     issue_sort = Issue.get_issue_sort()
     # desc(func.ifnull("updated", "created")) does not actually sort result!
     if issue_sort == "status":
         order_by = ["status", text("IFNULL(updated, created) DESC")]
     else:
         order_by = [text("IFNULL(updated, created) DESC")]
+
+    filter_by = {}
+    issue_type = current_user.role.get_issue_type()
+    if issue_type != "all":
+        filter_by["type"] = issue_type
+    selected_site = Issue.get_selected_site()
+    if selected_site != "all":
+        filter_by["site"] = selected_site
 
     query = Issue.query.filter_by(**filter_by).order_by(*order_by)
 
@@ -146,6 +157,7 @@ def index(page=1):
     max_age = 3600 * 24 * 30  # 30 days
     response.set_cookie("issue_sort", issue_sort, max_age)
     response.set_cookie("issue_type", issue_type, max_age)
+    response.set_cookie("selected_site", selected_site, max_age)
     return response
 
 

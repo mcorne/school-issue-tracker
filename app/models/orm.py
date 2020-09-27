@@ -69,6 +69,13 @@ class Issue(CommonColumns, db.Model):
         return issue_sort
 
     @staticmethod
+    def get_selected_site():
+        site = get_arg_or_cookie("selected_site")
+        if site not in ("all", "marie_curie", "molière"):
+            site = "all"
+        return site
+
+    @staticmethod
     def get_username():
         if current_user.generic:
             username = session.get("username")
