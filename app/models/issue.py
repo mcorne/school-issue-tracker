@@ -1,12 +1,15 @@
+from app.models.common import BaseEnum
+from flask import current_app
 from flask_babel import lazy_gettext as _l
 
-from app.models.common import BaseEnum
 
-
-class Site(BaseEnum): # TODO: make generic and define key/value in config, use site 1, 2 etc.
+class SiteZZZ(BaseEnum): # TODO: make generic and define key/value in config, use site 1, 2 etc.
     marie_curie = "Marie Curie"
     molière = "Molière" # TODO: remove accent in key in code and database including constraints
 
+if "SITES" in current_app.config: # TODO: fix !!!
+    raise ValueError("SITES missing in config.py")
+Site = BaseEnum("Site", current_app.config["SITES"], module=__name__)
 
 class Status(BaseEnum):
     pending = 1
