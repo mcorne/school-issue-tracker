@@ -109,11 +109,7 @@ def download():
     if selected_site != "all":
         filter_by["site"] = selected_site
 
-    issues = (
-        Issue.query.filter_by(**filter_by)
-        .order_by("status", text("IFNULL(updated, created)"))
-        .all()
-    )
+    issues = Issue.query.filter_by(**filter_by).order_by("status", text("IFNULL(updated, created)")).all()
     fixed = fix_rows(issues, headers)
     return make_response_from_array(fixed, "xlsx", file_name=_("Requests"))
 
@@ -147,11 +143,9 @@ def index(page=1):
         time = datetime.utcnow() - timedelta(days=current_app.config["CLOSED_ISSUES_MAX_DAYS"])
         query = query.filter(or_(Issue.closed == None, Issue.closed > time))
 
-    issue_page = query.paginate(page, per_page=20)
+    issue_page = query.paginate(page=page, per_page=20)
     issue_id = request.args.get("issue_id")
-    template = render_template(
-        "issue/index.html", issue_page=issue_page, issue_id=issue_id
-    )
+    template = render_template("issue/index.html", issue_page=issue_page, issue_id=issue_id)
 
     response = make_response(template)
     max_age = 3600 * 24 * 30  # 30 days
@@ -194,6 +188,4 @@ def update(id):
         db.session.commit()
         return redirect(url_for("issue.index", issue_id=issue.id))
 
-    return render_template(
-        "issue/update.html", form=form, id=id, issue=issue, messages=messages
-    )
+    return render_template("issue/update.html", form=form, id=id, issue=issue, messages=messages)

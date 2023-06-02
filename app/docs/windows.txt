@@ -1,0 +1,26 @@
+# https://www.python.org/downloads/
+# install python
+
+# https://code.visualstudio.com/docs/python/environments
+Command Palette
+Python: Create Environment
+Select Venv etc.
+
+cd C:\Data\vscode\test-fastapi
+# start new terminal to verify prompt is prefixed with (.venv)
+
+# Install packages
+pip install wheel
+pip install black
+pip install flask
+pip install flask_sqlalchemy
+pip install flask-debugtoolbar
+pip install flask-babel
+pip install flask-login
+pip install flask-wtf
+pip install flask-table
+pip install Flask-Excel
+pip install pyexcel-xlsx
+
+# Create database
+flask createdb
